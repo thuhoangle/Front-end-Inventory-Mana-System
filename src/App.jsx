@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import {Header, Menu} from './components'
+import Inventory from "./pages/Inventory.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>Testing</div>
-    </>
-  )
+    <main >
+        {/*className='relative'*/}
+        <Header></Header>
+        {/*<Menu></Menu>*/}
+        <Inventory/>
+    </main>
+    )
 }
 
 export default App
