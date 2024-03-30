@@ -13,6 +13,9 @@ export default {
         blue: '#1977F2',
         lightBlue: '#DAEAFF',
         graySearch: '#667085',
+        yellow: '#E39840',
+        red: '#DA3E33',
+        green: '#10A760',
 
       }
     },

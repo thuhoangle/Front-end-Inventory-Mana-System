@@ -1,7 +1,12 @@
 import Menu from "./Menu.jsx";
-import Header from "./Header.jsx";
+import Head from "./Head.jsx";
+import DataTable from "./DataTable.jsx";
+import SearchBtn from "./SearchBtn.jsx";
 
 export {
     Menu,
-    Header
+    Head,
+    DataTable,
+    SearchBtn,
+
 }
