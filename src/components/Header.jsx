@@ -5,19 +5,16 @@ import * as Avatar from "@radix-ui/react-avatar";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 const Header = () => {
     return (
-        <div className=' w-screen bg-white items-center mx-auto  '>
-            <div className={'flex flex-row justify-between mx-2'}>
-            <p className='font-black text-[35px] self-center  px-6'>Group1</p>
+        <div className='bg-white items-center mx-auto'>
 
-
-            <div className={'flex flex-row justify-end gap-5 py-2 '}>
+            <div className={'flex flex-row justify-end gap-5 py-4'}>
                 <form className={'self-center '}>
                     <div className={'relative flex-1 items-center w-full'}>
-                        <CiSearch className={'w-10 h-10 fill-graySearch absolute ps-3 '}/>
+                        <CiSearch className={'w-10 h-10 fill-graySearch absolute ps-3 '} />
                         <input type="search"
-                               placeholder={'Search'}
-                               autoComplete={'off'}
-                               className={'px-3 py-2 ps-12 border-none text-gray-900 rounded-[20px] ring-2 ring-gray-300 focus:ring-gray-300 focus:outline-none'}/>
+                            placeholder={'Search'}
+                            autoComplete={'off'}
+                            className={'px-3 py-2 ps-12 border-none text-gray-900 rounded-[20px] ring-2 ring-gray-300 focus:ring-gray-300 focus:outline-none'} />
                     </div>
                 </form>
 
@@ -25,7 +22,7 @@ const Header = () => {
                     <DropdownMenu.Trigger asChild>
                         <Avatar.Root className='inline-flex h-[45px] w-[45px] items-center overflow-hidden rounded-full align-middle'>
                             <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'
-                                          src='src/assets/snoopy.jpeg' alt='avatar'>
+                                src='src/assets/snoopy.jpeg' alt='avatar'>
                             </Avatar.Image>
                         </Avatar.Root>
                     </DropdownMenu.Trigger>
@@ -65,9 +62,8 @@ const Header = () => {
             </div>
 
         </div>
-        </div>
 
-// </div>
+        // </div>
     )
 }
 export default Header
@@ -103,29 +99,29 @@ export default Header
 
 
 
-{/*<div className={'dropdown dropdown-bottom dropdown-end '}>*/}
-{/*    <div tabIndex={0} role="button">*/}
-{/*        <Avatar.Root*/}
-{/*            className='inline-flex h-[45px] w-[45px] items-center overflow-hidden rounded-full align-middle'>*/}
-{/*            <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'*/}
-{/*                          src='src/assets/snoopy.jpeg' alt='avatar'>*/}
-{/*            </Avatar.Image>*/}
-{/*        </Avatar.Root>*/}
-{/*    </div>*/}
+{/*<div className={'dropdown dropdown-bottom dropdown-end '}>*/ }
+{/*    <div tabIndex={0} role="button">*/ }
+{/*        <Avatar.Root*/ }
+{/*            className='inline-flex h-[45px] w-[45px] items-center overflow-hidden rounded-full align-middle'>*/ }
+{/*            <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'*/ }
+{/*                          src='src/assets/snoopy.jpeg' alt='avatar'>*/ }
+{/*            </Avatar.Image>*/ }
+{/*        </Avatar.Root>*/ }
+{/*    </div>*/ }
 
 
 
-{/*<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-white rounded-b-lg w-52 mt-2">*/}
-{/*    <li>*/}
-{/*        <div className={'font-medium'}>*/}
-{/*            <div>shibapawpaw</div>*/}
-{/*            <div className={'text-sm text-gray-500 '}>shiba@group1.com</div>*/}
-{/*            <div>*/}
-{/*                <hr/>*/}
-{/*            </div>*/}
-{/*        </div>*/}
-{/*    </li>*/}
-{/*    <li><a>Edit profile</a></li>*/}
-{/*    <li><a>Log out</a></li>*/}
+{/*<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-white rounded-b-lg w-52 mt-2">*/ }
+{/*    <li>*/ }
+{/*        <div className={'font-medium'}>*/ }
+{/*            <div>shibapawpaw</div>*/ }
+{/*            <div className={'text-sm text-gray-500 '}>shiba@group1.com</div>*/ }
+{/*            <div>*/ }
+{/*                <hr/>*/ }
+{/*            </div>*/ }
+{/*        </div>*/ }
+{/*    </li>*/ }
+{/*    <li><a>Edit profile</a></li>*/ }
+{/*    <li><a>Log out</a></li>*/ }
 
-{/*</ul>*/}
+{/*</ul>*/ }

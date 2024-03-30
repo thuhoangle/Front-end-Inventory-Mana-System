@@ -1,16 +1,14 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import {Header, Menu} from './components'
-import Inventory from "./pages/Inventory.jsx";
+import Layout from './components/Layout'
 
 function App() {
   return (
     <main >
         {/*className='relative'*/}
-        <Header></Header>
-        {/*<Menu></Menu>*/}
-        <Inventory/>
+        <Layout></Layout>
+
     </main>
     )
 }
