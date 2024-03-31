@@ -1,22 +1,12 @@
 import React from 'react';
-import {DataTable, Head, Menu} from "../components/index.js";
-const {  Sider, Content } = Layout;
-import { Layout, Card,  } from "antd";
+import {DataTable, Header, Menu} from "../components/index.js";
+// const {  Sider, Content } = Layout;
+import { Card,  } from "antd";
 
 const Inventory = () => {
 
     return (
-
-        <Layout>
-            <Sider className={'fixed overflow-auto h-screen  left-0 top-0 bottom-0 '}>
-                <Menu/>
-            </Sider>
-
-            <Layout>
-                <Head/>
-
-                <Layout>
-                    <Content>
+<div>
                     <Card className={'bg-white rounded-lg p-2 mt-2 mx-3'}>
                         <div className={'flex flex-col gap-3'}>
                             <div className={'flex flex-row justify-between '}>
@@ -55,17 +45,10 @@ const Inventory = () => {
                             </div>
                         </div>
                     </Card>
-
-
                     <div className={'bg-white rounded-lg p-2 mt-2 mx-3'}>
                         <DataTable/>
                     </div>
-
-                    </Content>
-            </Layout>
-        </Layout>
-
-</Layout>
+</div>
 )
 }
 export default Inventory

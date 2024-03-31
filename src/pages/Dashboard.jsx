@@ -4,12 +4,14 @@ import React from "react"
 import Chart from "../components/LineChart"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { useState } from "react";
+import {Menu} from "../components/index.js";
 
 
 export default function Dashboard() {
 
     const [dataSource] = useState(Array.from({length:20}));
     return (
+
         <container className=" min-h-screen ">
             <div className="grid col-span-10 gap-12 lg:grid-cols-3 py-6 px-10">
                 <div className="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-14">

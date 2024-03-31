@@ -2,9 +2,9 @@ import React from 'react'
 import * as Avatar from "@radix-ui/react-avatar";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {SearchBtn} from "./index.js";
-const Head = () => {
+const Header = () => {
     return (
-        <div className='w-full bg-white self-center min-w-0 flex-1 '>
+        <div className='w-full bg-white self-center min-w-0 flex-1 top-0 sticky'>
             <div className={'flex justify-between items-center mx-3.5 my-2'}>
                 <div className={'w-1/2 justify-start'}>
                 <SearchBtn></SearchBtn>
@@ -59,7 +59,7 @@ const Head = () => {
 // </div>
     )
 }
-export default Head
+export default Header
 
 
 
