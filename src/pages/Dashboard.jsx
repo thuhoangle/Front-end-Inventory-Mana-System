@@ -4,7 +4,6 @@ import React from "react"
 import Chart from "../components/LineChart"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { useState } from "react";
-import {Menu} from "../components/index.js";
 
 
 export default function Dashboard() {

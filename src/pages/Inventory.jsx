@@ -1,5 +1,5 @@
 import React from 'react';
-import {DataTable, Header, Menu} from "../components/index.js";
+import {DataTable, Header, } from "../components/index.js";
 // const {  Sider, Content } = Layout;
 import { Card,  } from "antd";
 

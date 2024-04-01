@@ -1,5 +1,4 @@
 import Dashboard from "../pages/Dashboard";
-import Menu from "./Menu"
 import Header from "./Header";
 import Product from "../pages/Product";
 import Supplier from "../pages/Supplier";
