@@ -10,7 +10,7 @@ const SideBar = () => {
 
     return (
         <NavigationMenu.Root orientation='vertical'
-                             className='h-screen overflow-y-scroll bg-white px-2.5 pt-2 pb-2.5 border-l-2 '>
+                            className='h-screen overflow-y-scroll bg-white px-2.5 pt-2 pb-2.5 border-l-2 '>
 
             <div className='flex flex-col gap-5'>
                 <p className='font-black text-4xl self-center '>Group1</p>
@@ -19,7 +19,7 @@ const SideBar = () => {
                     <Avatar.Root
                         className='inline-flex h-11 w-11 items-center overflow-hidden rounded-full align-middle'>
                         <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'
-                                      src='src/assets/snoopy.jpeg' alt='avatar'>
+                                    src='src/assets/snoopy.jpeg' alt='avatar'>
                         </Avatar.Image>
                     </Avatar.Root>
                     <span className='font-semibold text-xl '>shiba</span>

@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 // eslint-disable-next-line no-unused-vars
 import React from "react"
-import Chart from "../components/LineChart"
+import LineChart from "../components/LineChart"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { useState } from "react";
+import PieChart from "../components/PieChart";
 
 
 export default function Dashboard() {
@@ -84,13 +85,13 @@ export default function Dashboard() {
                     <div className="text-start p-5 text-xl">Sale this month:
                         <span className="flex font-bold text-3xl">$1234</span>
                     </div>
-                    <Chart className="flex"></Chart>
+                    <LineChart className="flex"></LineChart>
                 </div>
                 <div className="flex flex-col rounded-lg border border-gray-100 bg-white">
                     <div className="text-start p-5 text-xl">Order this month:
                         <span className="flex font-bold text-3xl">1234</span>
                     </div>
-                    <Chart className="flex"></Chart>
+                    <LineChart className="flex"></LineChart>
                 </div>
             </div>
 
@@ -109,6 +110,9 @@ export default function Dashboard() {
                 </div>
                 <div className="bg-white basis-5/12 rounded-lg border border-gray-100">
                     <div className="text-start p-5 text-3xl font-bold"> Warehouse's capacity</div>
+                    <div className="flex justify-center py-6">
+                        <PieChart className = "flex"></PieChart>
+                    </div>
                 </div>
             </div>
         </container>

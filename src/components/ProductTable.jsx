@@ -1,21 +1,17 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import '../pages/Product.jsx'
 
-const products = [{
-    sku: '29823',
-    category: 'Fruit',
-    productName: 'Apple',
-    description: 'Out of stock',
-    price: '$4'
-}];
-const ProductTable = () => {
 
-    const handleEdit = () => {
-   
-    };
+const ProductTable = ({ products }) => {
 
-    const handleDetete = () => {
-        // Implement cancel functionality here
-    }; 
+  const handleEdit = () => {
+
+  };
+
+  const handleDetete = () => {
+    // Implement cancel functionality here
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -28,34 +24,37 @@ const ProductTable = () => {
           </tr>
         </thead>
         <tbody className="bg-white">
-          {products.map((product, index) => (
-            <tr key={index}>
-              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>
-              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div>
-                  <p><strong>SKU:</strong> {product.sku}</p>
-                  <p><strong>Category:</strong> {product.category}</p>
-                  <p><strong>Product Name:</strong> {product.productName}</p>
-                  <p><strong>Description:</strong> {product.description}</p>
-                  <p><strong>Price:</strong> {product.price}</p>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <button
-                  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"
-                  onClick={() => handleEdit(index)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-red-600 rounded-md hover:bg-red-800 focus:outline-none"
-                  onClick={() => handleDetete(index)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {products.map((product, index) => {
+            return (
+              <tr key={index}>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div>
+                    <p><strong>SKU:</strong> {product.sku}</p>
+                    <p><strong>Category:</strong> {product.category}</p>
+                    <p><strong>Product Name:</strong> {product.productName}</p>
+                    <p><strong>Description:</strong> {product.description}</p>
+                    <p><strong>Price:</strong> {product.price}</p>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <button
+                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-red-600 rounded-md hover:bg-red-800 focus:outline-none"
+                    onClick={handleDetete}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            )
+          }
+          )}
         </tbody>
       </table>
     </div>
