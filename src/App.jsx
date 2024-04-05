@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Dashboard, Inventory, Order, Product, Supplier } from "./pages/index.js";
+import { Dashboard, Inventory, Order, Product, Supplier, OrderForm } from "./pages/index.js";
 import {SideBar, Header} from "./components/index.js";
 import { Layout  } from "antd";
 const {  Sider, Content } = Layout;
@@ -22,6 +22,7 @@ function App() {
                         <Route path="/order" element={<Order/>}/>
                         <Route path="/product" element={<Product/>}/>
                         <Route path="/supplier" element={<Supplier/>}/>
+                        <Route path="/order-form" component={<OrderForm/>} />
                     </Routes>
                         </Content>
                     </Layout>
