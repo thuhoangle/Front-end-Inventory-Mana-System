@@ -16,7 +16,7 @@ ChartJS.register(
     LinearScale,
     PointElement
 )
-export default function Chart() {
+export default function LineChart() {
 
 
     const data1 = {

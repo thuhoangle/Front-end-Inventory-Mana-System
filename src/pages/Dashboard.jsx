@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 // eslint-disable-next-line no-unused-vars
-import React from "react"
-import Chart from "../components/LineChart"
+import React, {useState} from "react"
+import LineChart from "../components/LineChart"
 import InfiniteScroll from "react-infinite-scroll-component"
-import { useState } from "react";
+import PieChart from "../components/PieChart";
 
 
 export default function Dashboard() {
@@ -11,8 +11,9 @@ export default function Dashboard() {
     const [dataSource] = useState(Array.from({length:20}));
 
     return (
-      <container className=" min-h-screen ">
-            <div className="grid col-span-10 gap-10 lg:grid-cols-3 py-6 p-10 ">
+
+        <container className=" min-h-screen ">
+            <div className="grid col-span-10 gap-12 lg:grid-cols-3 py-6 px-10">
                 <div className="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-14">
                     <div className="inline-flex gap-2 self-start rounded text-black">
                         <svg
@@ -44,7 +45,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="flex flex-col gap-4 bg-white p-14">
-                    <div className="inline-flex gap-2 self-start rounded-lg text-black border border-gray-100">
+                    <div className="inline-flex gap-2 self-start text-black rounded-lg border  border-gray-100">
                         <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_543_756)">
                                 <path d="M0 56.875C0 58.6155 0.691404 60.2847 1.92211 61.5154C3.15282 62.7461 4.82202 63.4375 6.5625 63.4375H63.4375C65.178 63.4375 66.8472 62.7461 68.0779 61.5154C69.3086 60.2847 70 58.6155 70 56.875V26.25C70 24.5095 69.3086 22.8403 68.0779 21.6096C66.8472 20.3789 65.178 19.6875 63.4375 19.6875H6.5625C4.82202 19.6875 3.15282 20.3789 1.92211 21.6096C0.691404 22.8403 0 24.5095 0 26.25L0 56.875Z" fill="black" />
@@ -57,22 +58,22 @@ export default function Dashboard() {
                             </defs>
                         </svg>
                         <div className="flex-col justify-center items-start inline-flex px-10">
-                            <span className="font-bold text-4xl">122</span>
+                            <span className="font-bold text-4xl">12</span>
                             <span className="text-2xl">Products</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-14">
-                    <div className="inline-flex gap-2 self-start rounded-lg text-black">
-                        <svg width="80" height="80" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div className="flex flex-col gap-4 rounded-lg border  border-gray-100 bg-white p-14">
+                    <div className="inline-flex gap-2 self-start rounded text-black">
+                        <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.75 17.5L17.5 5.83334H52.5L61.25 17.5M8.75 17.5V58.3333C8.75 59.8804 9.36458 61.3642 10.4585 62.4581C11.5525 63.5521 13.0362 64.1667 14.5833 64.1667H55.4167C56.9638 64.1667 58.4475 63.5521 59.5415 62.4581C60.6354 61.3642 61.25 59.8804 61.25 58.3333V17.5M8.75 17.5H61.25M46.6667 29.1667C46.6667 32.2609 45.4375 35.2283 43.2496 37.4163C41.0617 39.6042 38.0942 40.8333 35 40.8333C31.9058 40.8333 28.9383 39.6042 26.7504 37.4163C24.5625 35.2283 23.3333 32.2609 23.3333 29.1667"
                                 stroke="black" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
 
-                        <div className="flex-col justify-center items-start inline-flex px-10">
-                            <span className="font-bold text-4xl">32</span>
-                            <span className="text-2xl inline-flex">Processing orders</span>
+                        <div className="flex-col justify-center items-start inline-flex px-5 ">
+                            <span className="font-bold text-4xl">12</span>
+                            <span className="text-2xl">Order</span>
                         </div>
                     </div>
                 </div>
@@ -84,13 +85,13 @@ export default function Dashboard() {
                     <div className="text-start p-5 text-xl">Sale this month:
                         <span className="flex font-bold text-3xl">$1234</span>
                     </div>
-                    <Chart className="flex"></Chart>
+                    <LineChart className="flex"></LineChart>
                 </div>
                 <div className="flex flex-col rounded-lg border border-gray-100 bg-white">
                     <div className="text-start p-5 text-xl">Order this month:
                         <span className="flex font-bold text-3xl">1234</span>
                     </div>
-                    <Chart className="flex"></Chart>
+                    <LineChart className="flex"></LineChart>
                 </div>
             </div>
 
@@ -109,6 +110,9 @@ export default function Dashboard() {
                 </div>
                 <div className="bg-white basis-5/12 rounded-lg border border-gray-100">
                     <div className="text-start p-5 text-3xl font-bold"> Warehouse's capacity</div>
+                    <div className="flex justify-center py-6">
+                        <PieChart className = "flex"></PieChart>
+                    </div>
                 </div>
             </div>
         </container>
