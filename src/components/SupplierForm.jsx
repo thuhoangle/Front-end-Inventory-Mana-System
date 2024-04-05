@@ -28,8 +28,8 @@ const SupplierForm = ({ addSupplier }) => {
     }
 
     return (
-        <div className="flex gap-5 h-max w-max">
-            <div className="bg-white p-6 shadow-md rounded-md ">
+        <div className="flex justify-center">
+            <div className="bg-white p-6 shadow-md rounded-md  ">
                 <h2 className="text-xl font-semibold mb-4">Supplier Form</h2>
                 <div className="mb-4">
                     <label htmlFor="supplierName" className="block mb-1">Supplier Name:</label>

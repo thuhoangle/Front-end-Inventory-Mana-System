@@ -1,6 +1,5 @@
 import React from 'react';
 import {DataTable, Header, } from "../components/index.js";
-// const {  Sider, Content } = Layout;
 import { Card,  } from "antd";
 
 const Inventory = () => {

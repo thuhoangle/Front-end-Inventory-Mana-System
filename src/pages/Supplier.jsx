@@ -10,9 +10,13 @@ const Supplier = () => {
     };
 
     return (
-        <div className=" flex justify-center p-6 min-h-screen max-w-full gap-10 ">
+        <div className=" flex justify-center py-6 min-h-screen max-w-full ">
+        <div className="basis-1/3">
                 <SupplierForm addSupplier={addSupplier} />
+                </div>
+                <div className="basis-2/3 pr-6">
                 <SupplierTable suppliers={suppliers} />
+                </div>
         
         </div>
     );

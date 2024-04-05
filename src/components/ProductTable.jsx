@@ -13,8 +13,34 @@ const ProductTable = ({ products }) => {
     // Implement cancel functionality here
   };
 
+
+  const generateTextFile = () => {
+    const dataToExport = JSON.stringify(products, null, 2);
+
+    const blob = new Blob([dataToExport], { type: 'text/plain' });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'product_data.txt';
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
+
     <div className="overflow-x-auto">
+          <button
+      className="px-4 py-2 mb-4 bg-sky-200 text-black rounded-md hover:bg-sky-700 focus:outline-none"
+      onClick={generateTextFile}
+    >
+      Generate Text File
+    </button>
       <table className="min-w-full bg-white">
         <thead>
           <tr>
@@ -45,7 +71,7 @@ const ProductTable = ({ products }) => {
                     Edit
                   </button>
                   <button
-                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-red-600 rounded-md hover:bg-red-800 focus:outline-none"
+                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"
                     onClick={handleDetete}
                   >
                     Delete

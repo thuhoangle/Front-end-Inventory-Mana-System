@@ -14,7 +14,7 @@ const Product = () => {
         <div className="basis-1/3">
             <ProductForm addProduct={addProduct}/>
         </div>
-        <div className="basis-2/3">
+        <div className="basis-2/3 pr-6">
                 <ProductTable products={products}/>
 
         </div>
