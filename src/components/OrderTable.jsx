@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteDialog from "./btn/DeleteDialog.jsx";
 
 const OrderTable = ({ orders, onEdit, onDelete }) => {
   return (
@@ -27,12 +28,13 @@ const OrderTable = ({ orders, onEdit, onDelete }) => {
                 >
                   Edit
                 </button>
-                <button
-                  className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none"
-                  onClick={() => onDelete(index)}
-                >
-                  Delete
-                </button>
+                {/*<button*/}
+                {/*  className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none"*/}
+                {/*  onClick={() => onDelete(index)}*/}
+                {/*>*/}
+                {/*  Delete*/}
+                {/*</button>*/}
+                <DeleteDialog/>
               </td>
             </tr>
           ))}

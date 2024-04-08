@@ -21,8 +21,8 @@ const PageLayout = ({children}) => {
                     <GridItem  area={'header'} className={' sticky'}>
                         <Header/>
                     </GridItem>
-                    <GridItem area={'nav'} className={'left-0 top-0'} >
-                        <SideBar/>
+                    <GridItem area={'nav'} className={'left-0 top-0 fixed'} >
+                        <SideBar />
                     </GridItem>
                     <GridItem  flex={1} area={'main'} className={'bg-background'}>
                         {children}

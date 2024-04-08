@@ -4,7 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {SearchBtn} from "./index.js";
 const Header = () => {
     return (
-        <div className='w-[calc(100%-220px)] justify-end bg-white self-center py-1 px-2 flex-1 top-0 right-0 fixed'>
+        <div className='w-[calc(100%-220px)] justify-end bg-white self-center py-1 px-2 flex-1 top-0 right-0 pr-4 fixed '>
             <div className={'flex justify-between items-center rounded'}>
                 <div className={'w-1/2 justify-start'}>
                 <SearchBtn></SearchBtn>
@@ -13,7 +13,7 @@ const Header = () => {
 
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
-                        <Avatar.Root className='inline-flex h-10 w-10 items-center overflow-hidden rounded-full align-middle'>
+                        <Avatar.Root className='inline-flex h-10 w-10 items-center overflow-hidden rounded-full align-middle cursor-pointer'>
                             <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'
                                           src='src/assets/snoopy.jpeg' alt='avatar'>
                             </Avatar.Image>
