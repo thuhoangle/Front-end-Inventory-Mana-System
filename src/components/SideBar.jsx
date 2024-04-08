@@ -10,7 +10,7 @@ const SideBar = () => {
 
     return (
         <NavigationMenu.Root orientation='vertical'
-                            className='h-screen overflow-y-scroll bg-white px-2.5 pt-2 pb-2.5 border-l-2 '>
+                            className='w-[220px] h-screen  bg-white px-2.5 pt-2 pb-2.5 border-l-2 '>
 
             <div className='flex flex-col gap-5'>
                 <p className='font-black text-4xl self-center '>Group1</p>
