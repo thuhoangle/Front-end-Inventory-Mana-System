@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Dashboard, Inventory, Order, Product, Supplier } from "./pages/index.js";
 import PageLayout from "./PageLayout.jsx";
 
+
+
 function App() {
   return (
       <PageLayout>

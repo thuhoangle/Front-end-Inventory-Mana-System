@@ -1,113 +1,121 @@
 import React, { useEffect, useState } from "react";
-import '../pages/Supplier.jsx'
+import axios from "axios";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
 import EditBtn from "./btn/EditBtn.jsx";
+import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
 
-// eslint-disable-next-line react/prop-types
-const SupplierTable = ({ suppliers, handleDelete }) => {
+const SupplierTable = () => {
+  // Use useState to store suppliers
+  const [suppliersData, setSuppliersData] = useState([]);
 
-    useEffect(() => {
-        fetchSuppliersFromJson();
-    }, []);
-
-    const fetchSuppliersFromJson = () => {
-        fetch('../../public/data/supplier_data.json')
-            .then(response => response.json())
-            .then(data => setSuppliers(data))
-            .catch(error => console.error('Error fetching suppliers:', error));
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/supplierData");
+        setSuppliersData(res.data);
+      } catch (error) {
+        console.log("Error fetching suppliers:", error);
+      }
     };
 
+    const intervalId = setInterval(fetchSuppliers, 2000);
+    return () => clearInterval(intervalId);
+  }, []);
 
-    const generateTextFile = () => {
-        const dataToExport = JSON.stringify(suppliers, null, 2);
+  const generateTextFile = () => {
+    const dataToExport = JSON.stringify(suppliersData, null, 2);
 
-        const blob = new Blob([dataToExport], { type: 'text/plain' });
+    const blob = new Blob([dataToExport], { type: "text/plain" });
 
-        const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'supplier_data.txt';
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "supplier_data.txt";
 
-        document.body.appendChild(a);
-        a.click();
+    document.body.appendChild(a);
+    a.click();
 
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
-    return (
-        <div className="overflow-x-auto justify-start">
-            <button
-                className="px-4 py-2 mb-4 bg-sky-200 text-black rounded-md hover:bg-sky-700 focus:outline-none"
-                onClick={generateTextFile}
-            >
-                Generate Text File
-            </button>
-            <table className="min-w-full bg-white">
-                <thead>
-                <tr>
-                    <th className="px-3 py-3 w-10 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
-                        Num
-                    </th>
-                    <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
-                        Supplier Name
-                    </th>
-                    <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
-                        Contact
-                    </th>
-                    <th className="px-4 py-3 w-56 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
-                        Address
-                    </th>
-                    <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider whitespace-no-wrap">
-                        Action
-                    </th>
-                </tr>
-                </thead>
-                <tbody className="bg-white">
-                    {suppliers.map(
-                        (supplier, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td className="px-3 py-3 border-b border-gray-200">
-                                        {index + 1}
-                                    </td>
-                                    <td className="px-4 py-3 border-b border-gray-200">
-                                        {supplier.supplierName}
-                                    </td>
-                                    <td className="px-4 py-3 border-b border-gray-200">
-                                        {supplier.contact}
-                                    </td>
-                                    <td className="px-4 py-3 border-b border-gray-200">
-                                        {supplier.address}
-                                    </td>
-                                    <td className="py-3 border-b border-gray-200 text-center">
-                                        {/*<button*/}
-                                        {/*    className="px-5 py-3 gap-3 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"*/}
-                                        {/*    onClick={handleEdit}*/}
-                                        {/*>*/}
-                                        {/*    Edit*/}
-                                        {/*</button>*/}
-                                        {/*<button*/}
-                                        {/*    className="px-4 py-3 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"*/}
-                                        {/*    onClick={handleDelete}*/}
-                                        {/*>*/}
-                                        {/*    Delete*/}
-                                        {/*</button>*/}
-                                        <div className={'flex gap-2'}>
-                                            <EditBtn no1={'Supplier name'} no2={'Contact'} no3={'Address'}/>
-                                            <DeleteDialog onClick={() => handleDelete(index)}/>
-                                        </div>
-                                    </td>
-                                </tr>
-                        )
-                        }
-                    )
-                    }
-                </tbody>
-            </table>
-        </div>
-    );
+  const deleteSupplier = async (id) => {
+    try {
+      // Perform delete operation
+      await axios.delete(`http://localhost:3000/supplierData/${id}`);
+      // Optionally, you can also update the suppliersData state after successful delete
+      const updatedSuppliers = suppliersData.filter(supplier => supplier.id !== id);
+      setSuppliersData(updatedSuppliers);
+    } catch (error) {
+      console.error('Error deleting supplier:', error);
+    } 
+  };
+
+  return (
+    <div className="overflow-x-auto justify-start">
+      <button
+        className="px-4 py-2 mb-4 bg-sky-200 text-black rounded-md hover:bg-sky-700 focus:outline-none"
+        onClick={generateTextFile}
+      >
+        Generate Text File
+      </button>
+      <table className="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th className="px-3 py-3 w-10 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
+              Num
+            </th>
+            <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
+              Supplier Name
+            </th>
+            <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
+              Contact
+            </th>
+            <th className="px-4 py-3 w-56 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider">
+              Address
+            </th>
+            <th className="px-4 py-3 w-40 border-b-2 border-gray-300 text-left text-xs leading-4 font-medium text-black uppercase tracking-wider whitespace-no-wrap">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white">
+          {suppliersData.map(
+            (
+              supplier,
+              index // Use suppliersData instead of suppliers
+            ) => (
+              <tr key={index}>
+                <td className="px-3 py-3 border-b border-gray-200">
+                  {index + 1}
+                </td>
+                <td className="px-4 py-3 border-b border-gray-200">
+                  {supplier.supplierName}
+                </td>
+                <td className="px-4 py-3 border-b border-gray-200">
+                  {supplier.contact}
+                </td>
+                <td className="px-4 py-3 border-b border-gray-200">
+                  {supplier.address}
+                </td>
+                <td className="py-3 border-b border-gray-200 text-center">
+                  <div className={"flex gap-2"}>
+                    <EditBtn
+                      no1={"Supplier name"}
+                      no2={"Contact"}
+                      no3={"Address"}
+                    />
+                    <DeleteDialog onClick={() => deleteSupplier(supplier.id)} />
+                  </div>
+                </td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default SupplierTable;

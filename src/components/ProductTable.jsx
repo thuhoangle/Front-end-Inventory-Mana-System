@@ -1,19 +1,39 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
-import '../pages/Product.jsx'
-import DeleteDialog from "./btn/DeleteDialog.jsx";
-import EditBtn from "./btn/EditBtn.jsx";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import DeleteDialog from './btn/DeleteDialog.jsx';
+import EditBtn from './btn/EditBtn.jsx';
 
+const ProductTable = () => {
+  const [productsData, setProductsData] = useState([]);
 
-const ProductTable = ({ products, handleDelete }) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/productData');
+        setProductsData(res.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    const intervalId = setInterval(fetchProducts, 1000);
+    return () => { clearInterval(intervalId);
+    }
+  },[]); // Empty dependency array ensures useEffect runs only once on component mount
 
-  // const handleEdit = () => {
-  //
-  // };
-  //
+  const deleteProduct = async (id) => {
+    try {
+      // Perform delete operation
+      await axios.delete(`http://localhost:3000/productData/${id}`);
+      // Optionally, you can also update the suppliersData state after successful delete
+      const updatedProducts = productsData.filter(product => product.id !== id);
+      setProductsData(updatedProducts);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    } 
+  };
 
   const generateTextFile = () => {
-    const dataToExport = JSON.stringify(products, null, 2);
+    const dataToExport = JSON.stringify(productsData, null, 2);
 
     const blob = new Blob([dataToExport], { type: 'text/plain' });
 
@@ -31,14 +51,13 @@ const ProductTable = ({ products, handleDelete }) => {
   };
 
   return (
-
     <div className="overflow-x-auto">
-          <button
-      className="px-4 py-2 mb-4 bg-sky-200 text-black rounded-md hover:bg-sky-700 focus:outline-none"
-      onClick={generateTextFile}
-    >
-      Generate Text File
-    </button>
+      <button
+        className="px-4 py-2 mb-4 bg-sky-200 text-black rounded-md hover:bg-sky-700 focus:outline-none"
+        onClick={generateTextFile}
+      >
+        Generate Text File
+      </button>
       <table className="min-w-full bg-white">
         <thead>
           <tr>
@@ -48,8 +67,8 @@ const ProductTable = ({ products, handleDelete }) => {
           </tr>
         </thead>
         <tbody className="bg-white">
-          {products.map((product, index) => {
-            return (
+            {
+            productsData.map((product, index) => (
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -62,27 +81,14 @@ const ProductTable = ({ products, handleDelete }) => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  {/*<button*/}
-                  {/*  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"*/}
-                  {/*  onClick={handleEdit}*/}
-                  {/*>*/}
-                  {/*  Edit*/}
-                  {/*</button>*/}
-                  {/*<button*/}
-                  {/*  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"*/}
-                  {/*  onClick={handleDetete}*/}
-                  {/*>*/}
-                  {/*  Delete*/}
-                  {/*</button>*/}
-                  <div className={'flex gap-4'}>
-                    <EditBtn no1={'SKU'} no2={'Category'} no3={'Product name'} no4={'Description'} no5={'Price'}/>
-                    <DeleteDialog onClick={() => handleDelete(index)}/>
+                  <div className="flex gap-4">
+                    <EditBtn no1="SKU" no2="Category" no3="Product name" no4="Description" no5="Price" />
+                    <DeleteDialog onClick={() => deleteProduct(product.id)} />
                   </div>
                 </td>
               </tr>
-            )
-          }
-          )}
+            ))
+            }
         </tbody>
       </table>
     </div>

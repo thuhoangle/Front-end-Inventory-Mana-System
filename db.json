@@ -1,0 +1,48 @@
+{
+  "supplierData": [
+    {
+      "id": "1f75",
+      "supplierName": "w ",
+      "contact": "fweffwf",
+      "address": "Ho Chi Minh City"
+    },
+    {
+      "id": "32ad",
+      "supplierName": "Hello",
+      "contact": "fweffwf",
+      "address": "Ho Chi Minh City"
+    },
+    {
+      "id": "9ca7",
+      "supplierName": "w ",
+      "contact": "fweffwf",
+      "address": "Ho Chi Minh City"
+    },
+    {
+      "id": "0e86",
+      "supplierName": "w ",
+      "contact": "fweffwf",
+      "address": "Ho Chi Minh City"
+    }
+  ],
+  "productData": [
+    {
+      "id": "bee8",
+      "sku": "ưdqd",
+      "category": "ưqdqwd",
+      "address": "",
+      "productName": "ưdqdwqd",
+      "description": "",
+      "price": "wwww"
+    },
+    {
+      "id": "0a04",
+      "sku": "ưdqd",
+      "category": "ưqdqwd",
+      "address": "",
+      "productName": "ưdqdwqd",
+      "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "price": "wwww"
+    }
+  ]
+}

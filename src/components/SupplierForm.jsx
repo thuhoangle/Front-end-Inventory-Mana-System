@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
+// eslint-disable-next-line react/prop-types
 const SupplierForm = () => {
     const [formSupplier, setFormSupplier] = useState({
         supplierName: '',
@@ -11,13 +13,27 @@ const SupplierForm = () => {
         setFormSupplier({ ...formSupplier, [e.target.name]: e.target.value });
     };
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
-        setFormSupplier({
-            supplierName: '',
-            contact: '',
-            address: '',
-        });
+        
+        try {
+            // Make POST request to JSON server
+            await axios.post('http://localhost:3000/supplierData', formSupplier);
+
+            // Clear form fields after successful save
+            setFormSupplier({
+                supplierName: '',
+                contact: '',
+                address: '',
+            });
+
+            // Trigger update of supplier data in SupplierTable
+
+            
+        } catch (error) {
+            console.error('Error saving supplier data:', error);
+            alert('Error saving supplier data. Please try again.');
+        }
     };
 
     const handleCancel = () => {
@@ -28,6 +44,8 @@ const SupplierForm = () => {
         });
     };
 
+
+    
     return (
         <div className="flex justify-center">
             <div className="bg-white p-6 shadow-md rounded-md  ">
@@ -74,13 +92,12 @@ const SupplierForm = () => {
                     <button
                         className="px-4 py-2  bg-blue-500 font-semibold bg-sky-300 rounded-md hover:bg-sky-600 focus:outline-none"
                         onClick={handleSave}
-                    >
-                        Save
+                    > Save
                     </button>
                 </div>
             </div>
         </div>
     )
-};
+}
 
-export default SupplierForm;
+export default SupplierForm

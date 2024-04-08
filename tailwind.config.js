@@ -23,7 +23,7 @@ export default {
 
   },
   plugins: [
-      equire("daisyui"),
+      require("daisyui"),
     require ("tailwindcss-radix")({
       variantPrefix: false,
     }),

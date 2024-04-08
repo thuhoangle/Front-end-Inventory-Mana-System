@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ProductTable from '../components/ProductTable';
+import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
-const ProductForm = ({ addProduct }) => {
+const ProductForm = () => {
 
     const [formProduct, setFormProduct] = useState({
         sku: '',
@@ -13,15 +13,38 @@ const ProductForm = ({ addProduct }) => {
         price: '',
     });
 
-
     const handleInputChange = (e) => {
         setFormProduct({ ...formProduct, [e.target.name]: e.target.value });
     };
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
-        addProduct(formProduct);
-        setFormProduct ({
+        
+        try {
+            // Make POST request to JSON server
+            await axios.post('http://localhost:3000/productData', formProduct);
+
+            // Clear form fields after successful save
+            setFormProduct({
+                sku: '',
+                category: '',
+                address: '',
+                productName: '',
+                description: '',
+                price: '',
+            });
+
+            // Trigger update of supplier data in SupplierTable
+    
+            
+        } catch (error) {
+            console.error('Error saving supplier data:', error);
+            alert('Error saving supplier data. Please try again.');
+        }
+    };
+
+    const handleCancel = () => {
+        setFormProduct({
             sku: '',
             category: '',
             address: '',
@@ -31,16 +54,6 @@ const ProductForm = ({ addProduct }) => {
         });
     };
 
-    const handleCancel = () => {
-        setFormProduct ({
-            sku: '',
-            category: '',
-            address: '',
-            productName: '',
-            description: '',
-            price: '',
-        });
-    };
 
     return (
         <div className="flex justify-center">
