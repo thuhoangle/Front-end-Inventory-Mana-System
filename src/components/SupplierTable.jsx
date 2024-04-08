@@ -5,15 +5,12 @@ import DeleteDialog from "./btn/DeleteDialog.jsx";
 import EditBtn from "./btn/EditBtn.jsx";
 
 // eslint-disable-next-line react/prop-types
-const SupplierTable = ({ suppliers }) => {
+const SupplierTable = ({ suppliers, handleDelete }) => {
 
     const handleEdit = () => {
 
     };
 
-    const handleDelete = () => {
-
-    }
 
     const generateTextFile = () => {
         const dataToExport = JSON.stringify(suppliers, null, 2);
@@ -94,7 +91,7 @@ const SupplierTable = ({ suppliers }) => {
                                         {/*</button>*/}
                                         <div className={'flex gap-2'}>
                                             <EditBtn no1={'Supplier name'} no2={'Contact'} no3={'Address'}/>
-                                            <DeleteDialog/>
+                                            <DeleteDialog onClick={() => handleDelete(index)}/>
                                         </div>
                                     </td>
                                 </tr>

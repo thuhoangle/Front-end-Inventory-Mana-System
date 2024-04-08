@@ -69,13 +69,13 @@ const SupplierForm = ({ addSupplier }) => {
                 </div>
                 <div className="flex justify-center gap-4 px-20">
                     <button
-                        className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 focus:outline-none"
+                        className="px-4 py-2 bg-gray-300 font-semibold rounded-md hover:bg-gray-400 focus:outline-none"
                         onClick={handleCancel}
                     >
                         Clear
                     </button>
                     <button
-                        className="px-4 py-2  bg-blue-500 bg-sky-300 rounded-md hover:bg-sky-600 focus:outline-none"
+                        className="px-4 py-2  bg-blue-500 font-semibold bg-sky-300 rounded-md hover:bg-sky-600 focus:outline-none"
                         onClick={handleSave}
                     > Save
                     </button>

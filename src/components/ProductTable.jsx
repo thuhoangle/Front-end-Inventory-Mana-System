@@ -5,16 +5,12 @@ import DeleteDialog from "./btn/DeleteDialog.jsx";
 import EditBtn from "./btn/EditBtn.jsx";
 
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, handleDelete }) => {
 
-  const handleEdit = () => {
-
-  };
-
-  const handleDetete = () => {
-    // Implement cancel functionality here
-  };
-
+  // const handleEdit = () => {
+  //
+  // };
+  //
 
   const generateTextFile = () => {
     const dataToExport = JSON.stringify(products, null, 2);
@@ -80,7 +76,7 @@ const ProductTable = ({ products }) => {
                   {/*</button>*/}
                   <div className={'flex gap-4'}>
                     <EditBtn no1={'SKU'} no2={'Category'} no3={'Product name'} no4={'Description'} no5={'Price'}/>
-                    <DeleteDialog/>
+                    <DeleteDialog onClick={() => handleDelete(index)}/>
                   </div>
                 </td>
               </tr>

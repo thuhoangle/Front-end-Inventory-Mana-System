@@ -17,6 +17,10 @@ const EditBtn = ({no1, no2, no3, no4, no5}) => {
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
 
+    const handleEditClick = () => {
+        onClick()
+    }
+
     return (
         <>
             <Button onClick={onOpen}>Edit</Button>
@@ -63,10 +67,10 @@ const EditBtn = ({no1, no2, no3, no4, no5}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3}>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button colorScheme='blue' ml={3} onClick={handleEditClick}>
                             Save
                         </Button>
-                        <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

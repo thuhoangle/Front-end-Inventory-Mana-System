@@ -5,6 +5,12 @@ import SupplierTable from '../components/SupplierTable';
 const Supplier = () => {
     const [suppliers, setSuppliers] = useState([]);
 
+    const handleDelete = (index) => {
+        const updatedSupp = [...suppliers];
+        updatedSupp.splice(index, 1);
+        setSuppliers(updatedSupp);
+    };
+
     const addSupplier = (newSupplier) => {
         setSuppliers([...suppliers, newSupplier]);
     };
@@ -15,7 +21,7 @@ const Supplier = () => {
                 <SupplierForm addSupplier={addSupplier} />
                 </div>
                 <div className="basis-2/3 pr-6">
-                <SupplierTable suppliers={suppliers} />
+                <SupplierTable suppliers={suppliers} handleDelete={handleDelete} />
                 </div>
         
         </div>

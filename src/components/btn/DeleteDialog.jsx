@@ -6,9 +6,19 @@ import { Button, AlertDialog, AlertDialogBody,
     AlertDialogOverlay,
     useDisclosure
 } from '@chakra-ui/react'
-const DeleteDialog = () => {
+const DeleteDialog = ({onClick}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
+
+    // onClick để pass qua compo khaác khi click
+    const handleDeleteClick = () => {
+        onClick()
+    }
+
+    const confirmDel = () => {
+        handleDeleteClick();
+        onClose()
+    }
 
     return (
         <>
@@ -28,7 +38,7 @@ const DeleteDialog = () => {
                         <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button colorScheme='red' onClick={onClose} ml={3}>
+                        <Button colorScheme='red' onClick={confirmDel} ml={3}>
                             Delete
                         </Button>
                     </AlertDialogFooter>
