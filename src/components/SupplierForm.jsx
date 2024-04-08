@@ -11,27 +11,8 @@ const SupplierForm = () => {
         setFormSupplier({ ...formSupplier, [e.target.name]: e.target.value });
     };
 
-    const writeToJsonFile = () => {
-        fetch('/saveSupplier', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formSupplier),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to save data');
-                }
-                console.log('Data successfully saved');
-            })
-            .catch(error => console.error('Error saving data:', error));
-    };
-    
-
     const handleSave = (e) => {
         e.preventDefault();
-        writeToJsonFile();
         setFormSupplier({
             supplierName: '',
             contact: '',
