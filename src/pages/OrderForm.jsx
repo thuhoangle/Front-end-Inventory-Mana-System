@@ -31,7 +31,7 @@ const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
   };
 
   return (
-    <div className=" max-w-lg mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
+    <div className=" max-w-2xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
       <h2 className="text-xl font-semibold mb-4">New Order</h2>
       <div className="mb-4">
         <label htmlFor="supplier" className="block mb-1">
@@ -114,7 +114,7 @@ const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
               <td className="border px-6 py-4">{orderItem.price}</td>
               <td className="border px-6 py-4">{orderItem.amount}</td>
               <td className="border px-6 py-4">
-                <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                <button className="bg-red-500 text-red font-bold px-4 py-2 rounded-md hover:bg-red-600">
                   Remove
                 </button>
               </td>

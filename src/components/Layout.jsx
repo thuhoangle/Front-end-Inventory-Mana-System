@@ -9,7 +9,7 @@ import {Inventory} from "../pages/index.js";
 const Layout = () => {
     return (
         <div className="flex">
-            <div className=" h-screen ">
+            <div className=" h-screen w-full ">
                 <SideBar/>
             </div>
             <div className=" h-full w-full ">

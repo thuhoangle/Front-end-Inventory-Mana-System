@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import '../pages/Product.jsx'
+import DeleteDialog from "./btn/DeleteDialog.jsx";
+import EditBtn from "./btn/EditBtn.jsx";
 
 
 const ProductTable = ({ products }) => {
@@ -64,18 +66,22 @@ const ProductTable = ({ products }) => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <button
-                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"
-                    onClick={handleEdit}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="px-4 py-2 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"
-                    onClick={handleDetete}
-                  >
-                    Delete
-                  </button>
+                  {/*<button*/}
+                  {/*  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"*/}
+                  {/*  onClick={handleEdit}*/}
+                  {/*>*/}
+                  {/*  Edit*/}
+                  {/*</button>*/}
+                  {/*<button*/}
+                  {/*  className="px-4 py-2 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"*/}
+                  {/*  onClick={handleDetete}*/}
+                  {/*>*/}
+                  {/*  Delete*/}
+                  {/*</button>*/}
+                  <div className={'flex gap-4'}>
+                    <EditBtn no1={'SKU'} no2={'Category'} no3={'Product name'} no4={'Description'} no5={'Price'}/>
+                    <DeleteDialog/>
+                  </div>
                 </td>
               </tr>
             )

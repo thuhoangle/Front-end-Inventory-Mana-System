@@ -4,8 +4,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {SearchBtn} from "./index.js";
 const Header = () => {
     return (
-        <div className='w-full bg-white self-center min-w-0 flex-1 top-0 sticky'>
-            <div className={'flex justify-between items-center mx-3.5 my-2'}>
+        <div className='w-[calc(100%-220px)] justify-end bg-white self-center py-1 px-2 flex-1 top-0 right-0 pr-4 fixed '>
+            <div className={'flex justify-between items-center rounded'}>
                 <div className={'w-1/2 justify-start'}>
                 <SearchBtn></SearchBtn>
                 </div>
@@ -13,7 +13,7 @@ const Header = () => {
 
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
-                        <Avatar.Root className='inline-flex h-10 w-10 items-center overflow-hidden rounded-full align-middle'>
+                        <Avatar.Root className='inline-flex h-10 w-10 items-center overflow-hidden rounded-full align-middle cursor-pointer'>
                             <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'
                                           src='src/assets/snoopy.jpeg' alt='avatar'>
                             </Avatar.Image>
@@ -56,23 +56,8 @@ const Header = () => {
         </div>
         </div>
 
-// </div>
     )
 }
 export default Header
 
 
-
-
-{/*<div className={'flex flex-row gap-5 py-2 '}>*/}
-{/*    <form className={'self-center items-center '}>*/}
-{/*        <div className={'relative flex-1 items-center w-full '}>*/}
-{/*            <CiSearch className={'w-10 h-10 fill-graySearch absolute ps-3 '}/>*/}
-{/*            <input type="search"*/}
-{/*                   placeholder={'Search'}*/}
-{/*                   autoComplete={'off'}*/}
-{/*                   className={'px-3 py-2 ps-12 border-none text-gray-900 rounded-full ring-2 ring-gray-300 focus:ring-gray-300 focus:outline-none'}/>*/}
-{/*        </div>*/}
-{/*    </form>*/}
-{/*    <SearchBtn width='200'/>*/}
-{/*</div>*/}

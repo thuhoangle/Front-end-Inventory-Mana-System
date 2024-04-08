@@ -31,7 +31,14 @@ const ProductForm = ({ addProduct }) => {
     };
 
     const handleCancel = () => {
-        
+        setFormProduct ({
+            sku: '',
+            category: '',
+            address: '',
+            productName: '',
+            description: '',
+            price: '',
+        });
     };
 
     return (
@@ -92,18 +99,18 @@ const ProductForm = ({ addProduct }) => {
                         onChange={handleInputChange}
                     />
                 </div>
-                <div className="flex justify-center px-20">
+                <div className="flex justify-center gap-4 px-20">
                     <button
-                        className="px-4 py-2 mr-2 bg-sky-200 text-gray-700 rounded-md hover:bg-sky-600 focus:outline-none"
+                        className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 focus:outline-none"
+                        onClick={handleCancel}
+                    >
+                        Clear
+                    </button>
+                    <button
+                        className="px-4 py-2  bg-sky-200 text-gray-700 rounded-md hover:bg-sky-600 focus:outline-none"
                         onClick={handleSave}
                     >
                         Save
-                    </button>
-                    <button
-                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none"
-                        onClick={handleCancel}
-                    >
-                        Cancel
                     </button>
                 </div>
             </div>

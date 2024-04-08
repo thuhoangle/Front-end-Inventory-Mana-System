@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import '../pages/Supplier.jsx'
+import DeleteDialog from "./btn/DeleteDialog.jsx";
+import EditBtn from "./btn/EditBtn.jsx";
 
 // eslint-disable-next-line react/prop-types
 const SupplierTable = ({ suppliers }) => {
@@ -78,21 +80,25 @@ const SupplierTable = ({ suppliers }) => {
                                         {supplier.address}
                                     </td>
                                     <td className="py-3 border-b border-gray-200 text-center">
-                                        <button
-                                            className="px-5 py-3 gap-3 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"
-                                            onClick={handleEdit}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="px-4 py-3 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"
-                                            onClick={handleDelete}
-                                        >
-                                            Delete
-                                        </button>
+                                        {/*<button*/}
+                                        {/*    className="px-5 py-3 gap-3 mr-2 bg-blue-500 text-black bg-sky-200 rounded-md hover:bg-sky-700 focus:outline-none"*/}
+                                        {/*    onClick={handleEdit}*/}
+                                        {/*>*/}
+                                        {/*    Edit*/}
+                                        {/*</button>*/}
+                                        {/*<button*/}
+                                        {/*    className="px-4 py-3 mr-2 bg-blue-500 text-black bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none"*/}
+                                        {/*    onClick={handleDelete}*/}
+                                        {/*>*/}
+                                        {/*    Delete*/}
+                                        {/*</button>*/}
+                                        <div className={'flex gap-2'}>
+                                            <EditBtn no1={'Supplier name'} no2={'Contact'} no3={'Address'}/>
+                                            <DeleteDialog/>
+                                        </div>
                                     </td>
                                 </tr>
-                            )
+                        )
                         }
                     )
                     }

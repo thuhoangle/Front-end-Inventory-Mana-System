@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OrderForm from './OrderForm';
+import DeleteDialog from "../components/btn/DeleteDialog.jsx";
 
 const Order = () => {
     const [orders, setOrders] = useState([
@@ -80,14 +81,15 @@ const Order = () => {
                                         className="bg-sky-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
                                         onClick={() => handleEditOrder(order.id)}
                                     >
-                                        Edit
+                                        View
                                     </button>
-                                    <button
-                                        className="bg-rose-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                        onClick={() => handleDeleteOrder(order.id)}
-                                    >
-                                        Delete
-                                    </button>
+                                    {/*<button*/}
+                                    {/*    className="bg-rose-500 text-white px-4 py-2 rounded-md hover:bg-red-600"*/}
+                                    {/*    onClick={() => handleDeleteOrder(order.id)}*/}
+                                    {/*>*/}
+                                    {/*    Delete*/}
+                                    {/*</button>*/}
+                                    <DeleteDialog/>
                                 </td>
                             </tr>
                         ))}
