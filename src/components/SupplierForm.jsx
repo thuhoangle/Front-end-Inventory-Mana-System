@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 
-// eslint-disable-next-line react/prop-types
-const SupplierForm = ({ addSupplier }) => {
-
+const SupplierForm = () => {
     const [formSupplier, setFormSupplier] = useState({
         supplierName: '',
         contact: '',
@@ -13,9 +11,27 @@ const SupplierForm = ({ addSupplier }) => {
         setFormSupplier({ ...formSupplier, [e.target.name]: e.target.value });
     };
 
+    const writeToJsonFile = () => {
+        fetch('/saveSupplier', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formSupplier),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to save data');
+                }
+                console.log('Data successfully saved');
+            })
+            .catch(error => console.error('Error saving data:', error));
+    };
+    
+
     const handleSave = (e) => {
         e.preventDefault();
-        addSupplier(formSupplier);
+        writeToJsonFile();
         setFormSupplier({
             supplierName: '',
             contact: '',
@@ -29,7 +45,7 @@ const SupplierForm = ({ addSupplier }) => {
             contact: '',
             address: '',
         });
-    }
+    };
 
     return (
         <div className="flex justify-center">
@@ -77,12 +93,13 @@ const SupplierForm = ({ addSupplier }) => {
                     <button
                         className="px-4 py-2  bg-blue-500 bg-sky-300 rounded-md hover:bg-sky-600 focus:outline-none"
                         onClick={handleSave}
-                    > Save
+                    >
+                        Save
                     </button>
                 </div>
             </div>
         </div>
     )
-}
+};
 
-export default SupplierForm
+export default SupplierForm;
