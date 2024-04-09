@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import OrderForm from './OrderForm';
+import OrderForm from '../components/OrderForm.jsx';
 import DeleteDialog from "../components/btn/DeleteDialog.jsx";
 
-const Order = () => {
+const Order = ({}) => {
     const [orders, setOrders] = useState([
         { id: 1, date: '2022-01-01', reference: 'ORD001', supplier: 'Supplier A' },
         { id: 2, date: '2022-01-02', reference: 'ORD002', supplier: 'Supplier B' },
@@ -16,6 +16,12 @@ const Order = () => {
 
     const handleDeleteOrder = (orderId) => {
         console.log('Delete order:', orderId);
+    };
+
+    const handleDelete = (index) => {
+        const updatedOrders = [...orders];
+        updatedOrders.splice(index, 1);
+        setOrders(updatedOrders);
     };
 
     const handleAddOrder = (newOrder) => {
@@ -89,7 +95,7 @@ const Order = () => {
                                     {/*>*/}
                                     {/*    Delete*/}
                                     {/*</button>*/}
-                                    <DeleteDialog/>
+                                    <DeleteDialog onClick={() => handleDelete(index)} />
                                 </td>
                             </tr>
                         ))}
@@ -98,7 +104,7 @@ const Order = () => {
             </div>
             <div className="flex">
                 <button
-                    className="px-4 py-2 mr-2 bg-rose-300 text-black hover:bg-rose-500 rounded-md focus:outline-none"
+                    className="px-4 py-2 mr-2 bg-rose-300 font-semibold text-black hover:bg-rose-500 rounded-md focus:outline-none"
                     onClick={openFormModal}
                 >
                     Add Order

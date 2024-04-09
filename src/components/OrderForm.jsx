@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
+const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal,  }) => {
   const [selectedSupplier, setSelectedSupplier] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -28,6 +28,12 @@ const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
       amount: parseInt(quantity) * 10, // Replace with actual calculation
     };
     setOrderList([...orderList, orderItem]);
+  };
+
+  const handleDelete = (index) => {
+    const updatedOrderList = [...orderList];
+    updatedOrderList.splice(index, 1);
+    setOrderList(updatedOrderList);
   };
 
   return (
@@ -81,18 +87,18 @@ const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
           onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-5">
         <button
-          className="px-4 py-2 bg-sky-200 text-white rounded-md hover:bg-sky-600 focus:outline-none"
+          className="px-4 py-2 bg-sky-200 font-semibold rounded-md hover:bg-sky-600 focus:outline-none"
           onClick={handleAddToList}
         >
           Add to List
         </button>
         <button
-          className="px-4 py-2 bg-sky-200 text-white rounded-md hover:bg-sky-600 focus:outline-none"
+          className="px-4 py-2 bg-sky-200 font-semibold rounded-md hover:bg-sky-600 focus:outline-none"
           onClick={handleSave}
         >
-          Save
+          Save order
         </button>
       </div>
 
@@ -114,7 +120,7 @@ const OrderForm = ({ suppliers, products, onAddOrder, onCloseModal }) => {
               <td className="border px-6 py-4">{orderItem.price}</td>
               <td className="border px-6 py-4">{orderItem.amount}</td>
               <td className="border px-6 py-4">
-                <button className="bg-red-500 text-red font-bold px-4 py-2 rounded-md hover:bg-red-600">
+                <button className="bg-red-500 text-red font-bold px-4 py-2 rounded-md hover:bg-red-600" onClick={() => handleDelete(index)}>
                   Remove
                 </button>
               </td>
