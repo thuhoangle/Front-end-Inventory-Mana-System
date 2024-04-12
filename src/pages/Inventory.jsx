@@ -1,6 +1,6 @@
 import React from 'react';
 import {DataTable, Header, } from "../components/index.js";
-import { Card,  } from "antd";
+import { Card } from "antd";
 
 const Inventory = () => {
 

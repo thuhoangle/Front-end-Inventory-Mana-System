@@ -15,7 +15,7 @@ const ProductTable = () => {
         console.error('Error fetching products:', error);
       }
     };
-    const intervalId = setInterval(fetchProducts, 1000);
+    const intervalId = setInterval(fetchProducts, 500);
     return () => { clearInterval(intervalId);
     }
   },[]); // Empty dependency array ensures useEffect runs only once on component mount
@@ -76,7 +76,7 @@ const ProductTable = () => {
                     <p><strong>SKU:</strong> {product.sku}</p>
                     <p><strong>Category:</strong> {product.category}</p>
                     <p><strong>Product Name:</strong> {product.productName}</p>
-                    <p><strong>Description:</strong> {product.description}</p>
+                    <p><strong>Supplier:</strong> {product.supplierName}</p>
                     <p><strong>Price:</strong> {product.price}</p>
                   </div>
                 </td>

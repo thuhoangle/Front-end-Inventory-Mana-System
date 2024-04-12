@@ -18,7 +18,7 @@ const SupplierTable = () => {
       }
     };
 
-    const intervalId = setInterval(fetchSuppliers, 2000);
+    const intervalId = setInterval(fetchSuppliers, 500);
     return () => clearInterval(intervalId);
   }, []);
 

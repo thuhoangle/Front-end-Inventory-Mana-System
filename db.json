@@ -7,42 +7,59 @@
       "address": "Ho Chi Minh City"
     },
     {
-      "id": "32ad",
-      "supplierName": "Hello",
+      "id": "73a0",
+      "supplierName": "Hduwahduqdu",
       "contact": "fweffwf",
       "address": "Ho Chi Minh City"
     },
     {
-      "id": "9ca7",
-      "supplierName": "w ",
-      "contact": "fweffwf",
-      "address": "Ho Chi Minh City"
-    },
-    {
-      "id": "0e86",
-      "supplierName": "w ",
-      "contact": "fweffwf",
+      "id": "2011",
+      "supplierName": "Jerry",
+      "contact": "It;s",
       "address": "Ho Chi Minh City"
     }
   ],
   "productData": [
     {
-      "id": "bee8",
+      "id": "5885",
       "sku": "ưdqd",
-      "category": "ưqdqwd",
-      "address": "",
-      "productName": "ưdqdwqd",
-      "description": "",
-      "price": "wwww"
+      "category": "",
+      "productName": "ưdqdwqda",
+      "supplierName": "Hduwahduqdu",
+      "price": "ưdwdwd",
+      "supplier": "Hduwahduqdu"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Electronics",
+      "description": "Electronic devices and accessories"
     },
     {
-      "id": "0a04",
-      "sku": "ưdqd",
-      "category": "ưqdqwd",
-      "address": "",
-      "productName": "ưdqdwqd",
-      "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "price": "wwww"
+      "id": "2",
+      "name": "Clothing",
+      "description": "Apparel and fashion accessories"
+    },
+    {
+      "id": "3",
+      "name": "Books",
+      "description": "Printed and digital books"
+    },
+    {
+      "id": "4",
+      "name": "Home & Kitchen",
+      "description": "Household items and kitchenware"
+    },
+    {
+      "id": "5",
+      "name": "Toys & Games",
+      "description": "Children's toys and games"
+    },
+    {
+      "id": "6",
+      "name": "Sports & Outdoors",
+      "description": "Sporting goods and outdoor equipment"
     }
   ]
 }
