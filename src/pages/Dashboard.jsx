@@ -6,9 +6,12 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import PieChart from "../components/PieChart";
 
 
+
 export default function Dashboard() {
 
     const [dataSource] = useState(Array.from({length:20}));
+
+
 
     return (
 

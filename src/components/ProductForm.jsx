@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import { PRODUCT_DATA } from "../../api/endPointAPI";
+
+
 const ProductForm = () => {
   const [formProduct, setFormProduct] = useState({
-    sku: "",
-    category: "",
-    productName: "",
-    supplierName: "",
-    price: "",
+    PID: "",
+    Pname: "",
+    SupplierName: "",
+    CostPrice: "",
+    UnitPrice: "",
   });
   const [categories, setCategories] = useState([]);
   const [supplierName, setSupplierName] = useState([]);
@@ -15,7 +18,7 @@ const ProductForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/categories");
+        const res = await axios.get( );
         setCategories(res.data);
         console.table(res.data);
       } catch (error) {
@@ -25,7 +28,7 @@ const ProductForm = () => {
 
     const fetchSuppliersName = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/supplierData");
+        const res = await axios.get(PRODUCT_DATA);
         setSupplierName(res.data);
         console.table(res.data);
       } catch (error) {
@@ -45,15 +48,15 @@ const ProductForm = () => {
     e.preventDefault();
     try {
       // Make POST request to JSON server
-      await axios.post("http://localhost:3000/productData", formProduct);
+      await axios.post(PRODUCT_DATA, formProduct);
 
       // Clear form fields after successful save
       setFormProduct({
-        sku: "",
-        category: "",
-        productName: "",
-        supplierName: "",
-        price: "",
+        PID: "",
+        Pname: "",
+        SupplierName: "",
+        CostPrice: "",
+        UnitPrice: "",
       });
     } catch (error) {
       console.error("Error saving product data:", error);
@@ -63,11 +66,11 @@ const ProductForm = () => {
 
   const handleCancel = () => {
     setFormProduct({
-      sku: "",
-      category: "",
-      productName: "",
-      supplierName: "",
-      price: "",
+      PID: "",
+      Pname: "",
+      SupplierName: "",
+      CostPrice: "",
+      UnitPrice: "",
     });
   };
 

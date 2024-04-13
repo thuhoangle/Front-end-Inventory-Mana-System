@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
-import EditBtn from "./btn/EditBtn.jsx";
 import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
+
+import { SUPPLIER_DATA } from "../../api/endPointAPI.js";
+import EditBtn from "./btn/EditBtn.jsx";
 
 const SupplierTable = () => {
   // Use useState to store suppliers
   const [suppliersData, setSuppliersData] = useState([]);
 
+
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/supplierData");
+        const res = await axios.get(SUPPLIER_DATA);
         setSuppliersData(res.data);
       } catch (error) {
         console.log("Error fetching suppliers:", error);
@@ -39,18 +42,22 @@ const SupplierTable = () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+  
 
-  const deleteSupplier = async (id) => {
+  const deleteSupplier = async (supplierName) => {
     try {
       // Perform delete operation
-      await axios.delete(`http://localhost:3000/supplierData/${id}`);
+      await axios.delete(`SUPPLIER_DATA/${supplierName}`);
       // Optionally, you can also update the suppliersData state after successful delete
-      const updatedSuppliers = suppliersData.filter(supplier => supplier.id !== id);
+      const updatedSuppliers = suppliersData.filter(
+        (supplier) => supplier.supplierName !== supplierName
+      );
       setSuppliersData(updatedSuppliers);
     } catch (error) {
-      console.error('Error deleting supplier:', error);
-    } 
+      console.error("Error deleting supplier:", error);
+    }
   };
+
 
   return (
     <div className="overflow-x-auto justify-start">
@@ -91,21 +98,17 @@ const SupplierTable = () => {
                   {index + 1}
                 </td>
                 <td className="px-4 py-3 border-b border-gray-200">
-                  {supplier.supplierName}
+                  {supplier.suppliername}
                 </td>
                 <td className="px-4 py-3 border-b border-gray-200">
-                  {supplier.contact}
+                  {supplier.suppliercontact}
                 </td>
                 <td className="px-4 py-3 border-b border-gray-200">
-                  {supplier.address}
+                  {supplier.supplieraddress}
                 </td>
                 <td className="py-3 border-b border-gray-200 text-center">
                   <div className={"flex gap-2"}>
-                    <EditBtn
-                      no1={"Supplier name"}
-                      no2={"Contact"}
-                      no3={"Address"}
-                    />
+                      <EditBtn></EditBtn>
                     <DeleteDialog onClick={() => deleteSupplier(supplier.id)} />
                   </div>
                 </td>
