@@ -3,9 +3,10 @@ import axios from "axios";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
 import EditBtn from "./btn/EditBtn.jsx";
 import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
+import {Button} from "@chakra-ui/react";
+import SupplierForm from "./SupplierForm.jsx";
 
-const SupplierTable = () => {
-  // Use useState to store suppliers
+const SupplierTable = ({ data, handleClickEdit }) => {
   const [suppliersData, setSuppliersData] = useState([]);
 
   useEffect(() => {
@@ -17,10 +18,22 @@ const SupplierTable = () => {
         console.log("Error fetching suppliers:", error);
       }
     };
-
     const intervalId = setInterval(fetchSuppliers, 500);
     return () => clearInterval(intervalId);
   }, []);
+
+
+  const deleteSupplier = async (id) => {
+    try {
+      // Perform delete operation
+      await axios.delete(`http://localhost:3000/supplierData/${id}`);
+      // Optionally, you can also update the suppliersData state after successful delete
+      const updatedSuppliers = suppliersData.filter(supplier => supplier.id !== id);
+      setSuppliersData(updatedSuppliers);
+    } catch (error) {
+      console.error('Error deleting supplier:', error);
+    }
+  };
 
   const generateTextFile = () => {
     const dataToExport = JSON.stringify(suppliersData, null, 2);
@@ -40,17 +53,7 @@ const SupplierTable = () => {
     URL.revokeObjectURL(url);
   };
 
-  const deleteSupplier = async (id) => {
-    try {
-      // Perform delete operation
-      await axios.delete(`http://localhost:3000/supplierData/${id}`);
-      // Optionally, you can also update the suppliersData state after successful delete
-      const updatedSuppliers = suppliersData.filter(supplier => supplier.id !== id);
-      setSuppliersData(updatedSuppliers);
-    } catch (error) {
-      console.error('Error deleting supplier:', error);
-    } 
-  };
+
 
   return (
     <div className="overflow-x-auto justify-start">
@@ -101,11 +104,16 @@ const SupplierTable = () => {
                 </td>
                 <td className="py-3 border-b border-gray-200 text-center">
                   <div className={"flex gap-2"}>
-                    <EditBtn
-                      no1={"Supplier name"}
-                      no2={"Contact"}
-                      no3={"Address"}
-                    />
+                    <Button colorScheme={'twitter'} onClick={() => handleClickEdit(index+1)}>Edit</Button>
+                    {/*<EditBtn*/}
+                    {/*  no1={"Supplier name"}*/}
+                    {/*  no2={"Contact"}*/}
+                    {/*  no3={"Address"}*/}
+                    {/*  onClick={() => editSupplier(supplier.id)}*/}
+                    {/*  save={updateSupplier}*/}
+                    {/*  handleChange={handleChange}*/}
+                    {/*  dataForm={dataForm}*/}
+                    {/*/>*/}
                     <DeleteDialog onClick={() => deleteSupplier(supplier.id)} />
                   </div>
                 </td>

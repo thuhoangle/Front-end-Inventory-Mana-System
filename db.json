@@ -1,12 +1,6 @@
 {
   "supplierData": [
     {
-      "id": "1f75",
-      "supplierName": "w ",
-      "contact": "fweffwf",
-      "address": "Ho Chi Minh City"
-    },
-    {
       "id": "73a0",
       "supplierName": "Hduwahduqdu",
       "contact": "fweffwf",
@@ -17,6 +11,54 @@
       "supplierName": "Jerry",
       "contact": "It;s",
       "address": "Ho Chi Minh City"
+    },
+    {
+      "id": "4630",
+      "supplierName": "1",
+      "contact": "233",
+      "address": "534"
+    },
+    {
+      "id": "8412",
+      "supplierName": "1",
+      "contact": "3",
+      "address": "4"
+    },
+    {
+      "id": "6f62",
+      "supplierName": "12",
+      "contact": "23",
+      "address": "445"
+    },
+    {
+      "id": "aa09",
+      "supplierName": "1",
+      "contact": "1",
+      "address": "1"
+    },
+    {
+      "id": "caa4",
+      "supplierName": "2",
+      "contact": "2",
+      "address": "2"
+    },
+    {
+      "id": "e800",
+      "supplierName": "123",
+      "contact": "123",
+      "address": "hehe"
+    },
+    {
+      "id": "af04",
+      "supplierName": "jerry",
+      "contact": "hihi",
+      "address": ".."
+    },
+    {
+      "id": "8064",
+      "supplierName": "hdu",
+      "contact": "12",
+      "address": "12"
     }
   ],
   "productData": [
@@ -28,6 +70,14 @@
       "supplierName": "Hduwahduqdu",
       "price": "ưdwdwd",
       "supplier": "Hduwahduqdu"
+    },
+    {
+      "id": "f69e",
+      "sku": "1",
+      "category": "",
+      "productName": "3dq",
+      "supplierName": "Hduwahduqdu",
+      "price": "42"
     }
   ],
   "categories": [
