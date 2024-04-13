@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
-import EditBtn from "./btn/EditBtn.jsx";
-import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
+// import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
 import {Button} from "@chakra-ui/react";
-import SupplierForm from "./SupplierForm.jsx";
 
 const SupplierTable = ({ data, handleClickEdit }) => {
   const [suppliersData, setSuppliersData] = useState([]);
@@ -104,7 +102,7 @@ const SupplierTable = ({ data, handleClickEdit }) => {
                 </td>
                 <td className="py-3 border-b border-gray-200 text-center">
                   <div className={"flex gap-2"}>
-                    <Button colorScheme={'twitter'} onClick={() => handleClickEdit(index+1)}>Edit</Button>
+                    <Button colorScheme={'twitter'} onClick={() => handleClickEdit(supplier.id)}>Edit</Button>
                     {/*<EditBtn*/}
                     {/*  no1={"Supplier name"}*/}
                     {/*  no2={"Contact"}*/}

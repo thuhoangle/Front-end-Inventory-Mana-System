@@ -1,10 +1,10 @@
 {
   "supplierData": [
     {
-      "id": "73a0",
-      "supplierName": "Hduwahduqdu",
-      "contact": "fweffwf",
-      "address": "Ho Chi Minh City"
+      "supplierName": "",
+      "contact": "",
+      "address": "",
+      "id": "73a0"
     },
     {
       "id": "2011",
@@ -50,25 +50,31 @@
     },
     {
       "id": "af04",
-      "supplierName": "jerry",
-      "contact": "hihi",
-      "address": ".."
+      "supplierName": "edited thu ne",
+      "contact": "thu thui",
+      "address": "duoc la no se hien len"
     },
     {
       "id": "8064",
       "supplierName": "hdu",
       "contact": "12",
       "address": "12"
+    },
+    {
+      "id": "b761",
+      "supplierName": "shibapawpaw",
+      "contact": "co102",
+      "address": "keke"
     }
   ],
   "productData": [
     {
       "id": "5885",
-      "sku": "ưdqd",
+      "sku": "edit laij nef",
       "category": "",
-      "productName": "ưdqdwqda",
+      "productName": "edit laij nef",
       "supplierName": "Hduwahduqdu",
-      "price": "ưdwdwd",
+      "price": "edit laij nef",
       "supplier": "Hduwahduqdu"
     },
     {
@@ -78,6 +84,14 @@
       "productName": "3dq",
       "supplierName": "Hduwahduqdu",
       "price": "42"
+    },
+    {
+      "id": "5a71",
+      "sku": "4",
+      "category": "",
+      "productName": "44",
+      "supplierName": "",
+      "price": "44"
     }
   ],
   "categories": [
