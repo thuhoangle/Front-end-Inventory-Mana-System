@@ -24,13 +24,7 @@ const SupplierForm = () => {
                 await axios.post(SUPPLIER_DATA, formSupplier);
                // console.log(formSupplier.data);
                 setFormSupplier(initialValues);
-            }
-            // if (isEdit) {
-            //     const res = await axios.put(SUPPLIER_DATA`${editSupplierName}`, formSupplier);
-            //     console.log("edited", res.data);
-            //     setFormSupplier(initialValues);
-            //     setIsEdit(false);
-            // } else {
+        }
         catch (error) {
             console.error('Error:', error);
             alert('Error saving supplier data. Please try again.');

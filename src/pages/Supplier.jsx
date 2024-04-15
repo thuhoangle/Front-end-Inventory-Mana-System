@@ -26,6 +26,7 @@ const Supplier = () => {
 
 
 
+
     return (
     <div className="flex justify-center py-6 min-h-screen max-w-full">
       <div className="basis-1/3">
