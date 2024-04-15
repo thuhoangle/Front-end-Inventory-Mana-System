@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
+import {Button} from "@chakra-ui/react";
 import { WiMoonAltWaxingGibbous1 } from "react-icons/wi";
 
 import { SUPPLIER_DATA } from "../../api/endPointAPI.js";
-import EditBtn from "./btn/EditBtn.jsx";
 
-const SupplierTable = () => {
-  // Use useState to store suppliers
+const SupplierTable = ({ data}) => {
   const [suppliersData, setSuppliersData] = useState([]);
+  const [editSupplier, setEditSupplier] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  
 
 
   useEffect(() => {
@@ -19,11 +21,41 @@ const SupplierTable = () => {
       } catch (error) {
         console.log("Error fetching suppliers:", error);
       }
-    };
-
+    };      
     const intervalId = setInterval(fetchSuppliers, 500);
     return () => clearInterval(intervalId);
   }, []);
+
+  const fetchSupplierName = async (suppliername) => {
+    try {
+        const response = await axios.get(
+            SUPPLIER_DATA`/${suppliername}`
+        );
+        const newData = { ...response.data };
+        console.log("newData >>>>>", newData);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+
+
+  const deleteSupplier = async (suppliername) => {
+    try {
+      // Perform delete operation
+      await axios.delete(SUPPLIER_DATA`${suppliername}`);
+      // Optionally, you can also update the suppliersData state after successful delete
+      const updatedSuppliers = suppliersData.filter(supplier => supplier.suppliername !== suppliername);
+      setSuppliersData(updatedSuppliers);
+    } catch (error) {
+      console.error('Error deleting supplier:', error);
+    }
+  };
+
+  const handleClickEdit = (suppliername) => {
+    setEditSupplier(suppliername);
+    fetchSupplierName(suppliername);
+    console.log("Edit ID:", suppliername);
+}
 
   const generateTextFile = () => {
     const dataToExport = JSON.stringify(suppliersData, null, 2);
@@ -41,21 +73,6 @@ const SupplierTable = () => {
 
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  };
-  
-
-  const deleteSupplier = async (supplierName) => {
-    try {
-      // Perform delete operation
-      await axios.delete(`SUPPLIER_DATA/${supplierName}`);
-      // Optionally, you can also update the suppliersData state after successful delete
-      const updatedSuppliers = suppliersData.filter(
-        (supplier) => supplier.supplierName !== supplierName
-      );
-      setSuppliersData(updatedSuppliers);
-    } catch (error) {
-      console.error("Error deleting supplier:", error);
-    }
   };
 
 
@@ -91,7 +108,7 @@ const SupplierTable = () => {
           {suppliersData.map(
             (
               supplier,
-              index // Use suppliersData instead of suppliers
+              index
             ) => (
               <tr key={index}>
                 <td className="px-3 py-3 border-b border-gray-200">
@@ -108,8 +125,17 @@ const SupplierTable = () => {
                 </td>
                 <td className="py-3 border-b border-gray-200 text-center">
                   <div className={"flex gap-2"}>
-                      <EditBtn></EditBtn>
-                    <DeleteDialog onClick={() => deleteSupplier(supplier.id)} />
+                    <Button colorScheme={'twitter'} onClick={() => handleClickEdit(supplier.suppliername)}>Edit</Button>
+                    {/*<EditBtn*/}
+                    {/*  no1={"Supplier name"}*/}
+                    {/*  no2={"Contact"}*/}
+                    {/*  no3={"Address"}*/}
+                    {/*  onClick={() => editSupplier(supplier.id)}*/}
+                    {/*  save={updateSupplier}*/}
+                    {/*  handleChange={handleChange}*/}
+                    {/*  dataForm={dataForm}*/}
+                    {/*/>*/}
+                    <DeleteDialog onClick={() => deleteSupplier(supplier.suppliername)} />
                   </div>
                 </td>
               </tr>

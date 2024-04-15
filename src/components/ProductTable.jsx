@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DeleteDialog from './btn/DeleteDialog.jsx';
-import EditBtn from './btn/EditBtn.jsx';
+import {Button} from "@chakra-ui/react";
 
-const ProductTable = () => {
+const ProductTable = ({ data, handleClickEdit }) => {
+
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
@@ -82,7 +83,8 @@ const ProductTable = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div className="flex gap-4">
-                    <EditBtn no1="SKU" no2="Category" no3="Product name" no4="Description" no5="Price" />
+                    {/*<EditBtn no1="SKU" no2="Category" no3="Product name" no4="Description" no5="Price" />*/}
+                    <Button colorScheme={'twitter'} onClick={() => handleClickEdit(product.id)}>Edit</Button>
                     <DeleteDialog onClick={() => deleteProduct(product.id)} />
                   </div>
                 </td>

@@ -49,8 +49,8 @@ const Inventory = () => {
     fetch(INVENTORY_TOP_SELLING)
       .then((response) => response.json())
       .then((data) => {
-        setTopSelling(data.data);
-        console.table(data.data);
+        setTopSelling(data.top_selling);
+        console.table(data.top_selling);
       })
       .catch((error) => {
         console.error("Error fetching total products:", error);

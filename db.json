@@ -1,6 +1,7 @@
 {
   "supplierData": [
     {
+<<<<<<< HEAD
       "id": "1f75",
       "supplierName": "w ",
       "contact": "fweffwf",
@@ -11,15 +12,105 @@
       "supplierName": "2",
       "contact": "iwdwijdw",
       "address": "Ho Chi Minh City"
+=======
+      "supplierName": "",
+      "contact": "",
+      "address": "",
+      "id": "73a0"
+>>>>>>> shiba
     },
     {
       "id": "1ed3",
       "supplierName": "wehwurhw",
       "contact": "ewewrwr",
       "address": "Ho Chi Minh City"
+    },
+    {
+      "id": "4630",
+      "supplierName": "1",
+      "contact": "233",
+      "address": "534"
+    },
+    {
+      "id": "8412",
+      "supplierName": "1",
+      "contact": "3",
+      "address": "4"
+    },
+    {
+      "id": "6f62",
+      "supplierName": "12",
+      "contact": "23",
+      "address": "445"
+    },
+    {
+      "id": "aa09",
+      "supplierName": "1",
+      "contact": "1",
+      "address": "1"
+    },
+    {
+      "id": "caa4",
+      "supplierName": "2",
+      "contact": "2",
+      "address": "2"
+    },
+    {
+      "id": "e800",
+      "supplierName": "123",
+      "contact": "123",
+      "address": "hehe"
+    },
+    {
+      "id": "af04",
+      "supplierName": "edited thu ne",
+      "contact": "thu thui",
+      "address": "duoc la no se hien len"
+    },
+    {
+      "id": "8064",
+      "supplierName": "hdu",
+      "contact": "12",
+      "address": "12"
+    },
+    {
+      "id": "b761",
+      "supplierName": "shibapawpaw",
+      "contact": "co102",
+      "address": "keke"
     }
   ],
+<<<<<<< HEAD
   "productData": [],
+=======
+  "productData": [
+    {
+      "id": "5885",
+      "sku": "edit laij nef",
+      "category": "",
+      "productName": "edit laij nef",
+      "supplierName": "Hduwahduqdu",
+      "price": "edit laij nef",
+      "supplier": "Hduwahduqdu"
+    },
+    {
+      "id": "f69e",
+      "sku": "1",
+      "category": "",
+      "productName": "3dq",
+      "supplierName": "Hduwahduqdu",
+      "price": "42"
+    },
+    {
+      "id": "5a71",
+      "sku": "4",
+      "category": "",
+      "productName": "44",
+      "supplierName": "",
+      "price": "44"
+    }
+  ],
+>>>>>>> shiba
   "categories": [
     {
       "id": "1",

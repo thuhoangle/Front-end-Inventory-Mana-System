@@ -4,14 +4,16 @@ import axios from "axios";
 import { PRODUCT_DATA } from "../../api/endPointAPI";
 
 
-const ProductForm = () => {
-  const [formProduct, setFormProduct] = useState({
-    PID: "",
-    Pname: "",
-    SupplierName: "",
-    CostPrice: "",
-    UnitPrice: "",
-  });
+const ProductForm = ({ editID, setFormSubmitted }) => {
+  const initialValues ={
+    sku: "",
+    category: "",
+    productName: "",
+    supplierName: "",
+    price: "",
+  }
+  const [formProduct, setFormProduct] = useState(initialValues);
+
   const [categories, setCategories] = useState([]);
   const [supplierName, setSupplierName] = useState([]);
 
@@ -44,25 +46,6 @@ const ProductForm = () => {
     setFormProduct({ ...formProduct, [e.target.name]: e.target.value });
   };
 
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      // Make POST request to JSON server
-      await axios.post(PRODUCT_DATA, formProduct);
-
-      // Clear form fields after successful save
-      setFormProduct({
-        PID: "",
-        Pname: "",
-        SupplierName: "",
-        CostPrice: "",
-        UnitPrice: "",
-      });
-    } catch (error) {
-      console.error("Error saving product data:", error);
-      alert("Error saving product data. Please try again.");
-    }
-  };
 
   const handleCancel = () => {
     setFormProduct({
@@ -72,6 +55,58 @@ const ProductForm = () => {
       CostPrice: "",
       UnitPrice: "",
     });
+  };
+
+  const [isEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    if (editID) {
+      // Fetch data if editID is provided (edit mode)
+      setIsEdit(true);
+      fetchData(editID);
+    } else {
+      setIsEdit(false);
+    }
+  }, [editID]);
+
+  const fetchData = async (id) => {
+    try {
+      const response = await axios.get(
+          `http://localhost:3000/productData/${id}`
+      );
+      const newData = { ...response.data };
+      console.log("newData >>>>>", newData);
+      setFormProduct(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormProduct((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      if (isEdit) {
+        const res = await axios.put(`http://localhost:3000/productData/${editID}`, formProduct);
+        console.log("edited", res.data);
+        setFormProduct(initialValues);
+        setIsEdit(false);
+      } else {
+        const res = await axios.post("http://localhost:3000/productData", formProduct);
+        console.log("created", res.data);
+        setFormProduct(initialValues);
+      }
+      setFormSubmitted(prev => prev + 1);
+    } catch (error) {
+      console.error("Error saving product data:", error);
+      alert("Error saving product data. Please try again.");
+    }
   };
 
   return (
@@ -163,8 +198,7 @@ const ProductForm = () => {
           <button
             className="px-4 py-2 font-semibold bg-sky-200 text-gray-700 rounded-md hover:bg-sky-600 focus:outline-none"
             onClick={handleSave}
-          >
-            Save
+          > {isEdit ? "Update" : "Create"}
           </button>
         </div>
       </div>

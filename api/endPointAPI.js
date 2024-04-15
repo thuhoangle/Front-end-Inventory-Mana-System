@@ -15,3 +15,14 @@ export const SUPPLIER_DATA = `${BASE_URL}/typye/supplier`;
 //Product
 
 export const PRODUCT_DATA = `${BASE_URL}/typye/product`;
+
+//Dashboard
+
+export const DASHBOARD_ORDER_DATA = `${BASE_URL}/typye/home/order`;
+export const DASHBOARD_LIST_LOW_QUANTITY = `${BASE_URL}/nesgnas/listLowQuantity`;
+export const DASHBOARD_CATEGORIES_DATA = `${BASE_URL}/typye/home/category`;
+export const DASHBOARD_PRODUCTS_DATA = `${BASE_URL}/nesgnas/countProduct`;
+
+//Order
+
+export const ORDER_LIST = `${BASE_URL}/typye/order`;

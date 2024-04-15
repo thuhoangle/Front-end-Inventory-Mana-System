@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import OrderForm from '../components/OrderForm.jsx';
 import DeleteDialog from "../components/btn/DeleteDialog.jsx";
+import axios from 'axios';
 
+
+import { ORDER_LIST } from '../../api/endPointAPI.js';
 const Order = ({}) => {
-    const [orders, setOrders] = useState([
-        { id: 1, date: '2022-01-01', reference: 'ORD001', supplier: 'Supplier A' },
-        { id: 2, date: '2022-01-02', reference: 'ORD002', supplier: 'Supplier B' },
-        { id: 3, date: '2022-01-03', reference: 'ORD003', supplier: 'Supplier C' },
-    ]);
+
+    const [orderList, setOrderList]  = useState([]);
+
+    useEffect(() => {
+        const fetchOrderList = async () => {
+          try {
+            const res = await axios.get(ORDER_LIST);
+            setOrderList(res.data);
+          } catch (error) {
+            console.log("Error fetching suppliers:", error);
+          }
+        };
+        const intervalId = setInterval(fetchOrderList, 500);
+        return () => clearInterval(intervalId);
+      }, []);
+
     const [showFormModal, setShowFormModal] = useState(false);
 
     const handleEditOrder = (orderId) => {
@@ -76,16 +90,16 @@ const Order = ({}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order, index) => (
+                        {orderList.map((order, index) => (
                             <tr key={order.id}>
-                                <td className="border px-6 py-4">{index + 1}</td>
-                                <td className="border px-6 py-4">{currentDate}</td>
+                                <td className="border px-6 py-4">{order.codeorder}</td>
+                                <td className="border px-6 py-4">{order.order_detail_date}</td>
                                 <td className="border px-6 py-4">{reference}</td>
-                                <td className="border px-6 py-4">{order.supplier}</td>
+                                <td className="border px-6 py-4">{order.suppliername}</td>
                                 <td className="border px-6 py-4">
                                     <button
                                         className="bg-sky-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
-                                        onClick={() => handleEditOrder(order.id)}
+                                        onClick={() => handleEditOrder(order.codeorder)}
                                     >
                                         View
                                     </button>

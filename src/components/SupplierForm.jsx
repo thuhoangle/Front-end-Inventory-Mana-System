@@ -1,47 +1,44 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { SUPPLIER_DATA } from '../../api/endPointAPI';
 // eslint-disable-next-line react/prop-types
-const SupplierForm = () => {
-    const [formSupplier, setFormSupplier] = useState({
-        SupplierName: '',
-        SupplierContact: '',
-        SupplierAddress: '',
-    });
 
-    const handleInputChange = (e) => {
+const SupplierForm = () => {
+    const initialValues = {
+        suppliername: '',
+        suppliercontact: '',
+        supplieraddress: '',
+    };
+    const [formSupplier, setFormSupplier] = useState(initialValues);
+
+
+    const handleChange = (e) => {
         setFormSupplier({ ...formSupplier, [e.target.name]: e.target.value });
     };
 
+
+
     const handleSave = async (e) => {
         e.preventDefault();
-        
         try {
-            // Make POST request to JSON server
-            await axios.post(SUPPLIER_DATA, formSupplier);
-
-            // Clear form fields after successful save
-            setFormSupplier({
-                SupplierName: '',
-                SupplierContact: '',
-                SupplierAddress: '',
-            });
-
-            // Trigger update of supplier data in SupplierTable
-
-            
-        } catch (error) {
-            console.error('Error saving supplier data:', error);
+                await axios.post(SUPPLIER_DATA, formSupplier);
+               // console.log(formSupplier.data);
+                setFormSupplier(initialValues);
+            }
+            // if (isEdit) {
+            //     const res = await axios.put(SUPPLIER_DATA`${editSupplierName}`, formSupplier);
+            //     console.log("edited", res.data);
+            //     setFormSupplier(initialValues);
+            //     setIsEdit(false);
+            // } else {
+        catch (error) {
+            console.error('Error:', error);
             alert('Error saving supplier data. Please try again.');
         }
     };
 
     const handleCancel = () => {
-        setFormSupplier({
-            SupplierName: '',
-            SupplierContact: '',
-            SupplierAddress: '',
-        });
+        setFormSupplier(initialValues);
     };
 
 
@@ -51,35 +48,35 @@ const SupplierForm = () => {
             <div className="bg-white p-6 shadow-md rounded-md  ">
                 <h2 className="text-xl font-semibold mb-4">Supplier Form</h2>
                 <div className="mb-4">
-                    <label htmlFor="SupplierName" className="block mb-1">Supplier Name:</label>
+                    <label htmlFor="suppliername" className="block mb-1">Supplier Name:</label>
                     <input
                         type="text"
-                        id="SupplierName"
+                        id="suppliername"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='SupplierName'
-                        value={formSupplier.SupplierName}
-                        onChange={handleInputChange}
+                        name='suppliername'
+                        value={formSupplier.suppliername}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="SupplierContact" className="block mb-1">Contact:</label>
+                    <label htmlFor="suppliercontact" className="block mb-1">Contact:</label>
                     <input
                         type="text"
-                        id="SupplierContact"
+                        id="suppliercontact"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='SupplierContact'
-                        value={formSupplier.SupplierContact}
-                        onChange={handleInputChange}
+                        name='suppliercontact'
+                        value={formSupplier.suppliercontact}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="SupplierAddress" className="block mb-1">Address:</label>
+                    <label htmlFor="supplieraddress" className="block mb-1">Address:</label>
                     <textarea
-                        id="SupplierAddress"
+                        id="supplieraddress"
                         className="w-full h-auto px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='SupplierAddress'
-                        value={formSupplier.SupplierAddress}
-                        onChange={handleInputChange}
+                        name='supplieraddress'
+                        value={formSupplier.supplieraddress}
+                        onChange={handleChange}
                     ></textarea>
                 </div>
                 <div className="flex justify-center gap-4 px-20">

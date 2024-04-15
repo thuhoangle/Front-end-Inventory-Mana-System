@@ -1,42 +1,8 @@
 // const { createRoot } = ReactDOM;
-import React, {  useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import {  Button, Space, Table  } from "antd";
 import SearchBtn from "./SearchBtn.jsx";
-
-const data = [
-    {
-        key: '1',
-        name: 'Macbook',
-        code: 322,
-        category: 'Tech',
-        price: 123,
-        available:'Low stock'
-    },
-    {
-        key: '2',
-        name: 'Jelly cat',
-        code: 322,
-        category: 'Decoration',
-        price: 123,
-        available:'In stock',
-    },
-    {
-        key: '3',
-        name: 'Cola',
-        code: 322,
-        category: 'Drinks',
-        price: 123,
-        available:'Out of stock',
-    },
-    {
-        key: '4',
-        name: 'Rose',
-        code: 322,
-        category: 'Flower',
-        price: 123,
-        available:'In stock',
-    },
-];
+import axios from 'axios';
 
 // const data = [];
 // for (let i = 0; i < 46; i++) {
@@ -52,6 +18,20 @@ const DataTable = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
+    const [data, setData] = useState([]); // State to store fetched data
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/product_list'); // Replace with your API endpoint
+                setData(response.data); // Update the data state with fetched data
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData(); // Call the fetchData function when the component mounts
+    }, []); // Empty dependency array to fetch data only once when the component mounts
+
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters);
@@ -85,45 +65,45 @@ const DataTable = () => {
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'name',
+            dataIndex: 'pname',
             // sorter: true,
             // render: (name) => `${name.first} ${name.last}`,
-            key: 'name',
+            key: 'pname',
             ellipsis: true,
             sorter: (a, b) => a.name.length - b.name.length,
-            sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+            sortOrder: sortedInfo.columnKey === 'pname' ? sortedInfo.order : null,
         },
         {
             title: 'Code',
-            dataIndex: 'code',
-            key: 'code',
+            dataIndex: 'pid',
+            key: 'pid',
             // width: '10%',
         },
         {
             title: 'Category',
-            dataIndex: 'category',
-            key: 'category',
+            dataIndex: 'tname',
+            key: 'tname',
             // width: '20%',
         },
         {
             title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
+            dataIndex: 'unitprice',
+            key: 'unitprice',
             // width: '10%',
         },
         {
             title: 'Availability',
-            dataIndex: 'available',
-            key: 'available',
+            dataIndex: 'status',
+            key: 'status',
             render(text, record) {
                 return {
                     props: {
                         style: {
                             fontWeight: 'bold',
                             color:
-                                record.available === "Out of stock"
+                                record.status === "Out of stock"
                                 ? "red"
-                                : record.available === "In stock"
+                                : record.status === "In stock"
                                     ? "green"
                                     : "orange", }
                     },
@@ -133,19 +113,19 @@ const DataTable = () => {
             filters: [
                 {
                     text: 'In stock',
-                    value: 'In stock',
+                    value: 'In Stock',
                 },
                 {
-                    text: 'Low stock',
-                    value: 'Low stock',
+                    text: 'Low Stock',
+                    value: 'Low Stock',
                 },
                 {
-                    text: 'Out of stock',
-                    value: 'Out of stock',
+                    text: 'Out Of Stock',
+                    value: 'Out Of Stock',
                 },
             ],
-            filteredValue: filteredInfo.available || null,
-            onFilter: (value, record) => record.available.startsWith(value),
+            filteredValue: filteredInfo.status || null,
+            onFilter: (value, record) => record.status.startsWith(value),
             ellipsis: true,
         },
 
