@@ -42,9 +42,9 @@ const SupplierTable = ({ data}) => {
   const deleteSupplier = async (suppliername) => {
     try {
       // Perform delete operation
-      await axios.delete(SUPPLIER_DATA`${suppliername}`);
+      await axios.delete(`${SUPPLIER_DATA}/${suppliername}`);
       // Optionally, you can also update the suppliersData state after successful delete
-      const updatedSuppliers = suppliersData.filter(supplier => supplier.suppliername !== suppliername);
+      const updatedSuppliers = suppliersData.filter(supplier => supplier.SupplierName !== suppliername);
       setSuppliersData(updatedSuppliers);
     } catch (error) {
       console.error('Error deleting supplier:', error);

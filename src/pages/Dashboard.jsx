@@ -227,7 +227,17 @@ import {
           <div className="text-start p-5 text-3xl font-bold">
             Low quantity stock 
           </div>
-      
+          {/* <InfiniteScroll dataLength={listLowQuantity.length}>
+            <table>
+              <tbody>
+                {listLowQuantity.map((list, index) => (
+                  <tr key={index}>
+                    <td className="p-7">{list.Pname}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </InfiniteScroll> */}
 
         </div>
         <div className="bg-white basis-5/12 rounded-lg border border-gray-100">

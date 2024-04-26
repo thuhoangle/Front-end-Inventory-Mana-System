@@ -4,10 +4,12 @@ import DeleteDialog from "../components/btn/DeleteDialog.jsx";
 import axios from 'axios';
 
 
-import { ORDER_LIST } from '../../api/endPointAPI.js';
-const Order = ({}) => {
+import { ORDER_LIST, SUPPLIER_DATA, PRODUCT_DATA } from '../../api/endPointAPI.js';
+const Order = () => {
 
     const [orderList, setOrderList]  = useState([]);
+    const [supplierName, setSupplierName] = useState([]);
+    const [productType, setProductType] = useState([]);
 
     useEffect(() => {
         const fetchOrderList = async () => {
@@ -18,8 +20,21 @@ const Order = ({}) => {
             console.log("Error fetching suppliers:", error);
           }
         };
-        const intervalId = setInterval(fetchOrderList, 500);
+
+        const fetchSuppliersName = async () => {
+            try {
+              const res = await axios.get(SUPPLIER_DATA);
+              const uniqueSupplierNames = Array.from(new Set(res.data.map(item => item.suppliername)));
+              setSupplierName(uniqueSupplierNames);
+              console.table(uniqueSupplierNames);
+            } catch (error) {
+              console.error("Error fetching categories:", error);
+            }
+          };
+      const intervalId = setInterval(fetchOrderList, 500);
         return () => clearInterval(intervalId);
+
+
       }, []);
 
     const [showFormModal, setShowFormModal] = useState(false);
@@ -28,21 +43,18 @@ const Order = ({}) => {
         console.log('Edit order:', orderId);
     };
 
-    const handleDeleteOrder = (orderId) => {
-        console.log('Delete order:', orderId);
-    };
 
     const handleDelete = (index) => {
-        const updatedOrders = [...orders];
+        const updatedOrders = [];
         updatedOrders.splice(index, 1);
-        setOrders(updatedOrders);
+        setOrderList(updatedOrders);
     };
 
     const handleAddOrder = (newOrder) => {
         // Generating a new ID for the order
-        const newId = orders.length + 1;
-        const updatedOrders = [...orders, { id: newId, ...newOrder }];
-        setOrders(updatedOrders);
+        const newId = orderList.length + 1;
+        const updatedOrders = [...orderList, { id: newId, ...newOrder }];
+        setOrderList(updatedOrders);
         setShowFormModal(false); // Close the modal after adding the order
     };
 
@@ -54,17 +66,10 @@ const Order = ({}) => {
         setShowFormModal(false);
     };
 
-    const [currentDate, setCurrentDate] = useState('');
 
     const [reference, setReference] = useState('')
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const today = new Date();
-            const dateFormatted = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-            setCurrentDate(dateFormatted);
-        }, 1000); // Update the date every second
-        return () => clearInterval(interval);
     }, []);
 
     useEffect(()=>{
@@ -129,8 +134,6 @@ const Order = ({}) => {
             {showFormModal && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
                     <OrderForm
-                        suppliers={['Supplier A', 'Supplier B', 'Supplier C']} // Sample suppliers
-                        products={['Product A', 'Product B', 'Product C']} // Sample products
                         onAddOrder={handleAddOrder}
                         onCloseModal={closeFormModal}
                     />

@@ -15,6 +15,7 @@ export const SUPPLIER_DATA = `${BASE_URL}/typye/supplier`;
 //Product
 
 export const PRODUCT_DATA = `${BASE_URL}/typye/product`;
+export const PRODUCT_CATEGORY = `${BASE_URL}/typye/product/category`;
 
 //Dashboard
 

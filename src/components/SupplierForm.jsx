@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import { useState} from 'react'
 import axios from 'axios';
+
 import { SUPPLIER_DATA } from '../../api/endPointAPI';
 // eslint-disable-next-line react/prop-types
 
 const SupplierForm = () => {
     const initialValues = {
-        suppliername: '',
-        suppliercontact: '',
-        supplieraddress: '',
+        SupplierName: '',
+        SupplierContact: '',
+        SupplierAddress: '',
     };
     const [formSupplier, setFormSupplier] = useState(initialValues);
 
@@ -21,9 +22,9 @@ const SupplierForm = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         try {
-                await axios.post(SUPPLIER_DATA, formSupplier);
-               // console.log(formSupplier.data);
+                const response = await axios.post(SUPPLIER_DATA, formSupplier);
                 setFormSupplier(initialValues);
+                console.table(response.data)
         }
         catch (error) {
             console.error('Error:', error);
@@ -42,34 +43,34 @@ const SupplierForm = () => {
             <div className="bg-white p-6 shadow-md rounded-md  ">
                 <h2 className="text-xl font-semibold mb-4">Supplier Form</h2>
                 <div className="mb-4">
-                    <label htmlFor="suppliername" className="block mb-1">Supplier Name:</label>
+                    <label htmlFor="SupplierName" className="block mb-1">Supplier Name:</label>
                     <input
                         type="text"
-                        id="suppliername"
+                        id="SupplierName"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='suppliername'
-                        value={formSupplier.suppliername}
+                        name='SupplierName'
+                        value={formSupplier.SupplierName}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="suppliercontact" className="block mb-1">Contact:</label>
+                    <label htmlFor="SupplierContact" className="block mb-1">Contact:</label>
                     <input
                         type="text"
-                        id="suppliercontact"
+                        id="SupplierContact"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='suppliercontact'
-                        value={formSupplier.suppliercontact}
+                        name='SupplierContact'
+                        value={formSupplier.SupplierContact}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="supplieraddress" className="block mb-1">Address:</label>
+                    <label htmlFor="SupplierAddress" className="block mb-1">Address:</label>
                     <textarea
-                        id="supplieraddress"
+                        id="SupplierAddress"
                         className="w-full h-auto px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        name='supplieraddress'
-                        value={formSupplier.supplieraddress}
+                        name='SupplierAddress'
+                        value={formSupplier.SupplierAddress}
                         onChange={handleChange}
                     ></textarea>
                 </div>
