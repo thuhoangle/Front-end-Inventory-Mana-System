@@ -102,26 +102,26 @@ const DataTable = () => {
                             fontWeight: 'bold',
                             color:
                                 record.status === "Out of stock"
-                                ? "red"
+                                ? 'red'
                                 : record.status === "In stock"
-                                    ? "green"
-                                    : "orange", }
+                                    ? 'green'
+                                    : 'orange', }
                     },
                     children: <div>{text}</div>
                 };
             },
             filters: [
                 {
-                    text: 'In stock',
-                    value: 'In Stock',
+                    text: "In Stock",
+                    value: "In Stock",
                 },
                 {
-                    text: 'Low Stock',
-                    value: 'Low Stock',
+                    text: "Low Stock",
+                    value: "Low Stock",
                 },
                 {
-                    text: 'Out Of Stock',
-                    value: 'Out Of Stock',
+                    text: "Out Of Stock",
+                    value: "Out Of Stock",
                 },
             ],
             filteredValue: filteredInfo.status || null,

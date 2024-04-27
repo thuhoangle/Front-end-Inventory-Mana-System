@@ -4,6 +4,9 @@ import ProductTable from '../components/ProductTable';
 import axios from "axios";
 
 import { PRODUCT_DATA } from '../../api/endPointAPI';
+import {DataTable} from "../components/index.js";
+import DataTable2 from "../components/DataTable2.jsx";
+
 const Product = () => {
     // const [data, setData] = useState([]);
     // const [editID, setEditID] = useState();
@@ -31,13 +34,13 @@ const Product = () => {
 
 
     return (
-        <div className=" flex flex-col justify-center min-h-screen max-w-full py-6 gap-5">
-        <div className=" px-7 ">
-            <ProductForm/>
-        </div>
-        <div className="px-6">
-            <ProductTable/>
-        </div>
+        <div className=" flex flex-col justify-center min-h-screen max-w-full py-6 gap-5 overflow-x-hidden mx-3">
+            <div className="">
+                <ProductForm/>
+            </div>
+            <div className="px-3 bg-white rounded-lg">
+                <DataTable2 />
+            </div>
         </div>
     );
 };

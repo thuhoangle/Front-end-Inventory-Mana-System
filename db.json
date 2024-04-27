@@ -1,28 +1,15 @@
 {
   "supplierData": [
     {
-<<<<<<< HEAD
-      "id": "1f75",
-      "supplierName": "w ",
-      "contact": "fweffwf",
-      "address": "Ho Chi Minh City"
-    },
-    {
-      "id": "1233",
-      "supplierName": "2",
-      "contact": "iwdwijdw",
-      "address": "Ho Chi Minh City"
-=======
       "supplierName": "",
       "contact": "",
       "address": "",
       "id": "73a0"
->>>>>>> shiba
     },
     {
-      "id": "1ed3",
-      "supplierName": "wehwurhw",
-      "contact": "ewewrwr",
+      "id": "2011",
+      "supplierName": "Jerry",
+      "contact": "It;s",
       "address": "Ho Chi Minh City"
     },
     {
@@ -80,9 +67,6 @@
       "address": "keke"
     }
   ],
-<<<<<<< HEAD
-  "productData": [],
-=======
   "productData": [
     {
       "id": "5885",
@@ -110,7 +94,6 @@
       "price": "44"
     }
   ],
->>>>>>> shiba
   "categories": [
     {
       "id": "1",

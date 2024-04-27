@@ -83,6 +83,24 @@ const Order = () => {
 
     return (
         <div className="flex flex-col p-10 gap-5">
+            <div className="flex">
+                <button
+                    className="px-4 py-2 mr-2 bg-rose-300 font-semibold text-black hover:bg-rose-500 rounded-md focus:outline-none"
+                    onClick={openFormModal}
+                >
+                    Add Order
+                </button>
+            </div>
+
+            {/* Modal for the Order Form */}
+            {showFormModal && (
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                    <OrderForm
+                        onAddOrder={handleAddOrder}
+                        onCloseModal={closeFormModal}
+                    />
+                </div>
+            )}
             <div className="container bg-white mx-auto p-4">
                 <table className="min-w-full">
                     <thead>
@@ -121,24 +139,7 @@ const Order = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="flex">
-                <button
-                    className="px-4 py-2 mr-2 bg-rose-300 font-semibold text-black hover:bg-rose-500 rounded-md focus:outline-none"
-                    onClick={openFormModal}
-                >
-                    Add Order
-                </button>
-            </div>
 
-            {/* Modal for the Order Form */}
-            {showFormModal && (
-                <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                    <OrderForm
-                        onAddOrder={handleAddOrder}
-                        onCloseModal={closeFormModal}
-                    />
-                </div>
-            )}
         </div>
     );
 };

@@ -38,8 +38,8 @@ const ProductTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <div className="w-[1200px] h-[66px] border rounded-[10px] bg-white px-5 justify-start items-center inline-flex">
+    <div className="overflow-x-hidden">
+      <div className="max-x-screen max-h-fit border rounded-lg bg-white px-5 justify-start items-center inline-flex">
         <div className="text-black text-2xl font-semibold font-['Inter'] leading-9">
           Product List
         </div>

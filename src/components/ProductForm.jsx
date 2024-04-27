@@ -73,58 +73,52 @@ const ProductForm = () => {
     setFormProduct(initialValues);
   };
 
+
   return (
-    <div className="w-[1200px] h-[300px] bg-white rounded-[10px] border flex-col justify-start items-center gap-[15px] inline-flex">
-      <div className="w-[1120px] pt-5 pb-2.5 justify-start items-start inline-flex">
-        <div className="text-black text-2xl font-bold font-['Inter'] leading-[34px]">
+    <div className="max-w-screen pt-5 pb-5 px-3 bg-white rounded-lg border flex-col justify-start gap-2 inline-flex">
+      {/*<div className="w-[1120px] pt-5 pb-2.5 justify-start items-start inline-flex">*/}
+      <div className="pb-2 justify-start items-center inline-flex text-black text-2xl font-bold">
+        <div>
           Product form
         </div>
       </div>
-      <div className="self-stretch px-10 ">
-        <div className="rounded-[10px] border justify-between items-center py-5 flex flex-row gap-3">
-          <div className="w-[170px] flex-col justify-center items-start inline-flex px-4">
-            <div className="self-stretch text-black text-xl font-normal font-['Inter'] leading-[34px]">
+      <div className={"gap-1"}>
+      <div className="justify-between items-center py-5 flex shrink w-fit flex-row gap-3 ">
+          <div className="gap-1 flex-col justify-center items-start inline-flex">
+            <div className="text-xl font-normal ">
               SKU
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[150px] px-4 py-2 bg-white rounded-[5px] border border-zinc-400 justify-start items-center gap-1 inline-flex">
                 <input
                   type="text"
                   name="pid"
                   value={formProduct.pid}
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:border-neutral-500"
+                  className="w-max  px-2 py-1 bg-white rounded-md border border-zinc-400 justify-start items-center flex text-base"
                   onChange={handleInputChange}
                 />
-              </div>
-            </div>
           </div>
-          <div className="w-[220px] flex-col justify-center items-start inline-flex">
-            <div className="self-stretch text-black text-xl font-semi leading-[34px] font-normal font-['Inter']">
+
+          <div className="w-fit flex-col justify-center items-start inline-flex gap-1">
+            <div className="text-xl font-normal">
               Product name
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[200px] px-4 py-2 bg-white rounded-[5px] border border-zinc-400 justify-start items-center gap-1 inline-flex ">
-                <input
+            <input
                   type="text"
                   name="pname"
                   value={formProduct.pname}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:border-neutral-500"
-                />
-              </div>
-            </div>
+                  className="max-w-fit px-2 py-1 bg-white rounded-md border border-zinc-400 justify-start items-center flex text-base"
+            />
           </div>
-          <div className="w-[220px] flex-col justify-center items-start inline-flex">
-            <div className="self-stretch text-black text-xl leading-[34px] font-normal font-['Inter']">
+          <div className="gap-1 w-full flex-col justify-center items-start inline-flex">
+            <div className="text-xl font-normal ">
               Category
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[200px] px-4 py-2 bg-white rounded-lg shadow border border-gray-300 justify-between items-center inline-flex">
-                <select
+              <select
                   name="TName"
                   value={formProduct.TName}
                   onChange={handleInputChange}
-                  className="justify-start items-center flex w-full h-full text-gray-500 text-base font-normal font-['Inter'] leading-normal outline-none"
+                  className="w-full px-2 py-1 bg-white rounded-md border border-zinc-400 justify-start items-center flex text-base"
+
                 >
                   <option value="">Select Category</option>
                   {productType.map((type, index) => (
@@ -132,21 +126,17 @@ const ProductForm = () => {
                       {type}
                     </option>
                   ))}
-                </select>
-              </div>
-            </div>
+              </select>
           </div>
-          <div className="w-[220px] flex-col justify-center items-start inline-flex">
-            <div className="self-stretch text-black text-xl font-normal font-['Inter'] leading-[34px]">
+          <div className="gap-1 w-full flex-col justify-center items-start inline-flex">
+            <div className="text-xl font-normal">
               Supplier
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[200px] px-4 py-2 bg-white rounded-lg shadow border border-gray-300 justify-between items-center inline-flex">
                 <select
                   name="suppliername"
                   value={formProduct.suppliername}
                   onChange={handleInputChange}
-                  className="justify-start items-center flex w-full h-full text-gray-500 text-base font-normal font-['Inter'] leading-normal outline-none"
+                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center "
                 >
                   <option value="">Select Supplier</option>
                   {supplierName.map((supplier, index) => (
@@ -155,61 +145,48 @@ const ProductForm = () => {
                     </option>
                   ))}
                 </select>
-              </div>
-            </div>
           </div>
-          <div className="w-[120px] flex-col justify-center items-start inline-flex">
-            <div className="self-stretch text-black text-xl font-normal font-['Inter'] leading-[34px]">
-              Cost Price
+          <div className="gap-1 w-fit flex-col justify-center items-start inline-flex basis-1/2">
+            <div className="flex text-xl font-normal ">
+              Cost price
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[100px] px-4 py-2 bg-white rounded-[5px] border border-zinc-400 justify-start items-center gap-2.5 inline-flex">
-                <input
+              <input
                   type="text"
                   name="costprice"
                   value={formProduct.costprice}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:border-neutral-500"
-                />
-              </div>
-            </div>
+                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center inline-flex"
+              />
           </div>
-          <div className="w-[120px] flex-col justify-center items-start inline-flex">
-            <div className="self-stretch text-black text-xl font-normal font-['Inter'] leading-[34px]">
-              Unit Price
+          <div className="gap-1 w-fit flex-col justify-center items-start inline-flex basis-1/2">
+            <div className="text-xl font-normal">
+              Unit price
             </div>
-            <div className="flex-col justify-start items-start flex">
-              <div className="w-[100px] px-4 py-2 bg-white rounded-[5px] border border-zinc-400 justify-start items-center inline-flex">
                 <input
                   type="text"
                   name="unitprice"
                   value={formProduct.unitprice}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:border-neutral-500"
+                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center inline-flex"
                 />
-              </div>
-            </div>
           </div>
         </div>
+
         <div className=" flex items-center py-5 justify-end gap-3">
           <butoon
-            className="w-[110px] h-10 px-3.5 py-2 bg-gray-300 rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex"
+            className="w-30 px-3.5 py-2 text-base font-medium bg-gray-300 rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex"
             onClick={handleCancel}
           >
-            <div className="text-black text-base font-medium font-['Inter'] leading-tight">
               Clear
-            </div>
           </butoon>
           <button
-            className="w-[110px] h-10 px-3.5 py-2 bg-sky-400 hover:bg-sky-300 rounded-lg shadow border border-sky-500 justify-center items-center gap-2 flex"
+            className="w-30 px-3.5 py-2 bg-blue hover:bg-sky-300 rounded-lg shadow border border-sky-500 justify-center items-center gap-2 flex text-neutral-50 text-base font-medium "
             onClick={handleSave}
           >
-            <div className="text-neutral-50 text-base font-medium font-['Inter'] leading-tight">
               Save
-            </div>
           </button>
         </div>
-      </div>
+    </div>
     </div>
   );
 };
