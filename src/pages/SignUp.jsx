@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false)
   return (
-    <>
       <div className='flex bg-gray-200 h-screen'>
         <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col'>
           <p className='p-4'>INVENTORY</p>
@@ -68,7 +67,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-    </>
+  
   )
 }
 export default SignUp
