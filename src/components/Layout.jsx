@@ -5,6 +5,8 @@ import Supplier from "../pages/Supplier";
 import Order from "../pages/Order";
 import {SideBar} from "./index.js";
 import {Inventory} from "../pages/index.js";
+import Export from "../pages/Export.jsx";
+import ExportHistory from "../pages/ExportHistory.jsx";
 
 const Layout = () => {
     return (
@@ -19,6 +21,8 @@ const Layout = () => {
                  <Supplier/>
                  <Dashboard/>
                 <Inventory/>
+                <Export/>
+                <ExportHistory/>
             </div>            
 
         </div>
