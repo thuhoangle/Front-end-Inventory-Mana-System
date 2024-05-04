@@ -19,33 +19,40 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   };
 
   useEffect(() => {
-    const fetchProductName = async () => {
-      try {
-        const res = await axios.get(PRODUCT_DATA);
-        const productGetName = Array.from(new Set(res.data.map((item) => item.pname)));
-        const productGetPrice = Array.from(new Set(res.data.map((item) => item.unitprice)));
-        setProductName(productGetName);
-        setProductPrice(productGetPrice);
-        console.table(res.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    const fetchSuppliersName = async () => {
+    const fetchSupplierName = async () => {
       try {
         const res = await axios.get(SUPPLIER_DATA);
-        const uniqueSupplierNames = Array.from(new Set(res.data.map((item) => item.suppliername)));
-        setSupplierName(uniqueSupplierNames);
-        console.table(uniqueSupplierNames);
+        const supplierGetName = Array.from(new Set(res.data.map((item) => item.suppliername)));
+        setSupplierName(supplierGetName);
+        console.table(res.data);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching supplier names:", error);
       }
     };
-
-    fetchSuppliersName();
-    fetchProductName(); // Call fetchCategories function here
+    fetchSupplierName();
   }, []);
+
+  const fetchProductName = async (supplierName) => {
+    try {
+      const res = await axios.get(`https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/products/${supplierName}`);
+      const productGetName = Array.from(new Set(res.data.map((item) => item.pname)));
+      setProductName(productGetName);
+      console.table(productGetName);
+    } catch (error) {
+      console.error("Error fetching product names:", error);
+    }
+  };
+
+  const handleSupplierChange = (selectedSupplier) => {
+    setSelectedSupplier(selectedSupplier);
+    // Fetch product names based on selected supplier
+    fetchProductName(selectedSupplier);
+    // Reset selected product and quantity
+    setSelectedProduct("");
+    setQuantity("");
+    // Reset order list
+    setOrderList([]);
+  };
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -63,18 +70,17 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
 
   const handleAddToList = () => {
     // Find the selected product by its name
-    const selectedProductData = productName.find((product) => product.pname === selectedProduct);
+    const selectedProductData = productName.find((product) => product === selectedProduct);
     // Create the order item
     const orderItem = {
-      product: selectedProductData ? selectedProductData.pname : "",
+      product: selectedProductData ? selectedProductData : "",
       quantity: parseInt(quantity),
-      price: selectedProductData ? parseInt(selectedProductData.unitprice) : 0,
-      amount: parseInt(quantity) * parseInt(selectedProductData ? selectedProductData.unitprice : 0),
+      price: 0, // You need to fetch the price from the API or set it appropriately
+      amount: 0, // You need to calculate the amount based on the price and quantity
     };
     // Add the order item to the list
     setOrderList([...orderList, orderItem]);
     // Clear form fields
-    setSelectedSupplier("");
     setSelectedProduct("");
     setQuantity("");
   };
@@ -100,7 +106,7 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
           id="supplier"
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           value={selectedSupplier}
-          onChange={(e) => setSelectedSupplier(e.target.value)}
+          onChange={(e) => handleSupplierChange(e.target.value)}
         >
           <option value="">Select Supplier</option>
           {supplierName.map((supplier, index) => (
