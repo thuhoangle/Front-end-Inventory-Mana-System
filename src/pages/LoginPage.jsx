@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
+
+
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        
+        navigate("/");
+    };
+
     return(
             <div className='flex bg-gray-200 h-screen'>
                 <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col'>
@@ -37,7 +46,7 @@ const LoginPage = () => {
                             <label>Forgot password</label>
                         </div>
                     </div>
-                    <button className='bg-blue p-3 rounded-lg text-white font-semibold w-1/2'>Log in</button>
+                    <button className='bg-blue p-3 rounded-lg text-white font-semibold w-1/2' onClick={handleLogin}>Log in</button>
                     <div>
                         <label className='text-center'>Or login with</label>
                     </div>
