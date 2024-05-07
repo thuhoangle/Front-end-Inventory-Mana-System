@@ -15,10 +15,13 @@ const LoginPage = () => {
 
     return(
             <div className='flex bg-gray-200 h-screen'>
-                <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col'>
-                    <p className='p-4'>INVENTORY</p>
-                    <p className='p-4'>MANAGEMENT</p>
-                    <p className='p-4'>SYSTEM</p>
+                <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-24'>
+                    <div className='text-center'>
+                        <p className='p-1 mb-1'>INVENTORY</p>
+                        <p className='p-1 mb-1'>MANAGEMENT</p>
+                        <p className='p-1'>SYSTEM</p>
+                    </div>
+                    <img src='src/assets/login_asset/1.jpg' alt='hello'/>
                 </div>
                 <div className='flex flex-col w-1/2 items-center justify-center'>
                     <div className='w-1/2'>
