@@ -11,7 +11,7 @@ const SideBar = () => {
     // pl-3 pr-12
     return (
         <NavigationMenu.Root orientation='vertical'
-                            className='h-screen w-[220px] bg-white px-4 pt-2 pb-2.5  '>
+                            className='h-screen w-[240px] bg-white px-4 pt-2 pb-2.5  '>
 
             <div className='flex flex-col gap-5'>
                 <p className='font-black text-4xl self-center '>Group1</p>
@@ -74,6 +74,24 @@ const SideBar = () => {
                                         <BsClipboard className={'h-6 w-6'}/>
                                         Order
                                 </NavigationMenu.Item>
+                    </NavLink>
+
+                    <NavLink to={'/export'}  className={({ isActive}) => (isActive ? active : normal )}>
+                        <NavigationMenu.Item
+                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-4 text-xl font-semibold rounded-lg'}
+                        >
+                            <BsClipboard className={'h-6 w-6'}/>
+                            Export
+                        </NavigationMenu.Item>
+                    </NavLink>
+
+                    <NavLink to={'/export-history'}  className={({ isActive}) => (isActive ? active : normal )}>
+                        <NavigationMenu.Item
+                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-4 text-xl font-semibold rounded-lg'}
+                        >
+                            <BsClipboard className={'h-6 w-6'}/>
+                            Export history
+                        </NavigationMenu.Item>
                     </NavLink>
                 </NavigationMenu.List>
 

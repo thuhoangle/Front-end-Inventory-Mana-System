@@ -16,7 +16,7 @@ const PageLayout = ({children}) => {
                     templateAreas={`"nav header"
                   "nav main"`}
                     gridTemplateRows={'50px auto '}
-                    gridTemplateColumns={'220px auto'}
+                    gridTemplateColumns={'240px auto'}
                 >
                     <GridItem  area={'header'} className={' sticky'}>
                         <Header/>
