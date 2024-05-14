@@ -1,88 +1,119 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { ORDER_LIST, SUPPLIER_DATA, PRODUCT_DATA, PRODUCT_CATEGORY } from "../../api/endPointAPI.js";
+import { ORDER_LIST, SUPPLIER_DATA, PRODUCT_DATA } from "../../api/endPointAPI.js";
 
 const OrderForm = ({ onAddOrder, onCloseModal }) => {
-  const [supplierName, setSupplierName] = useState([]);
-  const [productName, setProductName] = useState([]);
-  const [productPrice, setProductPrice] = useState([]);
-  const [selectedSupplier, setSelectedSupplier] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [supplier, setSupplier] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [SupplierName, setSupplierName] = useState("");
+  const [ProductName, setProductName] = useState("");
+  const [Quantity, setQuantity] = useState("");
   const [orderList, setOrderList] = useState([]);
+  const [warehouses, setWarehouses] = useState([]);
+  const [Warehouse, setWarehouse] = useState("");
+  const [Order_Detail_ID, setOrder_Detail_ID] = useState("");
 
-  const initialValues = {
-    suppliername: "",
-    productname: "",
-    quantity: "",
-  };
+  const [productPrice, setProductPrice] = useState(0); 
 
   useEffect(() => {
     const fetchSupplierName = async () => {
       try {
         const res = await axios.get(SUPPLIER_DATA);
         const supplierGetName = Array.from(new Set(res.data.map((item) => item.suppliername)));
-        setSupplierName(supplierGetName);
+        setSupplier(supplierGetName);
         console.table(res.data);
       } catch (error) {
         console.error("Error fetching supplier names:", error);
       }
     };
     fetchSupplierName();
+
+    const fetchWarehouses = async () => {
+      try {
+        const res = await axios.get("https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/warehouse");
+        setWarehouses(res.data);
+        console.table(res.data);
+      } catch (error) {
+        console.error("Error fetching warehouses:", error);
+      }
+    };
+    fetchWarehouses();
   }, []);
 
   const fetchProductName = async (supplierName) => {
     try {
       const res = await axios.get(`https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/products/${supplierName}`);
       const productGetName = Array.from(new Set(res.data.map((item) => item.pname)));
-      setProductName(productGetName);
+      setProduct(productGetName);
       console.table(productGetName);
     } catch (error) {
       console.error("Error fetching product names:", error);
     }
   };
 
+  const fetchProductPrice = async (productName) => {
+    try {
+      const res = await axios.get(`${PRODUCT_DATA}/${productName}`);
+      const product = res.data; // Assuming the response contains a single product
+      if (product.costprice) {
+        const price = parseFloat(product.costprice);
+        setProductPrice(price);
+        console.log("Product price fetched:", price);
+      }
+    } catch (error) {
+      console.error("Error fetching product price:", error);
+    }
+  };
+
+  const handleAddToList = async () => {
+    await fetchProductPrice(ProductName);
+  };
+
+  useEffect(() => {
+    if (ProductName && Quantity !== "" && productPrice !== 0) {
+      const orderItem = {
+        ProductName: ProductName,
+        Quantity: parseInt(Quantity),
+        Price: productPrice,
+        Amount: parseInt(Quantity) * productPrice,
+        SupplierName: SupplierName,
+        Warehouse: Warehouse,
+      };
+      setOrderList([...orderList, orderItem]);
+      setProductName("");
+      setQuantity("");
+    }
+  }, [productPrice]); // Run this effect whenever productPrice changes
+
   const handleSupplierChange = (selectedSupplier) => {
-    setSelectedSupplier(selectedSupplier);
-    // Fetch product names based on selected supplier
+    setSupplierName(selectedSupplier);
     fetchProductName(selectedSupplier);
-    // Reset selected product and quantity
-    setSelectedProduct("");
+    setProductName("");
     setQuantity("");
-    // Reset order list
     setOrderList([]);
+  };
+
+  const handleWarehouseChange = (selectedWarehouse) => {
+    setWarehouse(selectedWarehouse);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
+    const ordersWithId = orderList.map(order => ({
+      ...order,
+      OrderID: Order_Detail_ID,  // Add OrderID to each order
+    }));
     try {
-      const response = await axios.post(ORDER_LIST, orderList);
+      const response = await axios.post(ORDER_LIST, { orders: ordersWithId });
       setOrderList([]);
       console.table(response.data);
     } catch (error) {
       console.error("Error:", error);
-      alert("Error saving supplier data. Please try again.");
+      alert("Error saving order data. Please try again.");
     }
     onAddOrder(orderList);
     onCloseModal();
-  };
-
-  const handleAddToList = () => {
-    // Find the selected product by its name
-    const selectedProductData = productName.find((product) => product === selectedProduct);
-    // Create the order item
-    const orderItem = {
-      product: selectedProductData ? selectedProductData : "",
-      quantity: parseInt(quantity),
-      price: 0, // You need to fetch the price from the API or set it appropriately
-      amount: 0, // You need to calculate the amount based on the price and quantity
-    };
-    // Add the order item to the list
-    setOrderList([...orderList, orderItem]);
-    // Clear form fields
-    setSelectedProduct("");
-    setQuantity("");
   };
 
   const handleDelete = (index) => {
@@ -92,24 +123,56 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-2xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md overflow-auto">
       <div className={"close float-end text-2xl hover:text-red cursor-pointer"} onClick={onCloseModal}>
         &times;
       </div>
 
       <h2 className="text-xl font-semibold mb-4">New Order</h2>
+
       <div className="mb-4">
-        <label htmlFor="supplier" className="block mb-1">
+        <label htmlFor="Order_Detail_ID" className="block mb-1">
+          Order ID:
+        </label>
+        <input
+          type="text"
+          id="Order_Detail_ID"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+          value={Order_Detail_ID}
+          onChange={(e) => setOrder_Detail_ID(e.target.value)}
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label htmlFor="Warehouse" className="block mb-1">
+          Warehouse:
+        </label>
+        <select
+          id="Warehouse"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+          value={Warehouse}
+          onChange={(e) => handleWarehouseChange(e.target.value)}
+        >
+          <option value="">Select Warehouse</option>
+          {warehouses.map((warehouse, index) => (
+            <option key={index} value={warehouse.wname}>
+              {warehouse.wname}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="mb-4">
+        <label htmlFor="SupplierName" className="block mb-1">
           Supplier:
         </label>
         <select
-          id="supplier"
+          id="SupplierName"
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          value={selectedSupplier}
+          value={SupplierName}
           onChange={(e) => handleSupplierChange(e.target.value)}
         >
           <option value="">Select Supplier</option>
-          {supplierName.map((supplier, index) => (
+          {supplier.map((supplier, index) => (
             <option key={index} value={supplier}>
               {supplier}
             </option>
@@ -123,11 +186,11 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
         <select
           id="product"
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          value={selectedProduct}
-          onChange={(e) => setSelectedProduct(e.target.value)}
+          value={ProductName}
+          onChange={(e) => setProductName(e.target.value)}
         >
           <option value="">Select Product</option>
-          {productName.map((product, index) => (
+          {product.map((product, index) => (
             <option key={index} value={product}>
               {product}
             </option>
@@ -135,17 +198,18 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
         </select>
       </div>
       <div className="mb-4">
-        <label htmlFor="quantity" className="block mb-1">
+        <label htmlFor="Quantity" className="block mb-1">
           Quantity:
         </label>
         <input
           type="number"
-          id="quantity"
+          id="Quantity"
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          value={quantity}
+          value={Quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
+
       <div className="flex justify-end gap-5">
         <button
           className="px-4 py-2 bg-sky-200 font-semibold rounded-md hover:bg-sky-600 focus:outline-none"
@@ -161,7 +225,7 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
         </button>
       </div>
 
-      <table className="min-w-full">
+      <table className="min-w-full  ">
         <thead>
           <tr>
             <th className="px-6 py-3 text-left">Product</th>
@@ -174,13 +238,13 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
         <tbody>
           {orderList.map((orderItem, index) => (
             <tr key={index}>
-              <td className="border px-6 py-4">{orderItem.product}</td>
-              <td className="border px-6 py-4">{orderItem.quantity}</td>
-              <td className="border px-6 py-4">{orderItem.price}</td>
-              <td className="border px-6 py-4">{orderItem.amount}</td>
+              <td className="border px-6 py-4">{orderItem.ProductName}</td>
+              <td className="border px-6 py-4">{orderItem.Quantity}</td>
+              <td className="border px-6 py-4">{orderItem.Price}</td>
+              <td className="border px-6 py-4">{orderItem.Amount}</td>
               <td className="border px-6 py-4">
                 <button
-                  className="bg-red-500 text-red font-bold px-4 py-2 rounded-md hover:bg-red-600"
+                  className=" text-red font-bold px-4 py-2 rounded-md hover:bg-red-600"
                   onClick={() => handleDelete(index)}
                 >
                   Remove
