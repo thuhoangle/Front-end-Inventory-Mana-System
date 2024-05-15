@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import {BsBoxSeam, BsCart2, BsClipboard, BsTruck} from "react-icons/bs";
+import {BsBoxSeam, BsCart2, BsClipboard, BsTruck, BsClipboardData} from "react-icons/bs";
+import { LuHistory } from "react-icons/lu";
 import {RxDashboard} from "react-icons/rx";
 import * as Avatar from "@radix-ui/react-avatar";
 
@@ -78,18 +79,18 @@ const SideBar = () => {
 
                     <NavLink to={'/export'}  className={({ isActive}) => (isActive ? active : normal )}>
                         <NavigationMenu.Item
-                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-4 text-xl font-semibold rounded-lg'}
+                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-3 text-xl font-semibold rounded-lg'}
                         >
-                            <BsClipboard className={'h-6 w-6'}/>
+                            <BsClipboardData className={'h-6 w-6'}/>
                             Export
                         </NavigationMenu.Item>
                     </NavLink>
 
                     <NavLink to={'/export-history'}  className={({ isActive}) => (isActive ? active : normal )}>
                         <NavigationMenu.Item
-                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-4 text-xl font-semibold rounded-lg'}
+                            className={'justify-start items-center hover:bg-lightGray hover:text-gray-700  flex no-underline outline-none p-2.5 gap-3 text-xl font-semibold rounded-lg'}
                         >
-                            <BsClipboard className={'h-6 w-6'}/>
+                            <LuHistory className={'h-7 w-[1.5rem]'}/>
                             Export history
                         </NavigationMenu.Item>
                     </NavLink>
