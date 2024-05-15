@@ -1,4 +1,5 @@
 import React from 'react'
+import { IoChevronDown } from "react-icons/io5";
 import * as Avatar from "@radix-ui/react-avatar";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {SearchBtn} from "./index.js";
@@ -13,10 +14,11 @@ const Header = () => {
 
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
-                        <Avatar.Root className='inline-flex h-10 w-10 items-center overflow-hidden rounded-full align-middle cursor-pointer'>
-                            <Avatar.Image className=' h-full w-full rounded-[inherit] object-cover'
+                        <Avatar.Root className='flex gap-2 pr-2   items-center overflow-hidden rounded-box align-middle cursor-pointer hover:bg-gray-200'>
+                            <Avatar.Image className=' h-9 w-9 rounded-full object-cover'
                                           src='src/assets/snoopy.jpeg' alt='avatar'>
                             </Avatar.Image>
+                            <IoChevronDown />
                         </Avatar.Root>
                     </DropdownMenu.Trigger>
 
