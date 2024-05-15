@@ -12,9 +12,6 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   const [orderList, setOrderList] = useState([]);
   const [warehouses, setWarehouses] = useState([]);
   const [Warehouse, setWarehouse] = useState("");
-  const [Order_Detail_ID, setOrder_Detail_ID] = useState("");
-
-  const [productPrice, setProductPrice] = useState(0); 
 
   useEffect(() => {
     const fetchSupplierName = async () => {
@@ -58,25 +55,23 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
       const product = res.data; // Assuming the response contains a single product
       if (product.costprice) {
         const price = parseFloat(product.costprice);
-        setProductPrice(price);
-        console.log("Product price fetched:", price);
+        return price;
       }
+      return 0;
     } catch (error) {
       console.error("Error fetching product price:", error);
+      return 0;
     }
   };
 
   const handleAddToList = async () => {
-    await fetchProductPrice(ProductName);
-  };
-
-  useEffect(() => {
-    if (ProductName && Quantity !== "" && productPrice !== 0) {
+    const price = await fetchProductPrice(ProductName);
+    if (ProductName && Quantity !== "" && price !== 0) {
       const orderItem = {
         ProductName: ProductName,
         Quantity: parseInt(Quantity),
-        Price: productPrice,
-        Amount: parseInt(Quantity) * productPrice,
+        Price: price,
+        Amount: parseInt(Quantity) * price,
         SupplierName: SupplierName,
         Warehouse: Warehouse,
       };
@@ -84,7 +79,7 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
       setProductName("");
       setQuantity("");
     }
-  }, [productPrice]); // Run this effect whenever productPrice changes
+  };
 
   const handleSupplierChange = (selectedSupplier) => {
     setSupplierName(selectedSupplier);
@@ -102,8 +97,8 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
     e.preventDefault();
     const ordersWithId = orderList.map(order => ({
       ...order,
-      OrderID: Order_Detail_ID,  // Add OrderID to each order
     }));
+    console.table(ordersWithId)
     try {
       const response = await axios.post(ORDER_LIST, { orders: ordersWithId });
       setOrderList([]);
@@ -129,20 +124,6 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
       </div>
 
       <h2 className="text-xl font-semibold mb-4">New Order</h2>
-
-      <div className="mb-4">
-        <label htmlFor="Order_Detail_ID" className="block mb-1">
-          Order ID:
-        </label>
-        <input
-          type="text"
-          id="Order_Detail_ID"
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          value={Order_Detail_ID}
-          onChange={(e) => setOrder_Detail_ID(e.target.value)}
-        />
-      </div>
-      
       <div className="mb-4">
         <label htmlFor="Warehouse" className="block mb-1">
           Warehouse:
