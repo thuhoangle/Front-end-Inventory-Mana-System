@@ -1,8 +1,77 @@
 import React from 'react'
 import {Button} from "@chakra-ui/react";
 import DeleteDialog from "../components/btn/DeleteDialog.jsx";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+    PRODUCT_DATA,
+    SUPPLIER_DATA,
+    PRODUCT_CATEGORY,
+    WAREHOUSE,
+  } from "../../api/endPointAPI";
+
 
 const Export = () => {
+  const [supplierName, setSupplierName] = useState([]);
+  const initialValues = {
+    pid: "",
+    pname: "",
+    suppliername: "",
+    costprice: "",
+    unitprice: "",
+    TName: "",
+  };
+  const [formProduct, setFormProduct] = useState(initialValues);
+  const [warehouse,setWarehouse] = useState()
+  const [productName,setProductName]=useState()
+
+  useEffect(() => {
+    const fetchWarehouses = async ()=>
+        {
+            
+                await axios.get(WAREHOUSE)
+                .then(res=>
+                    setWarehouse(res.data)
+                )
+                .catch(err=>
+                    {
+                        console.log("Error due to ", err)
+                    }
+                )
+        }
+
+
+
+    const fetchSuppliersName = async () => {
+      try {
+        const res = await axios.get(SUPPLIER_DATA);
+        const uniqueSupplierNames = Array.from(
+          new Set(res.data.map((item) => item.suppliername))
+        );
+        setSupplierName(uniqueSupplierNames);
+        // console.table(uniqueSupplierNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    const fetchProductName = async () => {
+        try {
+          const res = await axios.get(PRODUCT_DATA);
+          setProductName(res.data)
+        } catch (error) {
+          console.error("Error fetching product name:", error);
+        }
+      };
+
+    fetchSuppliersName();
+    fetchWarehouses()
+    fetchProductName()
+  }, []);
+
+  const handleInputChange = (e) => {
+    setFormProduct({ ...formProduct, [e.target.name]: e.target.value });
+  };
     return (
         <div className="overflow-x-auto h-screen flex flex-col justify-between p-10 gap-5">
             <div>
@@ -24,13 +93,32 @@ const Export = () => {
 
                             >
                                 <option value="">Select Warehouse</option>
-                                {/*{exportType.map((type, index) => (*/}
-                                {/*    <option key={index} value={type}>*/}
-                                {/*        {type}*/}
-                                {/*    </option>*/}
-                                {/*))}*/}
+                               {
+                                warehouse?.map((item,index)=>
+                                (<option key={index} value={item.wname}>{item.wname}</option>
+                                ))
+                               }
                             </select>
                         </div>
+
+                        <div className="gap-1 w-full flex-col justify-center items-start inline-flex">
+            <div className="text-xl font-normal">
+              Supplier
+            </div>
+                <select
+                  name="suppliername"
+                  value={formProduct.suppliername}
+                  onChange={handleInputChange}
+                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center "
+                >
+                  <option value="">Select Supplier</option>
+                  {supplierName.map((supplier, index) => (
+                    <option key={index} value={supplier}>
+                      {supplier}
+                    </option>
+                  ))}
+                </select>
+          </div>
 
                         <div className="w-fit flex-col justify-center items-start inline-flex basis-1/2 gap-1">
                             <div className="text-md">
@@ -44,11 +132,10 @@ const Export = () => {
 
                             >
                                 <option value="">Select Product</option>
-                                {/*{exportType.map((type, index) => (*/}
-                                {/*    <option key={index} value={type}>*/}
-                                {/*        {type}*/}
-                                {/*    </option>*/}
-                                {/*))}*/}
+                               {
+                                productName?.map((product,index)=>
+                                (<option key={index} value={product.pname}>{product.pname}</option>))
+                               }
                             </select>
                         </div>
                         <div className="gap-1 w-fit flex-col justify-center items-start inline-flex basis-1/2">
