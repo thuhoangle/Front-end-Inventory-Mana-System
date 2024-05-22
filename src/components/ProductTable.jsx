@@ -1,39 +1,39 @@
-// const { createRoot } = ReactDOM;
-import React, {  useState, useEffect } from 'react';
-import { Table  } from "antd";
-import {Button} from "@chakra-ui/react";
+// ProductTable.jsx
+import React, { useState, useEffect } from 'react';
+import { Table } from "antd";
+import { Button } from "@chakra-ui/react";
 import axios from 'axios';
-import {PRODUCT_DATA} from "../../api/endPointAPI.js";
-import DeleteDialog from "./btn/DeleteDialog.jsx";
+import { PRODUCT_DATA } from "../../api/endPointAPI.js";
+import EditProductModal from './EditProductModal'; // Import the modal
 
 const ProductTable = () => {
-    const [productsData, setProductsData] = useState([]); // State to store fetched data
+    const [productsData, setProductsData] = useState([]);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(PRODUCT_DATA,{
+                const response = await axios.get(PRODUCT_DATA, {
                     headers: {
-                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
-                  }); // Replace with your API endpoint
-                setProductsData(response.data); // Update the data state with fetched data
+                });
+                setProductsData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-        fetchData(); // Call the fetchData function when the component mounts
-    }, []); // Empty dependency array to fetch data only once when the component mounts
+        fetchData();
+    }, []);
 
     const deleteProduct = async (pid) => {
         try {
-            // Perform delete operation
-            await axios.delete(`${PRODUCT_DATA}/${pid}`,{
+            await axios.delete(`${PRODUCT_DATA}/${pid}`, {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-              });
-            // Optionally, you can also update the suppliersData state after successful delete
+            });
             const updatedProducts = productsData.filter(
                 (product) => product.pid !== pid
             );
@@ -43,79 +43,94 @@ const ProductTable = () => {
         }
     };
 
-    const columns = [
+    const handleEdit = (pid) => {
+        setSelectedProductId(pid);
+        setIsEditModalOpen(true);
+    };
 
+    const handleModalClose = () => {
+        setIsEditModalOpen(false);
+        setSelectedProductId(null);
+    };
+
+    const handleProductUpdated = () => {
+        // Refetch the data or update the state as needed
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(PRODUCT_DATA, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                setProductsData(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    };
+
+    const columns = [
         {
             title: 'SKU',
             dataIndex: 'pid',
             key: 'pid',
-            // width: '10%',
         },
         {
             title: 'Product name',
             dataIndex: 'pname',
-            // sorter: true,
-            // render: (name) => `${name.first} ${name.last}`,
             key: 'pname',
-            // ellipsis: true,
-            // sorter: (a, b) => a.name.length - b.name.length,
-            // sortOrder: sortedInfo.columnKey === 'pname' ? sortedInfo.order : null,
         },
         {
             title: 'Category',
             dataIndex: 'category',
             key: 'category',
-            // width: '20%',
         },
         {
-            title: 'Suppplier',
+            title: 'Supplier',
             dataIndex: 'suppliername',
             key: 'suppliername',
-            // width: '10%',
         },
         {
             title: 'Cost price',
             dataIndex: 'costprice',
             key: 'costprice',
-            // width: '10%',
         },
         {
             title: 'Unit price',
             dataIndex: 'unitprice',
             key: 'unitprice',
-            // width: '10%',
         },
         {
             title: 'Action',
-            dataIndex: 'sellingprice',
-            key: 'sellingprice',
+            key: 'action',
             render: (_, record) => (
-                <div className={"flex gap-2"}>
-                    <Button colorScheme={'twitter'} >Edit</Button>
-                    <Button colorScheme={'red'} >Delete</Button>
+                <div className="flex gap-2">
+                    <Button colorScheme="twitter" onClick={() => handleEdit(record.pid)}>Edit</Button>
+                    <Button colorScheme="red" onClick={() => deleteProduct(record.pid)}>Delete</Button>
                 </div>
             ),
         }
-
     ];
+
     return (
         <>
-            <div className={'pl-2 flex justify-start pt-5 pb-2'}>
-                <p className={'font-bold text-2xl'}>Product List</p>
+            <div className="pl-2 flex justify-start pt-5 pb-2">
+                <p className="font-bold text-2xl">Product List</p>
             </div>
             <Table
                 columns={columns}
                 dataSource={productsData}
                 bordered
-                // title={() => 'Product List'}
             />
-
+            <EditProductModal
+                isOpen={isEditModalOpen}
+                onClose={handleModalClose}
+                productId={selectedProductId}
+                onProductUpdated={handleProductUpdated}
+            />
         </>
     );
-
-
 };
+
 export default ProductTable;
-
-
-
