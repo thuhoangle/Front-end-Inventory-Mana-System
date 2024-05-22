@@ -67,7 +67,11 @@ import {
       fetchOrderData();
       const fetchListLowQuantity = async () => {
         try {
-          const res = await axios.get(DASHBOARD_LIST_LOW_QUANTITY);
+          const res = await axios.get(DASHBOARD_LIST_LOW_QUANTITY,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
           setListLowQuantity(res.data);
           console.table(res.data);
         } catch (error) {
@@ -78,7 +82,11 @@ import {
     }, []);
   
     const fetchProductData = () => {
-      fetch(DASHBOARD_PRODUCTS_DATA)
+      fetch(DASHBOARD_PRODUCTS_DATA,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setProductData(data.totalproductofspecificwarehouse);
@@ -90,7 +98,11 @@ import {
     };
   
     const fetchCategoryData = () => {
-      fetch(DASHBOARD_CATEGORIES_DATA)
+      fetch(DASHBOARD_CATEGORIES_DATA,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setCategoriesData(data.total_product_category_associations);
@@ -102,7 +114,11 @@ import {
     };
   
     const fetchOrderData = () => {
-      fetch(DASHBOARD_ORDER_DATA)
+      fetch(DASHBOARD_ORDER_DATA,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setOrderData(data.total_order);

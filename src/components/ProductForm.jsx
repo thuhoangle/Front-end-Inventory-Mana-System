@@ -29,7 +29,11 @@ const ProductForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get(PRODUCT_CATEGORY);
+        const res = await axios.get(PRODUCT_CATEGORY, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        });
         const productTypeName = Array.from(
           new Set(res.data.map((item) => item.tname))
         );
@@ -42,7 +46,11 @@ const ProductForm = () => {
 
     const fetchSuppliersName = async () => {
       try {
-        const res = await axios.get(SUPPLIER_DATA);
+        const res = await axios.get(SUPPLIER_DATA,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         const uniqueSupplierNames = Array.from(
           new Set(res.data.map((item) => item.suppliername))
         );
@@ -60,7 +68,11 @@ const ProductForm = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(PRODUCT_DATA, formProduct);
+      const res = await axios.post(PRODUCT_DATA, formProduct, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setFormProduct(initialValues);
       console.table(res.data);
     } catch (error) {

@@ -23,12 +23,16 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   const [Quantity, setQuantity] = useState("");
   const [orderList, setOrderList] = useState([]);
   const [warehouses, setWarehouses] = useState([]);
-  const [Warehouse, setWarehouse] = useState("");
+  const [WarehouseName, setWarehouseName] = useState("");
 
   useEffect(() => {
     const fetchSupplierName = async () => {
       try {
-        const res = await axios.get(SUPPLIER_DATA);
+        const res = await axios.get(SUPPLIER_DATA  ,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        });
         const supplierGetName = Array.from(
           new Set(res.data.map((item) => item.suppliername))
         );
@@ -43,7 +47,11 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
     const fetchWarehouses = async () => {
       try {
         const res = await axios.get(
-          "https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/warehouse"
+          "https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/warehouse",{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         setWarehouses(res.data);
         console.table(res.data);
@@ -57,7 +65,11 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   const fetchProductName = async (supplierName) => {
     try {
       const res = await axios.get(
-        `https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/products/${supplierName}`
+        `https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/order/products/${supplierName}`,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const productGetName = Array.from(
         new Set(res.data.map((item) => item.pname))
@@ -71,7 +83,11 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
 
   const fetchProductPrice = async (productName) => {
     try {
-      const res = await axios.get(`${PRODUCT_DATA}/${productName}`);
+      const res = await axios.get(`${PRODUCT_DATA}/${productName}`,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const product = res.data; // Assuming the response contains a single product
       if (product.costprice) {
         const price = parseFloat(product.costprice);
@@ -85,17 +101,36 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   };
 
   const handleAddToList = async () => {
-    const price = await fetchProductPrice(ProductName);
+    const price = await fetchProductPrice(ProductName,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     if (ProductName && Quantity !== "" && price !== 0) {
-      const orderItem = {
-        ProductName: ProductName,
-        Quantity: parseInt(Quantity),
-        Price: price,
-        Amount: parseInt(Quantity) * price,
-        SupplierName: SupplierName,
-        Warehouse: Warehouse,
-      };
-      setOrderList([...orderList, orderItem]);
+      const existingProductIndex = orderList.findIndex(
+        (item) => item.ProductName === ProductName
+      );
+
+      if (existingProductIndex !== -1) {
+        // Update existing product quantity and amount
+        const updatedOrderList = [...orderList];
+        updatedOrderList[existingProductIndex].Quantity += parseInt(Quantity);
+        updatedOrderList[existingProductIndex].Amount =
+          updatedOrderList[existingProductIndex].Quantity * price;
+        setOrderList(updatedOrderList);
+      } else {
+        // Add new product to list
+        const orderItem = {
+          ProductName: ProductName,
+          Quantity: parseInt(Quantity),
+          Price: price,
+          Amount: parseInt(Quantity) * price,
+          SupplierName: SupplierName,
+          WarehouseName: WarehouseName,
+        };
+        setOrderList([...orderList, orderItem]);
+      }
+
       setProductName("");
       setQuantity("");
     }
@@ -110,7 +145,7 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
   };
 
   const handleWarehouseChange = (selectedWarehouse) => {
-    setWarehouse(selectedWarehouse);
+    setWarehouseName(selectedWarehouse);
   };
 
   const handleSave = async (e) => {
@@ -120,7 +155,11 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
     }));
     console.table(ordersWithId);
     try {
-      const response = await axios.post(ORDER_LIST, { orders: ordersWithId });
+      const response = await axios.post(ORDER_LIST, { orders: ordersWithId }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setOrderList([]);
       console.table(response.data);
     } catch (error) {
@@ -150,13 +189,13 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
         <ModalCloseButton onClick={onCloseModal} />
         <ModalBody>
           <div className="mb-4">
-            <label htmlFor="Warehouse" className="block mb-1">
+            <label htmlFor="WarehouseName" className="block mb-1">
               Warehouse:
             </label>
             <select
-              id="Warehouse"
+              id="WarehouseName"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-              value={Warehouse}
+              value={WarehouseName}
               onChange={(e) => handleWarehouseChange(e.target.value)}
             >
               <option value="">Select Warehouse</option>
@@ -190,7 +229,7 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
               Product:
             </label>
             <select
-              id="product"
+              id="ProductName"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               value={ProductName}
               onChange={(e) => setProductName(e.target.value)}

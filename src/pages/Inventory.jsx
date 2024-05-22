@@ -22,7 +22,11 @@ const Inventory = () => {
 
   const fetchTotalProducts = () => {
     // Replace 'yourApiEndpoint' with your actual API endpoint
-    fetch(INVENTORY_TOTAL_PRODUCTS)
+    fetch(INVENTORY_TOTAL_PRODUCTS,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setTotalProducts(data.totalproductofspecificwarehouse);
@@ -34,7 +38,11 @@ const Inventory = () => {
   };
 
   const fetchCategories = () => {
-    fetch(INVENTORY_CATEGORIES)
+    fetch(INVENTORY_CATEGORIES,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.total_product_category_associations);
@@ -46,7 +54,11 @@ const Inventory = () => {
   };
 
   const fetchTopSelling = () => {
-    fetch(INVENTORY_TOP_SELLING)
+    fetch(INVENTORY_TOP_SELLING,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setTopSelling(data.top_selling);
@@ -58,7 +70,11 @@ const Inventory = () => {
   };
 
   const fetchLowStocks = () => {
-    fetch(INVENTORY_LOW_STOCKS)
+    fetch(INVENTORY_LOW_STOCKS,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setLowStocks(data.low_qquantity_stock);

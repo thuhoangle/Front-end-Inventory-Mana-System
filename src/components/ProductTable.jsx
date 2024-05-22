@@ -12,7 +12,11 @@ const ProductTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(PRODUCT_DATA); // Replace with your API endpoint
+                const response = await axios.get(PRODUCT_DATA,{
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  }); // Replace with your API endpoint
                 setProductsData(response.data); // Update the data state with fetched data
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -24,7 +28,11 @@ const ProductTable = () => {
     const deleteProduct = async (pid) => {
         try {
             // Perform delete operation
-            await axios.delete(`${PRODUCT_DATA}/${pid}`);
+            await axios.delete(`${PRODUCT_DATA}/${pid}`,{
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              });
             // Optionally, you can also update the suppliersData state after successful delete
             const updatedProducts = productsData.filter(
                 (product) => product.pid !== pid
@@ -108,7 +116,6 @@ const ProductTable = () => {
 
 };
 export default ProductTable;
-
 
 
 

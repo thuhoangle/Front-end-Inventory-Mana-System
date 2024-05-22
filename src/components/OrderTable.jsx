@@ -1,70 +1,33 @@
-import { useState, useEffect } from 'react';
-import DeleteDialog from "./btn/DeleteDialog.jsx";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import DeleteDialog from './btn/DeleteDialog.jsx';
 import OrderForm from '../components/OrderForm.jsx';
+import OrderDetail from '../components/OrderDetail.jsx'; // Import the new component
+import { ORDER_LIST } from '../../api/endPointAPI.js';
 
-
-
-import { ORDER_LIST, SUPPLIER_DATA, PRODUCT_DATA } from '../../api/endPointAPI.js';
 const OrderTable = () => {
-
   const [orderList, setOrderList] = useState([]);
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [reference, setReference] = useState('');
 
   useEffect(() => {
     const fetchOrderList = async () => {
       try {
-        const res = await axios.get(ORDER_LIST);
+        const res = await axios.get(ORDER_LIST,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setOrderList(res.data);
       } catch (error) {
-        console.log("Error fetching suppliers:", error);
+        console.error('Error fetching orders:', error);
       }
     };
 
-    const fetchSuppliersName = async () => {
-      try {
-        const res = await axios.get(SUPPLIER_DATA);
-        const uniqueSupplierNames = Array.from(new Set(res.data.map(item => item.suppliername)));
-        setSupplierName(uniqueSupplierNames);
-        console.table(uniqueSupplierNames);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
     const intervalId = setInterval(fetchOrderList, 500);
     return () => clearInterval(intervalId);
-
-
-  }, []);
-
-  const [showFormModal, setShowFormModal] = useState(false);
-
-  const handleEditOrder = (orderId) => {
-    console.log('Edit order:', orderId);
-  };
-
-  const handleAddOrder = (newOrder) => {
-    // Generating a new ID for the order
-    const newId = orderList.length + 1;
-    const updatedOrders = [...orderList, { id: newId, ...newOrder }];
-    setOrderList(updatedOrders);
-    setShowFormModal(false); // Close the modal after adding the order
-  };
-
-  const handleDeleteOrder = () => {
-  }
-
-  const openFormModal = () => {
-    setShowFormModal(true);
-  };
-
-  const closeFormModal = () => {
-    setShowFormModal(false);
-  };
-
-
-  const [reference, setReference] = useState('')
-
-  useEffect(() => {
   }, []);
 
   useEffect(() => {
@@ -74,28 +37,51 @@ const OrderTable = () => {
     setReference(`ORD${randomNum}`);
   }, []);
 
+  const handleEditOrder = (orderId) => {
+    setSelectedOrderId(orderId);
+    setShowDetailModal(true);
+  };
 
+  const handleAddOrder = (newOrder) => {
+    const newId = orderList.length + 1;
+    const updatedOrders = [...orderList, { id: newId, ...newOrder }];
+    setOrderList(updatedOrders);
+    setShowFormModal(false);
+  };
+
+  const handleDeleteOrder = (orderId) => {
+    // Add your delete logic here
+  };
+
+  const closeFormModal = () => {
+    setShowFormModal(false);
+  };
+
+  const closeDetailModal = () => {
+    setShowDetailModal(false);
+  };
 
   return (
     <div className="flex flex-col p-10 gap-5">
       <div className="flex">
         <button
           className="px-4 py-2 mr-2 bg-rose-300 font-semibold text-black hover:bg-rose-500 rounded-md focus:outline-none"
-          onClick={openFormModal}
+          onClick={() => setShowFormModal(true)}
         >
           Add Order
         </button>
       </div>
 
-      {/* Modal for the Order Form */}
       {showFormModal && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-          <OrderForm
-            onAddOrder={handleAddOrder}
-            onCloseModal={closeFormModal}
-          />
+          <OrderForm onAddOrder={handleAddOrder} onCloseModal={closeFormModal} />
         </div>
       )}
+
+      {showDetailModal && (
+        <OrderDetail orderId={selectedOrderId} onClose={closeDetailModal} />
+      )}
+
       <div className="container bg-white mx-auto p-4">
         <table className="min-w-full">
           <thead>
@@ -108,7 +94,7 @@ const OrderTable = () => {
             </tr>
           </thead>
           <tbody>
-            {orderList.map((order, index) => (
+            {orderList.map((order) => (
               <tr key={order.id}>
                 <td className="border px-6 py-4">{order.codeorder}</td>
                 <td className="border px-6 py-4">{order.order_detail_date}</td>
@@ -127,17 +113,14 @@ const OrderTable = () => {
                   >
                     Delete
                   </button>
-
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
     </div>
   );
 };
-
 
 export default OrderTable;

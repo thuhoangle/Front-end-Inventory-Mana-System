@@ -23,7 +23,11 @@ const SupplierForm = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         try {
-                const response = await axios.post(SUPPLIER_DATA, formSupplier);
+                const response = await axios.post(SUPPLIER_DATA, formSupplier,{
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  });
                 setFormSupplier(initialValues);
                 console.table(response.data)
         }
