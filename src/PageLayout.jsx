@@ -1,11 +1,16 @@
 import React from 'react';
-import { Flex, Grid, GridItem } from '@chakra-ui/react';
+import {Flex, Grid, GridItem, useBreakpointValue} from '@chakra-ui/react';
 import { useLocation, Outlet } from 'react-router-dom';
 import SideBar from "./components/SideBar";
 import Header from "./components/Header";
 
 const PageLayout = () => {
     const { pathname } = useLocation();
+
+    const gridTemplateColumns = useBreakpointValue({
+        base: '5rem auto', // Single column for smaller screens
+        md: '15rem auto', // Fixed width for first col, remaining space for second on md and above
+    });
 
     return (
         <Flex>
@@ -15,7 +20,7 @@ const PageLayout = () => {
                     templateAreas={`"nav header"
                                     "nav main"`}
                     gridTemplateRows={'50px auto'}
-                    gridTemplateColumns={'240px auto'}
+                    gridTemplateColumns={gridTemplateColumns}
                 >
                     <GridItem area={'header'} className={'sticky'}>
                         <Header />
