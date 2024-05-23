@@ -87,7 +87,7 @@ const ProductForm = () => {
 
 
   return (
-    <div className="max-w-screen pt-5 pb-5 px-3 bg-white rounded-lg border flex-col justify-start gap-2 inline-flex">
+    <div className="w-full pt-5 pb-5 px-3 bg-white rounded-lg border flex-col justify-start gap-2 inline-flex">
       {/*<div className="w-[1120px] pt-5 pb-2.5 justify-start items-start inline-flex">*/}
       <div className="pb-2 justify-start items-center inline-flex text-black text-2xl font-bold">
         <div>
@@ -95,7 +95,7 @@ const ProductForm = () => {
         </div>
       </div>
       <div className={"gap-1"}>
-      <div className="justify-between items-center py-5 flex shrink w-fit flex-row gap-3 ">
+      <div className=" md:justify-between items-center py-5 flex shrink  min-w-screen max-md:flex-wrap gap-3 ">
           <div className="gap-1 flex-col justify-center items-start inline-flex">
             <div className="text-xl font-normal ">
               SKU
@@ -118,7 +118,7 @@ const ProductForm = () => {
                   name="pname"
                   value={formProduct.pname}
                   onChange={handleInputChange}
-                  className="max-w-fit px-2 py-1 bg-white rounded-md border border-zinc-400 justify-start items-center flex text-base"
+                  className="min-w-fit px-2 py-1 bg-white rounded-md border border-zinc-400 justify-start items-center flex text-base"
             />
           </div>
           <div className="gap-1 w-full flex-col justify-center items-start inline-flex">

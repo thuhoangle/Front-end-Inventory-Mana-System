@@ -47,10 +47,10 @@ const DataTable = () => {
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+    // const rowSelection = {
+    //     selectedRowKeys,
+    //     onChange: onSelectChange,
+    // };
 
     const clearFilters = () => {
         setFilteredInfo({});
@@ -68,6 +68,26 @@ const DataTable = () => {
 
     const columns = [
         {
+            title: 'Warehouse',
+            dataIndex: 'warehouse',
+            key: 'warehouse',
+            filters: [
+                {
+                    text: "Warehouse A",
+                    value: "A",
+                },
+                {
+                    text: "Warehouse B",
+                    value: "B",
+                },
+                {
+                    text: "Warehouse C",
+                    value: "C",
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+        },
+        {
             title: 'Name',
             dataIndex: 'pname',
             // sorter: true,
@@ -76,12 +96,6 @@ const DataTable = () => {
             ellipsis: true,
             sorter: (a, b) => a.name.length - b.name.length,
             sortOrder: sortedInfo.columnKey === 'pname' ? sortedInfo.order : null,
-        },
-        {
-            title: 'Code',
-            dataIndex: 'pid',
-            key: 'pid',
-            // width: '10%',
         },
         {
             title: 'Category',
@@ -105,9 +119,9 @@ const DataTable = () => {
                         style: {
                             fontWeight: 'bold',
                             color:
-                                record.status === "Out of stock"
+                            record.status === "Out of Stock"
                                 ? 'red'
-                                : record.status === "In stock"
+                                : record.status === "In Stock"
                                     ? 'green'
                                     : 'orange', }
                     },
@@ -129,7 +143,7 @@ const DataTable = () => {
                 },
             ],
             filteredValue: filteredInfo.status || null,
-            onFilter: (value, record) => record.status.startsWith(value),
+            onFilter: (value, record) => record.name.includes(value),
             ellipsis: true,
         },
 
@@ -140,7 +154,7 @@ const DataTable = () => {
                 <p className={'font-bold text-2xl'}>Product List</p>
                 <div className={'flex justify-between'}>
                     <div className={'w-2/5'}><SearchBtn></SearchBtn></div>
-                    <Space className={'mb-2.5 justify-end'}>
+                    <Space className={'mb-2.5 justify-end items-start'}>
                         <Button onClick={setNameSort}>Sort Name</Button>
                         <Button onClick={clearFilters}>Clear filters</Button>
                         <Button onClick={clearAll}>Clear all</Button>
@@ -148,7 +162,7 @@ const DataTable = () => {
                 </div>
             </div>
             <Table
-                rowSelection={rowSelection}
+                // rowSelection={rowSelection}
                 columns={columns}
                 dataSource={data}
                 onChange={handleChange}

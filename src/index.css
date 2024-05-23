@@ -12,12 +12,20 @@
   color-scheme: light dark;
   color: black;
   background-color: #ececec;
+  --lightBlue: #daeaff;
+  --blue: #1977f2;
 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.active, /* More specific selector for NavLink */
+.NavLink.active {  /* Using class name and element type */
+  background-color: lightBlue;
+  /* Other styles for the active state */
 }
 
 
