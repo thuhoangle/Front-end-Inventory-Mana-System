@@ -15,16 +15,16 @@ const LoginPage = () => {
     };
 
     return (
-        <div className='flex bg-gray-200 h-screen'>
-            <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-24'>
+        <div className='flex bg-white h-screen'>
+            <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
                 <div className='text-center'>
                     <p className='p-1 mb-1'>INVENTORY</p>
                     <p className='p-1 mb-1'>MANAGEMENT</p>
                     <p className='p-1'>SYSTEM</p>
+                    <p className='p-1 smaller-text'> Group 1</p>                    
                 </div>
-                {/* <img src='src/assets/login_asset/1.jpg' alt='hello'/>
-                    <img src='src/assets/login_asset/2.jpg' alt='hello'/> */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', marginTop: '10px'}}>
                     <img src="src/assets/login_asset/shiba.png" alt="Image 1" style={{ width: '33.33%', margin: '0 1%' }} />
                     <img src="src/assets/login_asset/tram.png" alt="Image 2" style={{ width: '33.33%', margin: '0 1%' }} />
                     <img src="src/assets/login_asset/quynh.png" alt="Image 3" style={{ width: '33.33%', margin: '0 1%' }} />
@@ -37,44 +37,30 @@ const LoginPage = () => {
                 </div>
             </div>
             <div className='flex flex-col w-1/2 items-center justify-center'>
-                <div className='w-1/2'>
+                <div className='w-1/2 py-3'>
                     <p className='text-3xl mb-5 font-semibold'>Log in</p>
                     <label>Email</label>
                     <input type="text" className='block w-full p-2 border border-gray-300 rounded' placeholder='Enter your email' />
                 </div>
-                <div className='w-1/2'>
+                <div className='w-1/2 py-3'>
                     <label>Password</label>
                     <div className="relative">
                         <input
                             type={showPassword ? "text" : "password"}
                             className="block w-full p-2 border border-gray-300 rounded"
                             placeholder='Input password'
+                            style={{marginBottom: '30px'}}
                         />
-                        {/* <div className='inset-y-0 right-0 pr-3 flex items-center text-sm leading-5'>
-                                {showPassword ? (
-                                    <FiEyeOff onClick={() => setShowPassword(false)} />
-                                ) : (
-                                    <FiEye onClick={() => setShowPassword(true)} />
-                                )}
-                            </div> */}
+                        
                     </div>
-                    <div className='text-blue-500 text-right'>
-                        <label>Forgot password</label>
-                    </div>
+                    
                 </div>
                 <button className='bg-blue p-3 rounded-lg text-white font-semibold w-1/2' onClick={handleLogin}>Log in</button>
-                <div>
-                    <label className='text-center'>Or login with</label>
-                </div>
-                <div className='w-1/2'>
-                    <button className='p-2 rounded-lg bg-white font-semibold w-full'>Log in with Google</button>
-                    <div className='absolute'>
-                        {/* <FcGoogle /> */}
-                    </div>
-                </div>
-                <div className='text-center flex'>
+                
+                
+                <div className='text-center flex py-3'>
                     Don't have an account?
-                    <p className='text-blue'><Link to="/signup">Sign Up</Link></p>
+                    <p className='text-blue' style={{marginLeft: '5px'}}><Link to="/login"> <strong> Sign Up </strong> </Link></p>
                 </div>
             </div>
         </div>
