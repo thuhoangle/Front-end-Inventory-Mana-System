@@ -68,13 +68,29 @@ const LoginPage = () => {
 
   return (
     <div className="flex bg-gray-200 h-screen">
-      <div className="text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col gap-1">
-        <p>INVENTORY</p>
-        <p>MANAGEMENT</p>
-        <p>SYSTEM</p>
-      </div>
+            <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
+                <div className='text-center'>
+                    <p className='p-1 mb-1'>INVENTORY</p>
+                    <p className='p-1 mb-1'>MANAGEMENT</p>
+                    <p className='p-1'>SYSTEM</p>
+                    <p className='p-1 smaller-text'> Group 1</p>                    
+                </div>
+                
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', marginTop: '10px'}}>
+                    <img src="src/assets/login_asset/shiba.png" alt="Image 1" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/tram.png" alt="Image 2" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/quynh.png" alt="Image 3" style={{ width: '33.33%', margin: '0 1%' }} />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <img src="src/assets/login_asset/Sang.png" alt="Image 1" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/nghia.png" alt="Image 2" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/na.png" alt="Image 3" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/huy.png" alt="Image 4" style={{ width: '33.33%', margin: '0 1%' }} />
+                </div>
+        </div>
+
       <div className="flex flex-col w-1/2 items-center justify-center font-bold">
-        <form className="w-1/2" onSubmit={handleLogin}>
+        <form className="w-1/2 gap-6" onSubmit={handleLogin}>
           <p className="text-3xl mb-5">Log in</p>
           <label className="font-medium">Email</label>
           <input
@@ -101,24 +117,13 @@ const LoginPage = () => {
               )}
             </div>
           </div>
-          <div className="text-sky-600 text-right p-2">
-            <label>Forgot password</label>
-          </div>
           <button
             type="submit"
-            className="bg-blue p-4 rounded-lg text-white font-semibold w-full"
+            className="bg-blue p-4 my-5 rounded-lg text-white font-semibold w-full"
           >
             Log in
           </button>
         </form>
-        <div>
-          <label className="text-center p-2">Or login with</label>
-        </div>
-        <div className="w-1/2">
-          <button className="p-3 rounded-lg bg-white font-semibold w-full">
-            Log in with Google
-          </button>
-        </div>
         <div className="text-center flex p-2">
           Don't have an account?
           <p className="text-blue px-1">
@@ -127,7 +132,9 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
-  );
+
+
+            );
 };
 
 export default LoginPage;
