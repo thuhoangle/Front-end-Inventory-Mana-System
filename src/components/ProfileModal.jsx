@@ -19,7 +19,7 @@ const ProfileModal = () => {
     return (
         <>
         <button onClick={onOpen}>
-            <Avatar.Root className='flex gap-2 pr-2 py-0.5  items-center overflow-hidden rounded-box align-middle cursor-pointer hover:bg-gray-200'>
+            <Avatar.Root className='flex gap-2 pr-2 py-0.5  items-center overflow-hidden rounded-full align-middle cursor-pointer hover:bg-gray-200'>
                 <Avatar.Image className=' h-10 aspect-square rounded-full object-cover'
                               src='src/assets/snoopy.jpeg' alt='avatar'>
                 </Avatar.Image>

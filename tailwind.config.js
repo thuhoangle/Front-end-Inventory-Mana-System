@@ -16,7 +16,7 @@ export default {
         yellow: '#E39840',
         red: '#DA3E33',
         green: '#10A760',
-        background: '#ececec',
+        background: '#fafafa',
 
       }
     },

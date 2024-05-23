@@ -10,7 +10,7 @@ const DeleteDialog = ({onClick}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
 
-    // onClick để pass qua compo khaác khi click
+    // onClick để pass qua compo khác khi click
     const handleDeleteClick = () => {
         onClick()
     }
