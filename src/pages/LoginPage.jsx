@@ -25,8 +25,13 @@ const LoginPage = () => {
         }
       );
       if (response.status === 200) {
-        const { token } = response.data;
+        console.table(response.data);
+        const { token, first_name, last_name, phone_number, email } = response.data;
         localStorage.setItem("token", token);
+        localStorage.setItem("first_name", first_name);
+        localStorage.setItem("last_name", last_name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("phone_number", phone_number);
 
         // Call testToken after successful login
         await testToken();
