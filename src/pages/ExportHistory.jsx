@@ -5,7 +5,7 @@ const ExportHistory = () => {
     return (
         <>
 
-            <div className="overflow-x-auto flex flex-col p-10 gap-5">
+            <div className="overflow-x-auto flex flex-col pt-6 mx-3 pr-2">
                 <div className="pb-2 justify-start items-center inline-flex text-black text-2xl font-bold">
                     <div>
                         View Export History

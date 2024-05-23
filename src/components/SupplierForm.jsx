@@ -40,7 +40,8 @@ const SupplierForm = () => {
 
     
     return (
-        <div className="flex justify-center">
+        // <div className="flex justify-center">
+        <div className="w-fit">
             <div className="bg-white p-6 shadow-md rounded-md  ">
                 <h2 className="text-xl font-semibold mb-4">Supplier Form</h2>
                 <div className="mb-4">

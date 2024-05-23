@@ -73,16 +73,16 @@ const Export = () => {
     setFormProduct({ ...formProduct, [e.target.name]: e.target.value });
   };
     return (
-        <div className="overflow-x-auto h-screen flex flex-col justify-between p-10 gap-5">
-            <div>
+        <div className="overflow-x-auto h-screen  flex flex-col justify-between mx-3 pr-2 pt-6">
+            <div className={'min-w-screen'}>
                 <div className='pb-2'>
                     <div className=" justify-start items-center inline-flex text-black text-2xl font-bold">
                         Export
                     </div>
-                    <div className={"flex gap-4 justify-between"}>
-                    <div className="justify-start  items-start py-5 flex shrink w-fit flex-row gap-12 ">
-                        <div className="gap-1 flex-col justify-center items-start inline-flex basis-1/2">
-                            <div className="text-md">
+                    <div className={"flex gap-4 justify-between flex-col md:flex-row bg-white px-4  rounded-lg shadow-md "}>
+                    <div className="justify-start  items-start py-5 flex shrink w-fit flex-col md:flex-row gap-12 ">
+                        <div className="w-full gap-1 flex-col justify-center items-start inline-flex ">
+                            <div className="text-md font-medium">
                                 Warehouse
                             </div>
                             <select
@@ -102,26 +102,26 @@ const Export = () => {
                         </div>
 
                         <div className="gap-1 w-full flex-col justify-center items-start inline-flex">
-            <div className="text-xl font-normal">
-              Supplier
-            </div>
-                <select
-                  name="suppliername"
-                  value={formProduct.suppliername}
-                  onChange={handleInputChange}
-                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center "
-                >
-                  <option value="">Select Supplier</option>
-                  {supplierName.map((supplier, index) => (
-                    <option key={index} value={supplier}>
-                      {supplier}
-                    </option>
-                  ))}
-                </select>
-          </div>
+                            <div className="text-md font-medium">
+                              Supplier
+                            </div>
+                                <select
+                                  name="suppliername"
+                                  value={formProduct.suppliername}
+                                  onChange={handleInputChange}
+                                  className="w-full px-2 py-1 bg-white rounded-lg shadow border border-gray-300 justify-between items-center "
+                                >
+                                  <option value="">Select Supplier</option>
+                                  {supplierName.map((supplier, index) => (
+                                    <option key={index} value={supplier}>
+                                      {supplier}
+                                    </option>
+                                  ))}
+                                </select>
+                        </div>
 
-                        <div className="w-fit flex-col justify-center items-start inline-flex basis-1/2 gap-1">
-                            <div className="text-md">
+                        <div className="w-full flex-col justify-center items-start inline-flex  gap-1">
+                            <div className="text-md font-medium">
                                 Product name
                             </div>
                             <select
@@ -138,8 +138,8 @@ const Export = () => {
                                }
                             </select>
                         </div>
-                        <div className="gap-1 w-fit flex-col justify-center items-start inline-flex basis-1/2">
-                            <div className="text-md">
+                        <div className="gap-1 w-full flex-col justify-center items-start inline-flex ">
+                            <div className="text-md font-medium">
                                 Quantity
                             </div>
                             <input
@@ -149,9 +149,7 @@ const Export = () => {
                             />
                         </div>
                     </div>
-
-
-                    <div className=" flex items-center py-5 justify-end gap-3 mt-4">
+                    <div className=" flex items-center py-5 justify-start md:justify-end gap-3 mt-4">
                         <button
                             className="w-30 px-4 py-2 bg-blue font-semibold hover:bg-sky-300 rounded-full shadow border border-sky-500 justify-center items-center gap-2 flex text-neutral-50 text-base  "
                             // onClick={handleSave}
@@ -160,9 +158,7 @@ const Export = () => {
                         </button>
                     </div>
                     {/*</div>*/}
-
-
-                </div>
+                    </div>
                 </div>
                 <table className="min-w-full bg-white overflow-y-scroll rounded-md">
                     <thead>
