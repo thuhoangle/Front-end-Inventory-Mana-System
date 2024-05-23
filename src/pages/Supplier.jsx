@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import SupplierForm from "../components/SupplierForm";
 import SupplierTable from "../components/SupplierTable";
-import axios from "axios";
 
 const Supplier = () => {
     // const [data, setData] = useState([]);

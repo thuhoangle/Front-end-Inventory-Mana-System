@@ -23,7 +23,11 @@ const DataTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/product_list'); // Replace with your API endpoint
+                const response = await axios.get('https://luoi-lot-ca-pf3yfmx32q-de.a.run.app/typye/product_list',{
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  }); // Replace with your API endpoint
                 setData(response.data); // Update the data state with fetched data
             } catch (error) {
                 console.error('Error fetching data:', error);

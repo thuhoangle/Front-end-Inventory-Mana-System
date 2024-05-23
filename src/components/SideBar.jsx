@@ -31,7 +31,7 @@ const SideBar = () => {
             <div className='flex flex-col grow gap-4'>
                 <NavigationMenu.List className={'list-none gap-1 py-2 mt-2.5 '}>
 
-                    <NavLink to={'/'}  className={({ isActive}) => (isActive ? active : normal )}>
+                    <NavLink to={'/dashboard'}  className={({ isActive}) => (isActive ? active : normal )}>
                     <NavigationMenu.Item
                         className={'justify-start items-center hover:bg-lightGray hover:text-gray-700 flex no-underline outline-none p-2.5 gap-4 text-xl font-semibold rounded-lg'}
                     >

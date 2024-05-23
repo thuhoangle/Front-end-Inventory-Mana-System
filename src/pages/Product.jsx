@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
 import ProductForm from '../components/ProductForm';
 import ProductTable from '../components/ProductTable';
-import axios from "axios";
 
 
 const Product = () => {
