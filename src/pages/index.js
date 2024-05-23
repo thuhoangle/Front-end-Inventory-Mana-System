@@ -6,6 +6,7 @@ import Supplier from "./Supplier.jsx";
 import OrderForm from "../components/OrderForm.jsx";
 import Login from "./LoginPage.jsx";
 import SignUp from "./SignUp.jsx";
+import Warning from "./Warning.jsx";
 
 export {
     Dashboard,
@@ -16,4 +17,5 @@ export {
     OrderForm,
     Login,
     SignUp,
+    Warning
 }

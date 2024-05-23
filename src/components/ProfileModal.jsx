@@ -19,7 +19,7 @@ const ProfileModal = () => {
     const [profile, setProfile] = useState({
         firstName: '',
         lastName: '',
-        role: 'Staff', // Assuming the role is static for now
+        role: '',
         email: '',
         phone: '',
     });
@@ -27,22 +27,18 @@ const ProfileModal = () => {
     useEffect(() => {
         const firstName = localStorage.getItem('first_name');
         const lastName = localStorage.getItem('last_name');
+        const role = localStorage.getItem('user_type');
         const email = localStorage.getItem('email');
         const phone = localStorage.getItem('phone_number');
 
         setProfile({
             firstName: firstName || '',
             lastName: lastName || '',
-            role: 'Staff',
+            role: role || '',
             email: email || '',
             phone: phone || '',
         });
     }, []);
-
-    const handleSave = () => {
-        // Save logic here if needed, currently just closing the modal
-        onClose();
-    };
 
     return (
         <>
@@ -125,9 +121,6 @@ const ProfileModal = () => {
                                 </div>
                             </div>
                         </AlertDialogBody>
-                        <AlertDialogFooter>
-                            <Button colorScheme={'blue'} ref={saveRef} onClick={handleSave}>Save</Button>
-                        </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>
