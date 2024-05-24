@@ -82,7 +82,7 @@ const OrderTable = () => {
   ];
 
   return (
-    <div className="flex flex-col p-10 gap-5">
+    <div className="flex flex-col  gap-5">
       <div className="flex">
         <button
           className="px-4 py-2 mr-2 bg-rose-300 font-semibold text-black hover:bg-rose-500 rounded-md focus:outline-none"
@@ -111,7 +111,7 @@ const OrderTable = () => {
       )}
 
       <div className="container bg-white mx-auto p-4">
-        <Table columns={columns} dataSource={orderList} bordered />
+        <Table columns={columns} dataSource={orderList} bordered className={'overflow-hidden '} />
       </div>
     </div>
   );
