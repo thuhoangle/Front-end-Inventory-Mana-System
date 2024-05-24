@@ -91,7 +91,7 @@ const ProfileModal = () => {
                                         isDisabled={true}
                                         className="shadow-sm col-span-3"
                                         id="role"
-                                        placeholder="Staff"
+                                        placeholder={profile.role}
                                         value={profile.role}
                                     />
                                 </div>
@@ -105,7 +105,7 @@ const ProfileModal = () => {
                                         isDisabled={true}
                                         className="shadow-sm col-span-3"
                                         id="username"
-                                        placeholder="shiba@gmail.com"
+                                        placeholder={profile.email}
                                         value={profile.email}
                                     />
                                 </div>
@@ -119,7 +119,7 @@ const ProfileModal = () => {
                                         isDisabled={true}
                                         className="shadow-sm col-span-3"
                                         id="phone"
-                                        placeholder="090000"
+                                        placeholder={profile.phone}
                                         value={profile.phone}
                                     />
                                 </div>

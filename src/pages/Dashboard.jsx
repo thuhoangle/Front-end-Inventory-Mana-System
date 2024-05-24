@@ -1,65 +1,22 @@
-/* eslint-disable react/no-unescaped-entities */
-// eslint-disable-next-line no-unused-vars
+
 import React, { useEffect, useState } from "react";
-import LineChart from "../components/LineChart";
-import InfiniteScroll from "react-infinite-scroll-component";
-import PieChart from "../components/PieChart";
 import axios from "axios";
 
 
-// import {
-//     DASHBOARD_ORDER_DATA,
-//     DASHBOARD_CATEGORIES_DATA,
-//     DASHBOARD_LIST_LOW_QUANTITY,
-//     DASHBOARD_PRODUCTS_DATA,
-//   } from "../../api/endPointAPI";
-  
-//   export default function Dashboard() {
-//     const [listLowQuantity, setListLowQuantity] = useState([]);
-//     const [productData, setProductData] = useState(0);
-//     const [categoriesData, setCategoriesData] = useState(0);
-//     const [orderData, setOrderData] = useState(0);
-  
-//     useEffect(() => {
-//       fetchData();
-//     }, []);
-  
-//     const fetchData = async () => {
-//       try {
-//         const [productRes, categoryRes, orderRes, lowQuantityRes] = await Promise.all([
-//           axios.get(DASHBOARD_PRODUCTS_DATA),
-//           axios.get(DASHBOARD_CATEGORIES_DATA),
-//           axios.get(DASHBOARD_ORDER_DATA),
-//           axios.get(DASHBOARD_LIST_LOW_QUANTITY)
-//         ]);
-  
-//         setProductData(productRes.data.totalproductofspecificwarehouse);
-//         setCategoriesData(categoryRes.data.total_product_category_associations);
-//         setOrderData(orderRes.data.data);
-//         setListLowQuantity(lowQuantityRes.data);
-  
-//         console.table(productRes.data.totalproductofspecificwarehouse);
-//         console.table(categoryRes.data.total_product_category_associations);
-//         console.table(orderRes.data.data);
-//         console.table(lowQuantityRes.data);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     };
-  
-
 import {
-    DASHBOARD_ORDER_DATA,
-    DASHBOARD_CATEGORIES_DATA,
-    DASHBOARD_LIST_LOW_QUANTITY,
-    DASHBOARD_PRODUCTS_DATA,
-  } from "../../api/endPointAPI";
+  DASHBOARD_ORDER_DATA,
+  DASHBOARD_CATEGORIES_DATA,
+  DASHBOARD_LIST_LOW_QUANTITY,
+  DASHBOARD_PRODUCTS_DATA,
+} from "../../api/endPointAPI";
+import GaugeChart from "../components/chart/GaugeChart.jsx";
+import BarrChart from "../components/chart/BarrChart.jsx";
   
   export default function Dashboard() {
-    const [listLowQuantity, setListLowQuantity] = useState([]);
     const [productData, setProductData] = useState(0);
     const [categoriesData, setCategoriesData] = useState(0);
     const [orderData, setOrderData] = useState(0);
+
   
     useEffect(() => {
       fetchProductData();
@@ -222,50 +179,45 @@ import {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-6">
           <div className="flex flex-col rounded-lg border border-gray-100 bg-white shadow-xl">
             <div className="text-start p-5 text-lg">
               <span className="flex font-bold text-3xl">$1234</span>
               Sales this month
             </div>
-            <LineChart className="flex"></LineChart>
+            <BarrChart section={'Sales'} className="flex items-center justify-center"></BarrChart>
           </div>
           <div className="flex flex-col rounded-lg border border-gray-100 bg-white shadow-xl">
             <div className="text-start p-5 text-lg">
               <span className="flex font-bold text-3xl">1234</span>
               Orders this month
             </div>
-            <LineChart className="flex"></LineChart>
+            <BarrChart section={'Orders'} className="flex"></BarrChart>
           </div>
         </div>
 
-        <div className=" flex flex-col md:flex-row gap-5 py-6">
-          <div className="bg-white basis-7/12 rounded-lg border border-gray-100 shadow-xl">
-            <div className="text-start p-5 text-3xl font-bold">
-              Low quantity stock
-            </div>
-            {/* <InfiniteScroll dataLength={listLowQuantity.length}>
-            <table>
-              <tbody>
-                {listLowQuantity.map((list, index) => (
-                  <tr key={index}>
-                    <td className="p-7">{list.Pname}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </InfiniteScroll> */}
 
-          </div>
-          <div className="bg-white basis-5/12 rounded-lg border border-gray-100 shadow-xl">
+          <div className="bg-white  flx flex-col  rounded-lg border border-gray-100 shadow-xl mb-6">
             <div className="text-start p-5 text-3xl font-bold">
               Warehouse's capacity
             </div>
-            <div className="flex justify-center py-6">
-              <PieChart className="flex"/>
+            <div className=" min-w-screen flex flex-col md:flex-row  ">
+              <div className="flex justify-center md:basis-1/2">
+                <div className="w-full flex flex-col justify-center items-center">
+                  <p className={'font-semibold text-lg'}>Warehouse A</p>
+                  <GaugeChart warehouse="WarehouseA" className="flex"/>
+                </div>
+
+              </div>
+              <div className="flex justify-center md:basis-1/2">
+                <div className="w-full flex flex-col justify-center items-center">
+                  <p className={'font-semibold text-lg'}>Warehouse B</p>
+                  <GaugeChart warehouse="WarehouseB" className="flex"/>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-  );
+  </div>
+  )
+    ;
   }
