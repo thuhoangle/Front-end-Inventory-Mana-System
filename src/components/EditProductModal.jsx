@@ -67,12 +67,11 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                         },
                     });
                     const product = response.data;
-                    setValue("pname", product.pname);
-                    setValue("category", product.tname);
-                    setValue("suppliername", product.suppliername);
-                    setValue("costprice", product.costprice);
-                    setValue("unitprice", product.unitprice);
-                    console.log(product.tname)
+                    setValue("inputProductName", product.pname);
+                    setValue("inputCategory", product.category);
+                    setValue("inputSupplierName", product.suppliername);
+                    setValue("inputCostPrice", product.costprice);
+                    setValue("inputUnitPrice", product.unitprice);
                 } catch (error) {
                     console.error("Error fetching product:", error);
                 }
@@ -84,7 +83,7 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            await axios.post(`${PRODUCT_DATA}/${productId}`, data, {
+            await axios.post(`${PRODUCT_DATA}/productList/${productId}`, data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -108,11 +107,11 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                     <form id="edit-product-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <FormControl>
                             <FormLabel>Product Name</FormLabel>
-                            <Input {...register("pname")} className="border border-gray-300 rounded" />
+                            <Input {...register("inputProductName")} className="border border-gray-300 rounded" />
                         </FormControl>
                         <FormControl>
                             <FormLabel>Category</FormLabel>
-                            <Select {...register("category")} className="border border-gray-300 rounded">
+                            <Select {...register("inputCategory")} className="border border-gray-300 rounded">
                                 {categories.map((category) => (
                                     <option key={category.id} value={category.tname}>
                                         {category.tname}
@@ -122,7 +121,7 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Supplier Name</FormLabel>
-                            <Select {...register("suppliername")} className="border border-gray-300 p-2 rounded">
+                            <Select {...register("inputSupplierName")} className="border border-gray-300 rounded">
                                 {suppliers.map((supplier, index) => (
                                     <option key={index} value={supplier}>
                                         {supplier}
@@ -132,11 +131,11 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Cost Price</FormLabel>
-                            <Input type="number" {...register("costprice")} className="border border-gray-300 p-2 rounded" />
+                            <Input type="number" {...register("inputCostPrice")} className="border border-gray-300 rounded" />
                         </FormControl>
                         <FormControl>
                             <FormLabel>Unit Price</FormLabel>
-                            <Input type="number" {...register("unitprice")} className="border border-gray-300 p-2 rounded" />
+                            <Input type="number" {...register("inputUnitPrice")} className="border border-gray-300 rounded" />
                         </FormControl>
                     </form>
                 </ModalBody>
