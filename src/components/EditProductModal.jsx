@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import { PRODUCT_DATA, PRODUCT_CATEGORY, SUPPLIER_DATA } from "../../api/endPointAPI.js"; // Add your endpoints
+import { PRODUCT_DATA, PRODUCT_CATEGORY, SUPPLIER_DATA } from "../../api/endPointAPI.js";
 
 const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
     const { register, handleSubmit, reset, setValue } = useForm();
@@ -37,26 +37,24 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
             }
         };
 
-        const fetchSupplierName = async () => {
+        const fetchSuppliers = async () => {
             try {
-              const res = await axios.get(SUPPLIER_DATA  ,{
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                }
-              });
-              const supplierGetName = Array.from(
-                new Set(res.data.map((item) => item.suppliername))
-              );
-              setSuppliers(supplierGetName);
-              console.table(res.data);
+                const response = await axios.get(SUPPLIER_DATA, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                const supplierNames = Array.from(
+                    new Set(response.data.map((item) => item.suppliername))
+                );
+                setSuppliers(supplierNames);
             } catch (error) {
-              console.error("Error fetching supplier names:", error);
+                console.error("Error fetching supplier names:", error);
             }
-          };
-          fetchSupplierName();
+        };
 
         fetchCategories();
-       
+        fetchSuppliers();
     }, []);
 
     useEffect(() => {
@@ -70,10 +68,11 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                     });
                     const product = response.data;
                     setValue("pname", product.pname);
-                    setValue("category", product.category);
+                    setValue("category", product.tname);
                     setValue("suppliername", product.suppliername);
                     setValue("costprice", product.costprice);
                     setValue("unitprice", product.unitprice);
+                    console.log(product.tname)
                 } catch (error) {
                     console.error("Error fetching product:", error);
                 }
@@ -109,11 +108,11 @@ const EditProductModal = ({ isOpen, onClose, productId, onProductUpdated }) => {
                     <form id="edit-product-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <FormControl>
                             <FormLabel>Product Name</FormLabel>
-                            <Input {...register("pname")} className="border border-gray-300 p-2 rounded" />
+                            <Input {...register("pname")} className="border border-gray-300 rounded" />
                         </FormControl>
                         <FormControl>
                             <FormLabel>Category</FormLabel>
-                            <Select {...register("category")} className="border border-gray-300 p-2 rounded">
+                            <Select {...register("category")} className="border border-gray-300 rounded">
                                 {categories.map((category) => (
                                     <option key={category.id} value={category.tname}>
                                         {category.tname}

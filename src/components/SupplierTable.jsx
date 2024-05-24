@@ -4,9 +4,12 @@ import { Button } from "@chakra-ui/react";
 import axios from 'axios';
 import { SUPPLIER_DATA } from "../../api/endPointAPI.js";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
+import EditSupplierModal from './EditSupplierModal.jsx';
 
 const SupplierTable = () => {
-    const [supplierData, setSupplierData] = useState([]); // State to store fetched data
+    const [supplierData, setSupplierData] = useState([]);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedSupplierId, setSelectedSupplierId] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -15,19 +18,17 @@ const SupplierTable = () => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            setSupplierData(response.data); // Update the data state with fetched data
+            setSupplierData(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
     useEffect(() => {
-        fetchData(); // Initial fetch when component mounts
-
-        const intervalId = setInterval(fetchData, 500); // Fetch data every 5 seconds
-
-        return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, []); // Empty dependency array to set up interval only once
+        fetchData();
+        const intervalId = setInterval(fetchData, 5000);
+        return () => clearInterval(intervalId);
+    }, []);
 
     const deleteProduct = async (sid) => {
         try {
@@ -36,10 +37,15 @@ const SupplierTable = () => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            fetchData(); // Fetch data again after deleting a supplier
+            fetchData();
         } catch (error) {
             console.error("Error deleting product:", error);
         }
+    };
+
+    const openEditModal = (supplierId) => {
+        setSelectedSupplierId(supplierId);
+        setIsEditModalOpen(true);
     };
 
     const columns = [
@@ -63,7 +69,7 @@ const SupplierTable = () => {
             key: 'action',
             render: (_, record) => (
                 <div className="flex gap-2">
-                    <Button colorScheme="twitter">Edit</Button>
+                    <Button colorScheme="twitter" onClick={() => openEditModal(record.sid)}>Edit</Button>
                     <Button colorScheme="red" onClick={() => deleteProduct(record.sid)}>Delete</Button>
                 </div>
             ),
@@ -78,8 +84,17 @@ const SupplierTable = () => {
             <Table
                 columns={columns}
                 dataSource={supplierData}
+                rowKey="sid"
                 bordered
             />
+            {selectedSupplierId && (
+                <EditSupplierModal
+                    isOpen={isEditModalOpen}
+                    onClose={() => setIsEditModalOpen(false)}
+                    supplierId={selectedSupplierId}
+                    fetchData={fetchData}
+                />
+            )}
         </>
     );
 };

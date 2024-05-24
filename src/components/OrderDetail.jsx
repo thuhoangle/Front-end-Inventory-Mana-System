@@ -42,7 +42,7 @@ const OrderDetail = ({ orderId, onClose }) => {
             <tr>
               <th className="border px-4 py-2">Product Name</th>
               <th className="border px-4 py-2">Quantity</th>
-              <th className="border px-4 py-2">Unit Price</th>
+              <th className="border px-4 py-2">Cost Price</th>
               <th className="border px-4 py-2">Warehouse</th>
               <th className="border px-4 py-2">Total Amount</th> {/* New column */}
             </tr>

@@ -95,8 +95,8 @@ const ProductTable = () => {
         },
         {
             title: 'Category',
-            dataIndex: 'category',
-            key: 'category',
+            dataIndex: 'tname',
+            key: 'tname',
         },
         {
             title: 'Supplier',

@@ -42,10 +42,6 @@ const OrderTable = () => {
     setShowFormModal(false); // Close the modal after adding the order
   };
 
-  const handleDeleteOrder = (orderId) => {
-    // Implement delete order functionality
-  };
-
   const openFormModal = () => {
     setShowFormModal(true);
   };
