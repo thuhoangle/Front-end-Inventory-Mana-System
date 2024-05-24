@@ -43,7 +43,8 @@ const ExportHistory = () => {
                     </tr>
                     </thead>
                     <tbody className="bg-white">
-                        {
+
+                    {
                             exportHistoryData.map((data,index)=>(
                                 <tr>
                                 {/*implement API sau*/}
@@ -57,7 +58,8 @@ const ExportHistory = () => {
                             </tr>
                             ))
                         }
-                   
+
+
                     </tbody>
                 </table>
             </div>

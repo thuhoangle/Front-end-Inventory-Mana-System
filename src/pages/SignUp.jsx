@@ -52,11 +52,26 @@ const SignUp = () => {
 
   return (
     <div className='flex bg-gray-200 h-screen'>
-      <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col'>
-        <p className='p-4'>INVENTORY</p>
-        <p className='p-4'>MANAGEMENT</p>
-        <p className='p-4'>SYSTEM</p>
-      </div>
+         <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
+                <div className='text-center'>
+                    <p className='p-1 mb-1'>INVENTORY</p>
+                    <p className='p-1 mb-1'>MANAGEMENT</p>
+                    <p className='p-1'>SYSTEM</p>
+                    <p className='p-1 smaller-text'> Group 1</p>                    
+                </div>
+                
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', marginTop: '10px'}}>
+                    <img src="src/assets/login_asset/shiba.png" alt="Image 1" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/tram.png" alt="Image 2" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/quynh.png" alt="Image 3" style={{ width: '33.33%', margin: '0 1%' }} />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <img src="src/assets/login_asset/Sang.png" alt="Image 1" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/nghia.png" alt="Image 2" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/na.png" alt="Image 3" style={{ width: '33.33%', margin: '0 1%' }} />
+                    <img src="src/assets/login_asset/huy.png" alt="Image 4" style={{ width: '33.33%', margin: '0 1%' }} />
+                </div>
+        </div>
       <div className='flex flex-col w-1/2 items-center justify-center'>
         <form className='w-1/2' onSubmit={handleSignUp}>
           <p className='text-3xl mb-5 font-semibold'>Sign Up</p>
@@ -142,17 +157,9 @@ const SignUp = () => {
           </div>
           <button type="submit" className='bg-blue p-3 rounded-lg text-white font-semibold w-full'>Sign up</button>
         </form>
-        <div className='w-1/2 py-3 text-center'>
-          <label>Or Sign up with</label>
-        </div>
-        <div className='w-1/2'>
-          <button className='p-3 rounded-lg bg-white font-semibold w-full flex items-center justify-center'>
-            <FcGoogle className='mr-2' /> Sign up with Google
-          </button>
-        </div>
         <div className='text-center flex mt-3'>
           Already have an account?
-          <p className='text-blue-500 ml-1'><Link to="/login">Log in</Link></p>
+          <p className='text-sky-500 ml-1'><Link to="/login">Log in</Link></p>
         </div>
       </div>
     </div>

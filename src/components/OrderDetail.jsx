@@ -8,11 +8,11 @@ const OrderDetail = ({ orderId, onClose }) => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const res = await axios.get(`${ORDER_LIST}/${orderId}`,{
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
+        const res = await axios.get(`${ORDER_LIST}/${orderId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setOrderDetails(res.data);
         console.table(res.data);
       } catch (error) {
@@ -44,6 +44,7 @@ const OrderDetail = ({ orderId, onClose }) => {
               <th className="border px-4 py-2">Quantity</th>
               <th className="border px-4 py-2">Unit Price</th>
               <th className="border px-4 py-2">Warehouse</th>
+              <th className="border px-4 py-2">Total Amount</th> {/* New column */}
             </tr>
           </thead>
           <tbody>
@@ -53,6 +54,7 @@ const OrderDetail = ({ orderId, onClose }) => {
                 <td className="border px-4 py-2">{orderDetail.orderquantity}</td>
                 <td className="border px-4 py-2">{orderDetail.unitprice}</td>
                 <td className="border px-4 py-2">{orderDetail.warehousename}</td>
+                <td className="border px-4 py-2">{orderDetail.unitprice * orderDetail.orderquantity}</td> {/* Calculated total amount */}
               </tr>
             ))}
           </tbody>

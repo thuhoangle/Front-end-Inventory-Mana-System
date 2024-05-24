@@ -22,10 +22,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.active, /* More specific selector for NavLink */
-.NavLink.active {  /* Using class name and element type */
-  background-color: lightBlue;
-  /* Other styles for the active state */
+.smaller-text {
+  font-size: 0.8em; /* Adjust this value as needed */
 }
-
-
