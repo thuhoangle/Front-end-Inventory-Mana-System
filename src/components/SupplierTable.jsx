@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from "antd";
-import { Button } from "@chakra-ui/react";
+import { Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure } from "@chakra-ui/react";
 import axios from 'axios';
 import { SUPPLIER_DATA } from "../../api/endPointAPI.js";
 import DeleteDialog from "./btn/DeleteDialog.jsx";
@@ -10,6 +10,11 @@ const SupplierTable = () => {
     const [supplierData, setSupplierData] = useState([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedSupplierId, setSelectedSupplierId] = useState(null);
+    const [deleteSupplierId, setDeleteSupplierId] = useState([])
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const cancelRef = React.useRef();
+    const [deleteProductId, setDeleteProductId] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -30,14 +35,18 @@ const SupplierTable = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    const deleteProduct = async (sid) => {
+    const deleteSupplier = async () => {
         try {
-            await axios.delete(`${SUPPLIER_DATA}/${sid}`, {
+            await axios.delete(`${SUPPLIER_DATA}/${deleteSupplierId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            fetchData();
+            const updatedSupplier = supplierData.filter(
+                (supplier) => supplier.suppliername !== deleteSupplierId
+            );
+            setSupplierData(updatedSupplier);
+            onClose(); // Close the confirmation modal
         } catch (error) {
             console.error("Error deleting product:", error);
         }
@@ -70,12 +79,17 @@ const SupplierTable = () => {
             render: (_, record) => (
                 <div className="flex gap-2">
                     <Button colorScheme="twitter" onClick={() => openEditModal(record.sid)}>Edit</Button>
-                    <Button colorScheme="red" onClick={() => deleteProduct(record.sid)}>Delete</Button>
+                    <Button colorScheme="red" onClick={() => handleDelete(record.suppliername)}>Delete</Button>
                 </div>
             ),
         },
     ];
 
+    
+    const handleDelete = (sid) => {
+        setDeleteSupplierId(sid);
+        onOpen(); // Open the confirmation modal
+    };
     return (
         <>
             <div className="pl-2 flex justify-start pt-5 pb-2">
@@ -95,6 +109,32 @@ const SupplierTable = () => {
                     fetchData={fetchData}
                 />
             )}
+            <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+            >
+                <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                            Delete Product
+                        </AlertDialogHeader>
+
+                        <AlertDialogBody>
+                            Are you sure you want to delete this supplier? This action cannot be undone.
+                        </AlertDialogBody>
+
+                        <AlertDialogFooter>
+                            <Button ref={cancelRef} onClick={onClose}>
+                                Cancel
+                            </Button>
+                            <Button colorScheme="red" onClick={deleteSupplier} ml={3}>
+                                Delete
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
         </>
     );
 };
