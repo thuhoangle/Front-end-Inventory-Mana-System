@@ -64,7 +64,7 @@ const ProfileModal = () => {
                         <AlertDialogHeader className={'font-bold text-xl'}>Edit profile</AlertDialogHeader>
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
-                            <div className={'grid gap-4'}>
+                            <div className={'grid gap-4 py-4'}>
                                 <div className={'grid grid-cols-4 items-center gap-4'}>
                                     <label htmlFor="name" className="text-right font-medium">
                                         Name
