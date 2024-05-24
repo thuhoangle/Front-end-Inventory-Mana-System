@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,7 +9,7 @@ import {
   DASHBOARD_PRODUCTS_DATA,
 } from "../../api/endPointAPI";
 import GaugeChart from "../components/chart/GaugeChart.jsx";
-import BarrChart from "../components/chart/BarrChart.jsx";
+import BarChart from "../components/chart/BarChart.jsx";
   
   export default function Dashboard() {
     const [productData, setProductData] = useState(0);
@@ -180,19 +179,23 @@ import BarrChart from "../components/chart/BarrChart.jsx";
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-6">
-          <div className="flex flex-col rounded-lg border border-gray-100 bg-white shadow-xl">
+          <div className="flex flex-col rounded-lg border border-gray-100 bg-white shadow-xl  ">
             <div className="text-start p-5 text-lg">
               <span className="flex font-bold text-3xl">$1234</span>
               Sales this month
             </div>
-            <BarrChart section={'Sales'} className="flex items-center justify-center"></BarrChart>
+            <div className="px-4 pb-4">
+              <BarChart section={'Sales'} className="flex items-center justify-center "></BarChart>
+            </div>
           </div>
           <div className="flex flex-col rounded-lg border border-gray-100 bg-white shadow-xl">
             <div className="text-start p-5 text-lg">
               <span className="flex font-bold text-3xl">1234</span>
               Orders this month
             </div>
-            <BarrChart section={'Orders'} className="flex"></BarrChart>
+            <div className="px-4 pb-4">
+              <BarChart section={'Orders'} className="flex"></BarChart>
+            </div>
           </div>
         </div>
 

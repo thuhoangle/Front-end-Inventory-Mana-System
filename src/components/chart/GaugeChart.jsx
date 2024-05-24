@@ -25,7 +25,7 @@ const GaugeChart = ({ warehouse}) =>
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            console.log('check capacity',response.data);
+            // console.log('check capacity',response.data);
             setAccount(response.data[0].account_space_percentage);
             setFree(response.data[0].free_space_percentage);
         } catch (error) {

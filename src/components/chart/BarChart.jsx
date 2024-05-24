@@ -6,9 +6,10 @@ import {
     LinearScale,
     Tooltip,
     Legend
-} from 'chart.js'
-// import {useEffect, useState} from "react";
-// import {ORDERS, SALES} from "../../../api/endPointAPI.js";
+} from 'chart.js';
+import { useEffect, useState } from "react";
+import { ORDERS, SALES } from "../../../api/endPointAPI.js";
+import axios from "axios";
 
 ChartJS.register(
     BarElement,
@@ -16,101 +17,104 @@ ChartJS.register(
     LinearScale,
     Tooltip,
     Legend
-)
-export default function BarChart({ color}) {
+);
 
-    const data ={
+const BarChart = ({ section }) => {
+    const [sales, setSales] = useState(Array(12).fill(0));
+    const [orders, setOrders] = useState(Array(12).fill(0));
+
+    useEffect(() => {
+        async function fetchDataSales() {
+            try {
+                const response = await axios.get(SALES, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                // console.log('check bar sales',response.data);
+                const salesData = response.data.map(item => parseFloat(item.total_price));
+                setSales(salesData);
+            } catch (error) {
+                console.error('Error fetching sales data:', error);
+            }
+        }
+
+        async function fetchDataOrders() {
+            try {
+                const response = await axios.get(ORDERS, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                const ordersData = response.data.map(item => parseInt(item.count, 10));
+                setOrders(ordersData);
+            } catch (error) {
+                console.error('Error fetching orders data:', error);
+            }
+        }
+
+        fetchDataSales();
+        fetchDataOrders();
+    }, []);
+
+    const dataSale = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        datasets:[
+        datasets: [
             {
-                // data: [4.2, 3.1, 5.6, 7.1, 8.2, 7.2, 5.3, 9.1, 3.5, 2, 9.2, 1.4],
-                data: [],
-                backgroundColor: color,
+                // label: 'Sales',
+                data: sales,
+                backgroundColor: '#fb8f67',
                 borderColor: '#f26c6d',
                 pointBorderColor: 'transparent',
                 pointBorderWidth: 4,
             }
-            ]
-    }
+        ]
+    };
 
-
+    const dataOrder = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+            {
+                // label: 'Orders',
+                data: orders,
+                backgroundColor: '#2ec4b6',
+                borderColor: '#f26c6d',
+                pointBorderColor: 'transparent',
+                pointBorderWidth: 4,
+            }
+        ]
+    };
 
     const options = {
         maintainAspectRatio: false,
         plugins: {
             legend: false
         },
-        scale:{
-            x: {
-                grid:{
-                    display: false,
-                }
-            },
-            y: {
-                min: 0,
-                max: 10,
-                ticks:{
-                    stepSize: 10,
-                },
-                grid: {
-                    borderDash: [10],
-                }
-            }
-        }
-    }
+        // scales: {
+        //     x: {
+        //         grid: {
+        //             display: false,
+        //         }
+        //     },
+        //     y: {
+        //         min: 0,
+        //         ticks: {
+        //             stepSize: 50, // Adjust this based on your data range
+        //         },
+        //         grid: {
+        //             borderDash: [10],
+        //         }
+        //     }
+        // }
+    };
 
     return (
-        <div className=" w-auto h-auto ">
-            <Bar data ={data} options={options}></Bar>
+        <div className="w-auto h-auto">
+            {section === 'Sales' && <Bar data={dataSale} options={options}></Bar>}
+            {section === 'Orders' && <Bar data={dataOrder} options={options}></Bar>}
         </div>
-    )
+    );
 }
-// export default function BarChart({ color}) {
-//     const [data, setData] = useState({
-//         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-//         datasets:[
-//             {
-//             // data: [4.2, 3.1, 5.6, 7.1, 8.2, 7.2, 5.3, 9.1, 3.5, 2, 9.2, 1.4],
-//                 label: 'Sales',
-//                 data: [],
-//             backgroundColor: color,
-//             borderColor: '#f26c6d',
-//             pointBorderColor: 'transparent',
-//             pointBorderWidth: 4,
-//         },
-//             {
-//                 label: 'Orders',
-//                 data: [],
-//                 backgroundColor: color,
-//                 borderColor: '#f26c6d',
-//                 pointBorderColor: 'transparent',
-//                 pointBorderWidth: 4,
-//             }]
-//     });
 
-// useEffect(() => {
-//     const fetchData = async () => {
-//
-//         const [salesResponse, ordersResponse] = await Promise.all([
-//             fetch(SALES),
-//             fetch(ORDERS)
-//         ]);
-//
-//         const [salesData, ordersData] = await Promise.all([
-//             salesResponse.json(),
-//             ordersResponse.json()
-//         ]);
-//
-//         const totalSales = salesData.map(item => item.total_price);
-//         const totalOrders = ordersData.map(item => item.count);
-//
-//         setData({
-//             ...data,
-//             datasets: [
-//                 { ...data.datasets[0], data: totalSales },
-//                 { ...data.datasets[1], data: totalOrders },
-//             ]
-//         });
-//     };
-//     fetchData();
-// }, []);
+export default BarChart;

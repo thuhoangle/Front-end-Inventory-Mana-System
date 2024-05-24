@@ -17,6 +17,7 @@ const DataTable = () => {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
+                console.log('check data:', response.data);
                 setData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -60,13 +61,15 @@ const DataTable = () => {
             filters: [
                 {
                     text: 'Warehouse 1',
-                    value: 'Warehouse 1',
+                    value: 'Warehouse1',
                 },
                 {
                     text: 'Warehouse 2',
-                    value: 'Warehouse 2',
+                    value: 'Warehouse2',
                 },
             ],
+            filterMultiple: false,
+            filteredValue: filteredInfo.wname || null,
             onFilter: (value, record) => record.wname.includes(value),
         },
         {
