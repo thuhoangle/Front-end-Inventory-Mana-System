@@ -110,6 +110,12 @@ const DataTable = () => {
             // width: '10%',
         },
         {
+            title: 'Quantity',
+            dataIndex: 'Quantity',
+            key: 'Quantity',
+            // width: '10%',
+        },
+        {
             title: 'Availability',
             dataIndex: 'status',
             key: 'status',
