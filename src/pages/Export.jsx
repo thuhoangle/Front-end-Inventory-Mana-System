@@ -78,6 +78,7 @@ const Export = () => {
     fetchSuppliersName();
     fetchWarehouses()
     fetchProductName()
+  
   }, []);
   const handleChangeWareHouse =(event)=>
     {
@@ -125,6 +126,7 @@ const Export = () => {
                 productName:data.productName,
                 supplierName:data.supplier,
                 exportQuantity:data.quantity,
+                employeeName: localStorage.getItem('first_name')+" "+localStorage.getItem('last_name')
               },
               {
                 headers: {

@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteDialog from "../components/btn/DeleteDialog.jsx";
+import axios from 'axios';
+import { EXPORT_HISTORY_DATA } from '../../api/endPointAPI.js';
 
 const ExportHistory = () => {
+    const [exportHistoryData,setExportHistoryData] = useState([])
+
+    useEffect(()=>
+    {
+        axios.get(EXPORT_HISTORY_DATA,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+        .then(res=>
+            {
+                console.log(res.data)
+                setExportHistoryData(res.data)
+            }
+        )
+    },[])
+
+
+
     return (
         <>
 
@@ -22,16 +43,21 @@ const ExportHistory = () => {
                     </tr>
                     </thead>
                     <tbody className="bg-white">
-                    <tr>
-                        {/*implement API sau*/}
-                        {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>*/}
-                        {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{export.Ename}</td>*/}
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">001</td>
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Lorem Ipsum</td>
-                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <DeleteDialog/>
-                        </td>
-                    </tr>
+                        {
+                            exportHistoryData.map((data,index)=>(
+                                <tr>
+                                {/*implement API sau*/}
+                                {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>*/}
+                                {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{export.Ename}</td>*/}
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{data.eid}</td>
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{data.employeename}</td>
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <DeleteDialog/>
+                                </td>
+                            </tr>
+                            ))
+                        }
+                   
                     </tbody>
                 </table>
             </div>

@@ -29,4 +29,7 @@ export const DASHBOARD_PRODUCTS_DATA = `${BASE_URL}/nesgnas/countProduct`;
 export const ORDER_LIST = `${BASE_URL}/typye/order`;
 
 export const WAREHOUSE = `${BASE_URL}/typye/order/warehouse`;
+// Export/Export History
 export const EXPORT_DATA = `${BASE_URL}/typye/export`
+export const EXPORT_HISTORY_DATA = `${BASE_URL}/typye/exportHistory`
+
