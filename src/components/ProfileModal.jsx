@@ -61,16 +61,16 @@ const ProfileModal = () => {
             >
                 <AlertDialogOverlay>
                     <AlertDialogContent>
-                        <AlertDialogHeader className={'font-bold text-xl'}>Edit profile</AlertDialogHeader>
+                        <AlertDialogHeader className={'font-bold text-xl'}>View profile</AlertDialogHeader>
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
-                            <div className={'grid gap-4 py-4'}>
+                            <div className={'grid gap-4 pt-2 pb-8'}>
                                 <div className={'grid grid-cols-4 items-center gap-4'}>
                                     <label htmlFor="name" className="text-right font-medium">
                                         Name
                                     </label>
                                     <Input
-                                        className="shadow-sm col-span-3"
+                                        className="cursor-auto shadow-sm col-span-3"
                                         id="name"
                                         placeholder={`${profile.firstName} ${profile.lastName}`}
                                         value={`${profile.firstName} ${profile.lastName}`}
@@ -83,9 +83,9 @@ const ProfileModal = () => {
                                     </label>
                                     <Input
                                         _placeholder={{ opacity: 1, color: 'black' }}
-                                        variant='unstyled'
-                                        isDisabled={true}
-                                        className="shadow-sm col-span-3"
+                                        // variant='unstyled'
+                                        isReadOnly
+                                        className="cursor-auto shadow-sm col-span-3"
                                         id="role"
                                         placeholder={profile.role}
                                         value={profile.role}
@@ -97,9 +97,9 @@ const ProfileModal = () => {
                                     </label>
                                     <Input
                                         _placeholder={{ opacity: 1, color: 'black' }}
-                                        variant='unstyled'
-                                        isDisabled={true}
-                                        className="shadow-sm col-span-3"
+                                        // variant='unstyled'
+                                        isReadOnly
+                                        className="cursor-auto shadow-sm col-span-3"
                                         id="username"
                                         placeholder={profile.email}
                                         value={profile.email}
@@ -111,9 +111,9 @@ const ProfileModal = () => {
                                     </label>
                                     <Input
                                         _placeholder={{ opacity: 1, color: 'black' }}
-                                        variant='unstyled'
-                                        isDisabled={true}
-                                        className="shadow-sm col-span-3"
+                                        // variant='unstyled'
+                                        isReadOnly
+                                        className="cursor-auto shadow-sm col-span-3"
                                         id="phone"
                                         placeholder={profile.phone}
                                         value={profile.phone}

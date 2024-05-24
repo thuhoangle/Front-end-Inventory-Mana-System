@@ -80,10 +80,10 @@ const DataTable = () => {
                     text: "Warehouse B",
                     value: "B",
                 },
-                {
-                    text: "Warehouse C",
-                    value: "C",
-                },
+                // {
+                //     text: "Warehouse C",
+                //     value: "C",
+                // },
             ],
             onFilter: (value, record) => record.name.includes(value),
         },
@@ -107,6 +107,12 @@ const DataTable = () => {
             title: 'Price',
             dataIndex: 'unitprice',
             key: 'unitprice',
+            // width: '10%',
+        },
+        {
+            title: 'Quantity',
+            dataIndex: 'Quantity',
+            key: 'Quantity',
             // width: '10%',
         },
         {
