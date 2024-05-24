@@ -42,9 +42,8 @@ const OrderDetail = ({ orderId, onClose }) => {
             <tr>
               <th className="border px-4 py-2">Product Name</th>
               <th className="border px-4 py-2">Quantity</th>
-              <th className="border px-4 py-2">Cost Price</th>
+              <th className="border px-4 py-2">Total Price</th>
               <th className="border px-4 py-2">Warehouse</th>
-              <th className="border px-4 py-2">Total Amount</th> {/* New column */}
             </tr>
           </thead>
           <tbody>
@@ -52,9 +51,8 @@ const OrderDetail = ({ orderId, onClose }) => {
               <tr key={index} className="hover:bg-gray-100">
                 <td className="border px-4 py-2">{orderDetail.productname}</td>
                 <td className="border px-4 py-2">{orderDetail.orderquantity}</td>
-                <td className="border px-4 py-2">{orderDetail.unitprice}</td>
+                <td className="border px-4 py-2">{orderDetail.totalcostprice}</td>
                 <td className="border px-4 py-2">{orderDetail.warehousename}</td>
-                <td className="border px-4 py-2">{orderDetail.unitprice * orderDetail.orderquantity}</td> {/* Calculated total amount */}
               </tr>
             ))}
           </tbody>
