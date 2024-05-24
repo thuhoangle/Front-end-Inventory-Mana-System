@@ -46,7 +46,7 @@ const ExportHistory = () => {
 
                     {
                             exportHistoryData.map((data,index)=>(
-                                <tr>
+                                <tr key={index}>
                                 {/*implement API sau*/}
                                 {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index + 1}</td>*/}
                                 {/*<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{export.Ename}</td>*/}

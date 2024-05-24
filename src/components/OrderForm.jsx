@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 import {
   ORDER_LIST,
   SUPPLIER_DATA,
@@ -17,14 +16,17 @@ import {
 
 const OrderForm = ({ onAddOrder, onCloseModal }) => {
   const [supplier, setSupplier] = useState([]);
+  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
   const [SupplierName, setSupplierName] = useState("");
   const [ProductName, setProductName] = useState("");
-  const [ProductID, setProductID] = useState("")
+  const [ProductID, setProductID] = useState("");
   const [Quantity, setQuantity] = useState("");
   const [orderList, setOrderList] = useState([]);
   const [warehouses, setWarehouses] = useState([]);
+  const [selectedProductID, setSelectedProductID] = useState("");
   const [WarehouseName, setWarehouseName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
 
   useEffect(() => {
     const fetchSupplierName = async () => {
@@ -74,76 +76,77 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
           },
         }
       );
-      const productGetName = Array.from(
-        new Set(res.data.map((item) => item.pname))
-      );
-      const productGetID = Array.from(
-        new Set(res.data.map((item) => item.pid))
-      )
-      console.log(productGetName);
-      console.log("ID here", productGetID);
-      setProduct(productGetName);
-      setProductID(productGetID)
-      console.table(productGetName);
+      const products = res.data;
+      setProducts(products);
+      const productNames = products.map((item) => item.pname);
+      setProduct(productNames);
+      console.table(productNames);
     } catch (error) {
       console.error("Error fetching product names:", error);
     }
   };
 
-  const fetchProductPrice = async (productID) => {
-    try {
-      const res = await axios.get(`${PRODUCT_DATA}/${productID}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const product = res.data; // Assuming the response contains a single product
-      if (product.costprice) {
-        const price = parseFloat(product.costprice);
-        return price;
+  const fetchProductPrice = async (productName) => {
+    const selectedProduct = products.find(product => product.pname === productName);
+    if (selectedProduct) {
+      const productID = selectedProduct.pid;
+      setSelectedProductID(productID);
+      try {
+        const res = await axios.get(`${PRODUCT_DATA}/${productID}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log("Response from API:", res.data);
+        const product = res.data;
+        if (product.costprice) {
+          setProductPrice(product.costprice);
+          const price = parseFloat(product.costprice);
+          return price;
+        }
+      } catch (error) {
+        console.error("Error fetching product price:", error);
+        return 0;
       }
-      return 0;
-    } catch (error) {
-      console.error("Error fetching product price:", error);
+    } else {
+      console.log("Selected product not found");
       return 0;
     }
   };
 
   const handleAddToList = async () => {
-    console.log("handleAddToList called");
-    const price = await fetchProductPrice(ProductID);
-    console.log(ProductName);
-    console.log(Quantity)
-    console.log(price)
-    if (ProductName && Quantity !== "" && price !== 0) {
-      const existingProductIndex = orderList.findIndex(
-        (item) => item.ProductName === ProductName
-      );
+    try {
+      const price = await fetchProductPrice(ProductName);
+      if (price !== 0) {
+        const existingProductIndex = orderList.findIndex(
+          (item) => item.ProductName === ProductName
+        );
 
-      if (existingProductIndex !== -1) {
-        // Update existing product quantity and amount
-        const updatedOrderList = [...orderList];
-        updatedOrderList[existingProductIndex].Quantity += parseInt(Quantity);
-        updatedOrderList[existingProductIndex].Amount =
-          updatedOrderList[existingProductIndex].Quantity * price;
-        setOrderList(updatedOrderList);
+        if (existingProductIndex !== -1) {
+          const updatedOrderList = [...orderList];
+          updatedOrderList[existingProductIndex].Quantity += parseInt(Quantity);
+          updatedOrderList[existingProductIndex].Amount =
+            updatedOrderList[existingProductIndex].Quantity * price;
+          setOrderList(updatedOrderList);
+        } else {
+          const orderItem = {
+            ProductName: ProductName,
+            Quantity: parseInt(Quantity),
+            Price: price,
+            Amount: parseInt(Quantity) * price,
+            SupplierName: SupplierName,
+            WarehouseName: WarehouseName,
+          };
+          setOrderList([...orderList, orderItem]);
+        }
+
+        setProductName("");
+        setQuantity("");
       } else {
-        // Add new product to list
-        const orderItem = {
-          ProductName: ProductName,
-          Quantity: parseInt(Quantity),
-          Price: price,
-          Amount: parseInt(Quantity) * price,
-          SupplierName: SupplierName,
-          WarehouseName: WarehouseName,
-        };
-        setOrderList([...orderList, orderItem]);
+        console.log("Price is invalid");
       }
-
-      setProductName("");
-      setQuantity("");
-    } else {
-      console.log("ProductName or Quantity is invalid or price is 0");
+    } catch (error) {
+      console.error("Error fetching product price:", error);
     }
   };
 
@@ -164,13 +167,16 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
     const ordersWithId = orderList.map((order) => ({
       ...order,
     }));
-    console.table(ordersWithId);
     try {
-      const response = await axios.post(ORDER_LIST, { orders: ordersWithId }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.post(
+        ORDER_LIST,
+        { orders: ordersWithId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setOrderList([]);
       console.table(response.data);
     } catch (error) {
@@ -265,7 +271,6 @@ const OrderForm = ({ onAddOrder, onCloseModal }) => {
               onChange={(e) => setQuantity(e.target.value)}
             />
           </div>
-
           <div className="flex justify-end gap-5">
             <button
               className="px-4 py-2 bg-sky-200 font-semibold rounded-md hover:bg-sky-600 focus:outline-none"
