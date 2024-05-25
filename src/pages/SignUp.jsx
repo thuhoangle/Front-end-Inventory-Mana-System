@@ -52,7 +52,7 @@ const SignUp = () => {
 
   return (
     <div className='flex bg-white h-screen'>
-         <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
+         <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
                 <div className='text-center'>
                     <p className='p-1 mb-1'>INVENTORY</p>
                     <p className='p-1 mb-1'>MANAGEMENT</p>
@@ -159,7 +159,7 @@ const SignUp = () => {
         </form>
         <div className='text-center flex mt-3'>
           Already have an account?
-          <p className='text-sky-500 ml-1'><Link to="/login">Log in</Link></p>
+          <p className='text-blue font-semibold px-1'><Link to="/login">Log in</Link></p>
         </div>
       </div>
     </div>

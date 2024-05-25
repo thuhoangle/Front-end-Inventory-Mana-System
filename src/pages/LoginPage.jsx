@@ -68,7 +68,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex bg-white h-screen">
-            <div className='text-blue font-bold text-4xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
+            <div className='text-blue font-bold text-5xl w-1/2 justify-center items-center flex flex-col transform -translate-y-8'>
                 <div className='text-center'>
                     <p className='p-1 mb-1'>INVENTORY</p>
                     <p className='p-1 mb-1'>MANAGEMENT</p>
@@ -90,51 +90,57 @@ const LoginPage = () => {
         </div>
 
       <div className="flex flex-col w-1/2 items-center justify-center font-bold">
-        <form className="w-1/2 gap-6" onSubmit={handleLogin}>
-          <p className="text-3xl mb-5">Log in</p>
-          <label className="font-medium">Email</label>
-          <input
-            type="text"
-            className="block w-full p-2 border border-gray-300 rounded font-thin"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label className="font-medium">Password</label>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="block w-full p-2 border font-thin border-gray-300 rounded"
-              placeholder="Input password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-              {showPassword ? (
-                <FiEyeOff onClick={() => setShowPassword(false)} />
-              ) : (
-                <FiEye onClick={() => setShowPassword(true)} />
-              )}
-            </div>
+          <form className="w-1/2 gap-6" onSubmit={handleLogin}>
+              <p className="text-3xl mb-5">Log in</p>
+              <div className="py-2">
+                  <label className="font-medium">Email</label>
+                  <input
+                      type="text"
+                      className="block w-full p-2 border border-gray-300 rounded font-thin"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                  />
+              </div>
+
+              <div className="py-2">
+                  <label className="font-medium">Password</label>
+                  <div className="relative">
+                      <input
+                          type={showPassword ? "text" : "password"}
+                          className="block w-full p-2 border font-thin border-gray-300 rounded"
+                          placeholder="Input password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                          {showPassword ? (
+                              <FiEyeOff onClick={() => setShowPassword(false)}/>
+                          ) : (
+                              <FiEye onClick={() => setShowPassword(true)}/>
+                          )}
+                      </div>
+                  </div>
+              </div>
+
+              <button
+                  type="submit"
+                  className="bg-blue p-4 my-5 rounded-lg text-white font-semibold w-full"
+              >
+                  Log in
+              </button>
+          </form>
+          <div className="text-center flex p-2">
+              Don't have an account?
+              <p className="text-blue px-1">
+                  <Link to="/signup">Sign Up</Link>
+              </p>
           </div>
-          <button
-            type="submit"
-            className="bg-blue p-4 my-5 rounded-lg text-white font-semibold w-full"
-          >
-            Log in
-          </button>
-        </form>
-        <div className="text-center flex p-2">
-          Don't have an account?
-          <p className="text-blue px-1">
-            <Link to="/signup">Sign Up</Link>
-          </p>
-        </div>
       </div>
     </div>
 
 
-            );
+  );
 };
 
 export default LoginPage;
