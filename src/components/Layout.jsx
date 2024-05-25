@@ -10,7 +10,7 @@ import ExportHistory from "../pages/ExportHistory.jsx";
 
 const Layout = () => {
     return (
-        <div className="flex">
+        <div className="flex bg-white">
             <div className=" h-screen w-full ">
                 <SideBar/>
             </div>
