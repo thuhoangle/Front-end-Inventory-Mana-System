@@ -30,7 +30,7 @@ export const ORDER_LIST = `${BASE_URL}/typye/order`;
 
 export const WAREHOUSE = `${BASE_URL}/typye/order/warehouse`;
 
-export function getCapacity(warehouse) {return `${BASE_URL}/typye/dashboard/${warehouse}`;}
+export const WAREHOUSE_CAPACITY = `${BASE_URL}/typye/dashboard`;
 export const SALES = `${BASE_URL}/typye/dashboard/totalMoney`;
 export const ORDERS = `${BASE_URL}/typye/dashboard/totalOrder`;
 // Export/Export History
