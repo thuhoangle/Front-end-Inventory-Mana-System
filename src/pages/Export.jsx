@@ -238,7 +238,7 @@ const Export = () => {
       </div>
       <div className=" flex justify-end py-10 w-full">
         <button
-          className="w-full px-4 py-2 bg-blue font-semibold hover:bg-sky-300 rounded-full shadow border border-sky-500 justify-center items-center gap-2 flex text-neutral-50 text-base  "
+          className="w-full px-4 py-2 mb-8 bg-blue font-semibold hover:bg-sky-300 rounded-full shadow border border-sky-500 justify-center items-center gap-2 flex text-neutral-50 text-base  "
           onClick={handleSave}
         >
           Save
