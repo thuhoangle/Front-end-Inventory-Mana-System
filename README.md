@@ -1,3 +1,3 @@
 ### Inventory Management System for Supermarket
 
-Link for the deply website: https://iventory-management.vercel.app
+Link for the deploy website: https://iventory-management.vercel.app/?_vercel_share=Jpn4X3q4Fyhd4Y9NWvqmI1zFlOJYjmMU&fbclid=IwZXh0bgNhZW0CMTAAAR2fPTasJdAbvd4k7mSCZyl_pKepqx2C57Ba7rSWkLj3gm7R52h5hyWuUoQ_aem_Ad9PITwaK-uYD-_P-6e0y3vV7XZMpul3PwIF4now4TgCBQpELoCBOPPTYk02XwcLrqBelYJ8VQb24jPo-yNUixQw
